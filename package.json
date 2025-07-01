@@ -1,0 +1,16 @@
+{
+  "name": "metelkin.github.io",
+  "version": "1.0.0",
+  "description": "Personal website of Metelkin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "npm @11ty/eleventy --input=content --serve"
+  },
+  "keywords": [],
+  "author": "Evgeny Metelkin",
+  "license": "CC-BY-4.0",
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.2"
+  }
+}
