@@ -1,0 +1,39 @@
+name: Deploy Eleventy site to GitHub Pages
+
+on:
+  push:
+    branches: [main]          # run every time you push to “main”
+
+permissions:
+  pages: write
+  id-token: write
+
+environment:
+  name: github-pages
+  url: ${{ steps.deployment.outputs.page_url }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20          # or whatever you use
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci                 
+
+      - name: Build Eleventy site
+        run: npm run build          
+
+      - name: Deploy to "gh-pages"
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: _site # The folder the action should deploy.
+          CLEAN: false
