@@ -15,30 +15,41 @@
     <title>Evgeny Metelkin, PhD</title>
     <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
-    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">-->
     <style>
-      .markdown-body { max-width: 70ch; margin-inline: auto; padding: 2rem; }
-    </style>-->
+      //.markdown-body { max-width: 70ch; margin-inline: auto; padding: 2rem; }
+      .container { display: flex; gap: 10px; }
+      .half { box-sizing: border-box; }
+
+    </style>
 </head>
 
 <body>
-    <div class="markdown-body">
-        <h1>Evgeny Metelkin, PhD</h1>
-        <p><strong>Computational Biologist | Systems Pharmacology Platform Architect | Co‑founder &amp; Technology Director at InSysBio</strong></p>
-<blockquote>
-<p>I transform complex biological data into predictive models that help pharma teams bring better therapies to patients—faster and with greater confidence.</p>
-</blockquote>
-<hr>
-<h2>Snapshot</h2>
-<ul>
-<li><strong>20 years in mechanistic modeling &amp; pharmacometrics</strong></li>
-<li><strong>60+ scientific publications &amp; conference talks</strong></li>
-<li><strong>Creator of the Heta modeling language &amp; LikelihoodProfiler.jl</strong></li>
-<li><strong>Leader of a 25‑engineer team building QSP</strong></li>
-<li><strong>Based in Paphos, Cyprus—working globally</strong></li>
-</ul>
-<hr>
-<h2>About Me</h2>
+    <div class="container">
+        <div class="half" style="width:60%">
+            <h1>Evgeny Metelkin, PhD</h1>
+            <p><strong>Computational Biologist | Systems Pharmacology Architect | Co‑founder & Technology Director at InSysBio</strong></p>
+            <h3>Snapshort:</h3>
+            <ul>
+                
+                    <li>20 years in mechanistic modeling & pharmacometrics</li>
+                
+                    <li>60+ scientific publications & conference talks</li>
+                
+                    <li>Creator of the Heta modeling language & LikelihoodProfiler.jl</li>
+                
+                    <li>Leader of a 25‑engineer team building QSP</li>
+                
+                    <li>Based in Paphos, Cyprus—working globally</li>
+                
+            </ul>
+        </div>
+        <div class="half" style="width:40%">
+            <img src="assets/metelkin-1.jpg" alt="Evgeny Metelkin">
+        </div>
+    </div>
+    <dev class="markdown-body">
+        <h2>About Me</h2>
 <p>I earned an MSc in Biochemical Physics and a PhD in Biophysics from Lomonosov Moscow State University. Since 2004 I’ve been on a mission to make Quantitative Systems Pharmacology (QSP) modeling as intuitive and scalable as modern software engineering.</p>
 <p>Today, as Co‑founder and Technology Director at <a href="https://insysbio.com"><strong>InSysBio CY Ltd</strong></a>, I drive the creation of next‑generation modeling platforms that empower scientists to iterate, collaborate, and make data‑backed decisions across the drug‑development lifecycle.</p>
 <hr>
@@ -74,21 +85,21 @@
 </tbody>
 </table>
 <hr>
-<h2>Flagship Projects</h2>
+<h2>Flagship Software Projects</h2>
 <ul>
 <li><a href="https://hetalang.github.io/#/"><strong>Heta Language &amp; Heta Compiler</strong></a> — Domain‑specific language + build pipeline for large‑scale QSP models.</li>
 <li><a href="https://github.com/hetalang/HetaSimulator.jl"><strong>HetaSimulator.jl</strong></a> — Julia‑powered engine for distributed simulations and parameter estimation.</li>
 <li><a href="https://github.com/insysbio/LikelihoodProfiler.jl"><strong>LikelihoodProfiler.jl</strong></a> — Toolkit for practical identifiability and confidence interval estimation.</li>
 <li><a href="https://irt.insysbio.com/"><strong>Immune Response Template</strong></a> — Modular QSP platform of the human immune system for fast-model building.</li>
-<li><a href="https://sv.insysbio.com/"><strong>SbmlViewer</strong></a> — Web apps that turn SBML files into interactive diagrams for rapid model onboarding.</li>
+<li><a href="https://sv.insysbio.com/"><strong>SbmlViewer</strong></a> — Web apps that turn SBML files into interactive human‑readable forms, enabling easy sharing and collaboration.</li>
 </ul>
 <hr>
 <h2>Selected Publications &amp; Talks</h2>
 <ol>
 <li><em>Heta compiler: a software tool for the development of large‑scale QSP models and compilation into simulation formats.</em> <strong>JOSS</strong> 6(67):3708, 2021.</li>
-<li><em>An algorithm for practical identifiability analysis and confidence intervals evaluation based on constrained optimization.</em> <strong>ICSB</strong>, Lyon, 2018.</li>
+<li><em>Confidence intervals by constrained optimization—An algorithm and software package for practical identifiability analysis in systems biology.</em> <strong>PLoS Comput. Biol.</strong> 16(12):e1008495, 2020.</li>
+<li><em>Comprehensive study of the drug delivery properties of poly( l -lactide)-poly(ethylene glycol) nanoparticles in rats and tumor-bearing mice.</em> <strong>J. Control. Release</strong> 261, 2017.</li>
 <li><em>Systems pharmacology perspective on FAAH inhibitors for pain.</em> <strong>CPT: Pharmacometrics &amp; Syst. Pharmacol.</strong> 3:e91, 2014.</li>
-<li><em>DBSolve Optimum: dynamic visualization of kinetic models.</em> <strong>BMC Syst. Biol.</strong> 4:109, 2010.</li>
 <li>60+ additional articles, posters &amp; keynotes → <a href="https://www.researchgate.net/profile/Evgeny-Metelkin">ResearchGate</a>.</li>
 </ol>
 <hr>
@@ -101,5 +112,5 @@
 <hr>
 <p><em>© 2025 Evgeny Metelkin. Opinions expressed are my own and do not necessarily reflect those of InSysBio.</em></p>
 
-    </div>
+    </dev>
 </body>
