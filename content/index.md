@@ -1,22 +1,17 @@
 ---
 layout: layout.html
 title: Evgeny Metelkin, PhD
----
-
-**Computational Biologist | Systems Pharmacology Platform Architect | Co‑founder & Technology Director at InSysBio**
-
-> I transform complex biological data into predictive models that help pharma teams bring better therapies to patients—faster and with greater confidence.
-
----
-
-## Snapshot
-
-- **20 years in mechanistic modeling & pharmacometrics**
-- **60+ scientific publications & conference talks**
-- **Creator of the Heta modeling language & LikelihoodProfiler.jl**
-- **Leader of a 25‑engineer team building QSP**
-- **Based in Paphos, Cyprus—working globally**
-
+words:
+    - Computational Biologist
+    - Systems Pharmacology Architect
+    - Co‑founder & Technology Director at InSysBio
+snapshot:
+    - 20 years in mechanistic modeling & pharmacometrics
+    - 60+ scientific publications & conference talks
+    - Creator of the Heta modeling language & LikelihoodProfiler.jl
+    - Leader of a 25‑engineer team building QSP
+    - Based in Paphos, Cyprus—working globally
+main-photo: assets/metelkin-1.jpg
 ---
 
 ## About Me
@@ -39,22 +34,22 @@ Today, as Co‑founder and Technology Director at [**InSysBio CY Ltd**](https
 
 ---
 
-## Flagship Projects
+## Flagship Software Projects
 
 - [**Heta Language & Heta Compiler**](https://hetalang.github.io/#/) — Domain‑specific language + build pipeline for large‑scale QSP models.  
 - [**HetaSimulator.jl**](https://github.com/hetalang/HetaSimulator.jl) — Julia‑powered engine for distributed simulations and parameter estimation.  
 - [**LikelihoodProfiler.jl**](https://github.com/insysbio/LikelihoodProfiler.jl) — Toolkit for practical identifiability and confidence interval estimation.  
 - [**Immune Response Template**](https://irt.insysbio.com/) — Modular QSP platform of the human immune system for fast-model building.  
-- [**SbmlViewer**](https://sv.insysbio.com/) — Web apps that turn SBML files into interactive diagrams for rapid model onboarding.
+- [**SbmlViewer**](https://sv.insysbio.com/) — Web apps that turn SBML files into interactive human‑readable forms, enabling easy sharing and collaboration.
 
 ---
 
 ## Selected Publications & Talks
 
-1. *Heta compiler: a software tool for the development of large‑scale QSP models and compilation into simulation formats.* **JOSS** 6(67):3708, 2021.  
-2. *An algorithm for practical identifiability analysis and confidence intervals evaluation based on constrained optimization.* **ICSB**, Lyon, 2018.  
-3. *Systems pharmacology perspective on FAAH inhibitors for pain.* **CPT: Pharmacometrics & Syst. Pharmacol.** 3:e91, 2014.  
-4. *DBSolve Optimum: dynamic visualization of kinetic models.* **BMC Syst. Biol.** 4:109, 2010.  
+1. *Heta compiler: a software tool for the development of large‑scale QSP models and compilation into simulation formats.* **JOSS** 6(67):3708, 2021.
+2. *Confidence intervals by constrained optimization—An algorithm and software package for practical identifiability analysis in systems biology.* **PLoS Comput. Biol.** 16(12):e1008495, 2020.  
+3. *Comprehensive study of the drug delivery properties of poly( l -lactide)-poly(ethylene glycol) nanoparticles in rats and tumor-bearing mice.* **J. Control. Release** 261, 2017.
+4. *Systems pharmacology perspective on FAAH inhibitors for pain.* **CPT: Pharmacometrics & Syst. Pharmacol.** 3:e91, 2014.  
 5. 60+ additional articles, posters & keynotes → [ResearchGate](https://www.researchgate.net/profile/Evgeny-Metelkin).
 
 ---

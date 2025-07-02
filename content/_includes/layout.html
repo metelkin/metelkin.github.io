@@ -15,15 +15,32 @@
     <title>{{ title }}</title>
     <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
-    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">-->
     <style>
-      .markdown-body { max-width: 70ch; margin-inline: auto; padding: 2rem; }
-    </style>-->
+      //.markdown-body { max-width: 70ch; margin-inline: auto; padding: 2rem; }
+      .container { display: flex; gap: 10px; }
+      .half { box-sizing: border-box; }
+
+    </style>
 </head>
 
 <body>
-    <div class="markdown-body">
-        <h1>{{ title }}</h1>
-        {{ content}}
+    <div class="container">
+        <div class="half" style="width:60%">
+            <h1>{{ title }}</h1>
+            <p><strong>{{ words | join: " | " }}</strong></p>
+            <h3>Snapshort:</h3>
+            <ul>
+                {% for item in snapshot %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="half" style="width:40%">
+            <img src="{{ main-photo }}" alt="Evgeny Metelkin">
+        </div>
     </div>
+    <dev class="markdown-body">
+        {{ content}}
+    </dev>
 </body>
