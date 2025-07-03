@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Optional—but useful so Google finds it fast
+Sitemap: https://metelkin.me/sitemap.xml

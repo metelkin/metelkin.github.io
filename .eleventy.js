@@ -1,11 +1,16 @@
-module.exports = function (eleventyConfig) {
-  // Copy the folder and keep the same name inside _site/
-  eleventyConfig.addPassthroughCopy("content/assets");
+const sitemap = require("@quasibit/eleventy-plugin-sitemap");
 
-  /*  If you’d rather strip the “content/” part so the result is
-      _site/assets/…, map input → output like this:
-      eleventyConfig.addPassthroughCopy({ "content/assets": "assets" });
-  */
+module.exports = function(eleventyConfig) {
+  // create sitemap
+  eleventyConfig.addPlugin(sitemap, {
+    sitemap: {
+      hostname: "https://metelkin.me"
+    }
+  });
+
+  // copy files to the output directory
+  eleventyConfig.addPassthroughCopy("content/robots.txt");
+  eleventyConfig.addPassthroughCopy("content/assets");
 
   return {
     dir: {
