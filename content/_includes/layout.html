@@ -10,9 +10,15 @@
 
         gtag('config', 'G-6DBZB44BXE');
     </script>
+    <!-- General -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
+    <!-- SEO -->
+    {%- if canonical is exist %}
+    <link rel="canonical" href="{{ canonical }}" />
+    {%- endif %}
+    <!-- Style -->
     <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
     <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">-->
@@ -20,7 +26,6 @@
       //.markdown-body { max-width: 70ch; margin-inline: auto; padding: 2rem; }
       .container { display: flex; gap: 10px; }
       .half { box-sizing: border-box; }
-
     </style>
 </head>
 

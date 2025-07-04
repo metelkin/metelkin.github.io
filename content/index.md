@@ -12,6 +12,7 @@ snapshot:
     - Leader of a 25‑engineer team building QSP
     - Based in Paphos, Cyprus—working globally
 main-photo: assets/metelkin-1.jpg
+canonical: https://metelkin.me
 ---
 
 ## About Me
