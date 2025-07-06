@@ -23,15 +23,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
     <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">-->
     <style>
-      //.markdown-body { max-width: 70ch; margin-inline: auto; padding: 2rem; }
-      .container { display: flex; gap: 10px; }
-      .half { box-sizing: border-box; }
+        //.markdown-body { max-width: 70ch; margin-inline: auto; padding: 2rem; }
+        .container { display: flex; gap: 10px; }
+        .half { box-sizing: border-box; }
+        .half:first-child { width: 60%;}
+        .half:last-child { width: 40%; }
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .half { width: 100% !important; }
+            .half:last-child img { width: 100%; height: auto; display: block; }
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="half" style="width:60%">
+        <div class="half">
             <h1>{{ title }}</h1>
             <p><strong>{{ words | join: " | " }}</strong></p>
             <h3>Snapshort:</h3>
@@ -41,7 +49,7 @@
                 {% endfor %}
             </ul>
         </div>
-        <div class="half" style="width:40%">
+        <div class="half">
             <img src="{{ main-photo }}" alt="Evgeny Metelkin">
         </div>
     </div>

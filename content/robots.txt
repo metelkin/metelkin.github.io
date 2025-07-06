@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
 
+Disallow: /NumDisplay.jl/
+Disallow: /CharDisplay.jl/
+Disallow: /LEDStrip.jl/
+
 # Optional—but useful so Google finds it fast
 Sitemap: https://metelkin.me/sitemap.xml
