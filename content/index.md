@@ -1,5 +1,5 @@
 ---
-layout: layout.html
+layout: layout.njk
 title: Evgeny Metelkin, PhD
 words:
     - Computational Biologist
@@ -11,8 +11,15 @@ snapshot:
     - Creator of the Heta modeling language & LikelihoodProfiler.jl
     - Leader of a 25‑engineer team building QSP
     - Based in Paphos, Cyprus—working globally
-main-photo: assets/metelkin-1.jpg
+mainPhoto: assets/metelkin-1.jpg
 canonical: https://metelkin.me
+openGraph:
+    title: Evgeny Metelkin, PhD
+    description: Computational Biologist
+    url: https://metelkin.me
+    image: https://metelkin.me/assets/metelkin-1.jpg
+    site_name: Evgeny Metelkin
+    type: profile
 ---
 
 ## About Me

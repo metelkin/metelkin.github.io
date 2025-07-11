@@ -1,0 +1,36 @@
+{% extends "base.njk" %}
+
+{#
+words:
+    - ***
+snapshot:
+    - ***
+mainPhoto: ***
+#}
+
+{% block body %}
+    <div class="container">
+        <div class="half">
+            <h1>{{ title }}</h1>
+            {%- if words is defined %}
+            <p><strong>{{ words | join(" | ") }}</strong></p>
+            {%- endif %}
+            {%- if snapshot is defined %}
+            <h3>Snapshort:</h3>
+            <ul>
+                {%- for item in snapshot %}
+                    <li>{{ item }}</li>
+                {%- endfor %}
+            </ul>
+            {%- endif %}
+        </div>
+        <div class="half">
+            {%- if mainPhoto is defined %}
+            <img src="{{ mainPhoto }}" alt="Evgeny Metelkin">
+            {%- endif %}
+        </div>
+    </div>
+    <dev class="markdown-body">
+        {{ content | safe }}
+    </dev>
+{% endblock %}

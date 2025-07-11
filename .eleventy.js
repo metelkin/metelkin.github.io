@@ -23,6 +23,9 @@ module.exports = async function(eleventyConfig) {
 
   // add syntax highlighting plugin
   eleventyConfig.addPlugin(syntaxHighlight);
+
+  // identifier for Google Analytics
+  eleventyConfig.addGlobalData("googleAnalytics", "G-6DBZB44BXE");
   
   return {
     dir: {

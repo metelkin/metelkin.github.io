@@ -1,23 +1,42 @@
-<!doctype html>
+{#
+title: ***
+description: ***
+canonical: ***
+openGraph:
+    title: ***
+    description: ***
+    url: ***
+    image: ***
+    site_name: ***
+    type: profile
+googleAnalytics: ***
+#}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6DBZB44BXE"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ googleAnalytics }}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'G-6DBZB44BXE');
+        gtag('config', '{{ googleAnalytics }}');
     </script>
     <!-- General -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
+    <meta name="description" content="{{ description }}">
     <!-- SEO -->
-    {%- if canonical is exist %}
+    {%- if canonical is defined %}
     <link rel="canonical" href="{{ canonical }}" />
     {%- endif %}
+    <!-- Open Graph -->
+    {%- if seo is defined %}{% for key, value in seo %}
+    <meta property="og:{{ key }}" content="{{ value }}" />
+    {%- endfor %}{% endif %}
     <!-- Style -->
     <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
@@ -40,28 +59,8 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="half">
-            <h1>{{ title }}</h1>
-            {%- if words is defined %}
-            <p><strong>{{ words | join: " | " }}</strong></p>
-            {%- endif %}
-            {%- if snapshot is defined %}
-            <h3>Snapshort:</h3>
-            <ul>
-                {%- for item in snapshot %}
-                    <li>{{ item }}</li>
-                {%- endfor %}
-            </ul>
-            {%- endif %}
-        </div>
-        <div class="half">
-            {%- if main-photo is not empty %}
-            <img src="{{ main-photo }}" alt="Evgeny Metelkin">
-            {%- endif %}
-        </div>
-    </div>
-    <dev class="markdown-body">
-        {{ content}}
-    </dev>
+    {% block body %}
+    <h1>{{ title }}</h1>
+    {{ content | safe }}
+    {% endblock %}
 </body>
