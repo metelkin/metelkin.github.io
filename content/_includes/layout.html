@@ -35,22 +35,30 @@
             .half:last-child img { width: 100%; height: auto; display: block; }
         }
     </style>
+    <!-- To highlight code -->
+	<link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet"/>
 </head>
 
 <body>
     <div class="container">
         <div class="half">
             <h1>{{ title }}</h1>
+            {%- if words is defined %}
             <p><strong>{{ words | join: " | " }}</strong></p>
+            {%- endif %}
+            {%- if snapshot is defined %}
             <h3>Snapshort:</h3>
             <ul>
-                {% for item in snapshot %}
+                {%- for item in snapshot %}
                     <li>{{ item }}</li>
-                {% endfor %}
+                {%- endfor %}
             </ul>
+            {%- endif %}
         </div>
         <div class="half">
+            {%- if main-photo is not empty %}
             <img src="{{ main-photo }}" alt="Evgeny Metelkin">
+            {%- endif %}
         </div>
     </div>
     <dev class="markdown-body">
