@@ -1,0 +1,26 @@
+---
+---
+{% extends "base.njk" %}
+
+{#
+author: ***
+date: ****-**-**
+license: CC-BY-4.0
+licenseUrl: https://creativecommons.org/licenses/by/4.0/
+#}
+
+{% block body %}
+    <h1>{{ title }}</h1>
+    <div>
+        <p><strong>{{ author }}</strong></p>
+        <p><strong>{{ date.toISOString().slice(0, 10) }}</strong></p>
+    </div>
+    <dev class="markdown-body">
+        {{ content | safe }}
+    </dev>
+    {%- if license is defined %}
+    <dev>
+        <p><strong>License: <a href="{{ licenseUrl }}" target="_blanc">{{ license }}</a></strong></p> 
+    </dev>
+    {%- endif %}
+{% endblock %}

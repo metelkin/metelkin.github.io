@@ -10,6 +10,7 @@ openGraph:
     site_name: ***
     type: profile
 googleAnalytics: ***
+noindex: true/false
 #}
 
 <!DOCTYPE html>
@@ -32,6 +33,9 @@ googleAnalytics: ***
     <!-- SEO -->
     {%- if canonical is defined %}
     <link rel="canonical" href="{{ canonical }}" />
+    {%- endif %}
+    {%- if noindex %}
+    <meta name="robots" content="noindex, nofollow">
     {%- endif %}
     <!-- Open Graph -->
     {%- if seo is defined %}{% for key, value in seo %}

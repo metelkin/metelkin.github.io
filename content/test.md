@@ -1,6 +1,7 @@
 ---
 layout: base.njk
 title: Test Document
+noindex: true
 ---
 
 This is a test document to verify the functionality of the content management system. It should be rendered correctly without any issues.

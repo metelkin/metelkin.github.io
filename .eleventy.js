@@ -20,12 +20,17 @@ module.exports = async function(eleventyConfig) {
   // copy files to the output directory
   eleventyConfig.addPassthroughCopy("content/robots.txt");
   eleventyConfig.addPassthroughCopy("content/assets");
+  eleventyConfig.addPassthroughCopy("content/**/img");
 
   // add syntax highlighting plugin
   eleventyConfig.addPlugin(syntaxHighlight);
 
   // identifier for Google Analytics
   eleventyConfig.addGlobalData("googleAnalytics", "G-6DBZB44BXE");
+
+  // default license for content
+  eleventyConfig.addGlobalData("license", "CC-BY-4.0");
+  eleventyConfig.addGlobalData("licenseUrl", "https://creativecommons.org/licenses/by/4.0/");
   
   return {
     dir: {

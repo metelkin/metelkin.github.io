@@ -1,5 +1,5 @@
 ---
-layout: layout.njk
+layout: landing.njk
 title: Evgeny Metelkin, PhD
 words:
     - Computational Biologist
