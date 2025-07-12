@@ -5,10 +5,10 @@ canonical: ***
 openGraph:
     title: ***
     description: ***
-    url: ***
-    image: ***
-    site_name: ***
-    type: profile
+    url: ***  # set global
+    image: *** # set global
+    site_name: *** 
+    type: website/article/profile/product/event
 googleAnalytics: ***
 noindex: true/false
 #}
@@ -26,19 +26,19 @@ noindex: true/false
         gtag('config', '{{ googleAnalytics }}');
     </script>
     <!-- General -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ title }}</title>
-    <meta name="description" content="{{ description }}">
+    <meta name="description" content="{{ description }}" />
     <!-- SEO -->
     {%- if canonical is defined %}
     <link rel="canonical" href="{{ canonical }}" />
     {%- endif %}
     {%- if noindex %}
-    <meta name="robots" content="noindex, nofollow">
+    <meta name="robots" content="noindex, nofollow" />
     {%- endif %}
     <!-- Open Graph -->
-    {%- if seo is defined %}{% for key, value in seo %}
+    {%- if openGraph is defined %}{% for key, value in openGraph %}
     <meta property="og:{{ key }}" content="{{ value }}" />
     {%- endfor %}{% endif %}
     <!-- Style -->
