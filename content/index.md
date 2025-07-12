@@ -1,7 +1,7 @@
 ---
 layout: landing.njk
 title: Evgeny Metelkin, PhD
-description: Personal website of Evgeny Metelkin, a Computational Biologist
+description: Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect 
 words:
     - Computational Biologist
     - Systems Pharmacology Architect
@@ -16,7 +16,7 @@ mainPhoto: assets/metelkin-1.jpg
 canonical: https://metelkin.me
 openGraph:
     title: Evgeny Metelkin, PhD
-    description: Personal website of Evgeny Metelkin, a Computational Biologist
+    description: Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect
     url: https://metelkin.me
     image: https://metelkin.me/assets/metelkin-1.jpg
     site_name: Evgeny Metelkin

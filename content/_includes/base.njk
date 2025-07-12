@@ -1,13 +1,15 @@
 {#
 title: ***
 description: ***
+author: ***
+date: ****-**-**
 canonical: ***
 openGraph:
     title: ***
     description: ***
     url: ***  # set global
     image: *** # set global
-    site_name: *** 
+    site_name: *** # top site name
     type: website/article/profile/product/event
 googleAnalytics: ***
 noindex: true/false
@@ -30,6 +32,12 @@ noindex: true/false
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ title }}</title>
     <meta name="description" content="{{ description }}" />
+    {%- if author is defined %}
+    <meta name="article:author" content="{{ author }}" />
+    {%- endif %}
+    {%- if date is defined %}
+    <meta name="article:publishedDate" content="{{ date.toISOString().slice(0, 19) }}" />
+    {%- endif %}
     <!-- SEO -->
     {%- if canonical is defined %}
     <link rel="canonical" href="{{ canonical }}" />
