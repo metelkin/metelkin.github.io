@@ -2,12 +2,12 @@
 layout: post.njk
 title: 'Model Formats in Systems Pharmacology: The Missing Link Between Biology and Software Engineering. Part 1'
 date: 2025-08-22
-description: 'A deep dive into the various model formats used in Systems Pharmacology.'
+description: 'QSP modeling still suffers from incompatible “black box” formats. This article explores why open, standardized formats are key to fixing it.'
 author: Evgeny Metelkin
 canonical: https://metelkin.me/model-formats-for-systems-pharmacology-1
 openGraph:
     title: 'Model formats for Systems Pharmacology: part 1'
-    description: 'A deep dive into the various model formats used in Systems Pharmacology.'
+    description: 'QSP modeling still suffers from incompatible “black box” formats. This article explores why open, standardized formats are key to fixing it.'
     url: https://metelkin.me/model-formats-for-systems-pharmacology-1
     image: https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig0-cover.png
     site_name: Evgeny Metelkin

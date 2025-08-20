@@ -37,7 +37,8 @@ noindex: true/false
     <meta name="article:author" content="{{ author }}" />
     {%- endif %}
     {%- if date is defined %}
-    <meta name="article:published_time" content="{{ date.toISOString().slice(0, 19) }}Z" />
+    <meta property="article:published_time" content="{{ date.toISOString().slice(0, 19) }}Z" />
+    <meta property="article:modified_time" content="{{ date.toISOString().slice(0, 19) }}Z" />
     {%- endif %}
     <!-- SEO -->
     {%- if canonical is defined %}
