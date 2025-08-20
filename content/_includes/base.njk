@@ -2,7 +2,9 @@
 title: ***
 description: ***
 author: ***
+authorURL: ***
 date: ****-**-**
+lastModified: ****-**-**
 canonical: ***
 openGraph:
     title: ***
@@ -34,11 +36,14 @@ noindex: true/false
     <meta name="description" content="{{ description }}" />
     {%- if author is defined %}
     <meta name="author" content="{{ author }}" />
-    <meta name="article:author" content="{{ author }}" />
+    {%- endif %}
+    <!-- article -->
+    {%- if authorURL is defined %}
+    <meta property="article:author" content="{{ authorURL }}" />
     {%- endif %}
     {%- if date is defined %}
     <meta property="article:published_time" content="{{ date.toISOString().slice(0, 19) }}Z" />
-    <meta property="article:modified_time" content="{{ date.toISOString().slice(0, 19) }}Z" />
+    <meta property="article:modified_time" content="{{ lastModified.toISOString().slice(0, 19) }}Z" />
     {%- endif %}
     <!-- SEO -->
     {%- if canonical is defined %}
