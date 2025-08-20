@@ -12,7 +12,8 @@
   "author": "Evgeny Metelkin",
   "license": "CC-BY-4.0",
   "dependencies": {
-    "@11ty/eleventy": "^3.1.2"
+    "@11ty/eleventy": "^3.1.2",
+    "markdown-it-link-attributes": "^4.0.1"
   },
   "devDependencies": {
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.1",

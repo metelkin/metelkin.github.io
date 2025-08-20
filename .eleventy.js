@@ -1,4 +1,6 @@
 const sitemap = require("@quasibit/eleventy-plugin-sitemap");
+const md = require("markdown-it");
+const mila = require("markdown-it-link-attributes");
 
 // Prism highlighter
 // npm install --save-dev @11ty/eleventy-plugin-syntaxhighlight
@@ -10,6 +12,18 @@ const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 // https://stefanzweifel.dev/posts/2024/06/03/how-i-use-shiki-in-eleventy/
 
 module.exports = async function(eleventyConfig) {
+  // tune links
+  let mdLib = md({html: true, breaks: true, linkify: true}).use(mila, [
+      {
+        matcher: (href) => href && href.startsWith("http"),
+        attrs: {
+          target: "_blank",
+          rel: "noopener noreferrer"
+        }
+      }
+    ]);
+  eleventyConfig.setLibrary("md", mdLib);
+
   // create sitemap
   eleventyConfig.addPlugin(sitemap, {
     sitemap: {

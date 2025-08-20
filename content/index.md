@@ -51,7 +51,7 @@ Today, as Co‑founder and Technology Director at [**InSysBio CY Ltd**](https
 
 ## Flagship Software Projects
 
-- [**Heta Language & Heta Compiler**](https://hetalang.github.io/#/) — Domain‑specific language + build pipeline for large‑scale QSP models.  
+- [**Heta Language & Heta Compiler**](https://hetalang.github.io/) — Domain‑specific language + build pipeline for large‑scale QSP models.  
 - [**HetaSimulator.jl**](https://github.com/hetalang/HetaSimulator.jl) — Julia‑powered engine for distributed simulations and parameter estimation.  
 - [**LikelihoodProfiler.jl**](https://github.com/insysbio/LikelihoodProfiler.jl) — Toolkit for practical identifiability and confidence interval estimation.  
 - [**Immune Response Template**](https://irt.insysbio.com/) — Modular QSP platform of the human immune system for fast-model building.  
