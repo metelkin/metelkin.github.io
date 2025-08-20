@@ -1,5 +1,5 @@
 /_site
-/drafts
+_drafts
 node_modules
 
 /content/test-post

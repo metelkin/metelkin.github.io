@@ -43,6 +43,12 @@ Today, as Co‑founder and Technology Director at [**InSysBio CY Ltd**](https
 
 ---
 
+## Posts
+
+- [Model Formats in Systems Pharmacology: The Missing Link Between Biology and Software Engineering. Part 1](/model-formats-for-systems-pharmacology-1) 19/08/2025
+
+---
+
 ## Flagship Software Projects
 
 - [**Heta Language & Heta Compiler**](https://hetalang.github.io/#/) — Domain‑specific language + build pipeline for large‑scale QSP models.  
