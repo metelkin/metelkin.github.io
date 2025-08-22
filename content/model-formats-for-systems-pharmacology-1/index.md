@@ -21,10 +21,7 @@ openGraph:
 
 ## 1. Intro
 
-Imagine web development where every framework has its own version of HTML, CSS, and JavaScript.
-Git is almost useless: the project is a mix of binary files and settings hidden in a GUI.
-CI/CD can't be set up: the model doesn't always run from the command line.
-Code can't be reused: each tool has its own syntax, its own logic, and a closed "project file".
+Imagine web development where every framework has its own version of HTML, CSS, and JavaScript. Git is almost useless: the project is a mix of binary files and settings hidden in a GUI. CI/CD can't be set up: the model doesn't always run from the command line. Code can't be reused: each tool has its own syntax, its own logic, and a closed "project file".
 
 Sounds like a bad alternate reality, but this is still how model storage and exchange often look in drug modeling. Tools solve similar problems, but model formats are incompatible; project structure is a "black box"; reproducibility is fragile; exchange is painful.
 
@@ -56,13 +53,13 @@ In other words, QSP lets you "run" a drug inside a virtual patient - much like a
 
 ### How QSP Relates to Other Modeling Fields
 
-QSP sits at the intersection of several established areas:
+Long before QSP became a term, modelers were already working with related approaches:
 
-- Systems Biology (SB) - models networks of molecules and cells non-related to pharmacology.
-- Physiologically Based Pharmacokinetics (PBPK) - models how drugs move through organs and tissues.
-- Pharmacokinetics/Pharmacodynamics (PK/PD) - links drug concentration to its therapeutic effect, typically empirically.
+- Systems Biology (SB) - models networks of molecules and cells (typically non-related to drugs or clinical endpoints).
+- Physiologically Based Pharmacokinetics (PBPK) - models how drugs move through organs and tissues, and eliminates from the body.
+- Pharmacokinetics/Pharmacodynamics (PK/PD) - links drug concentration to its therapeutic effect, typically empirically or by compartmental approach.
 
-QSP combines elements of all three, but adds a unique focus on bridging molecular mechanisms with whole-body pharmacology and clinical outcomes.
+QSP didn't appear out of nowhere - it grew out of all three. But it raised the level of detail, scaled up from molecules to whole-body systems, and aimed to bridge the gap between mechanism and clinic.
 
 ### Why Software Engineers Should Care
 
@@ -78,24 +75,24 @@ Drug modeling is starting to resemble software engineering but without the benef
 
 ### Current Challenges
 
-Despite its potential, QSP as a field still struggles with systemic problems:
+For all its promise, QSP is still far from smooth sailing. In practice, many QSP teams still run into systemic challenges.
 
-- difficulty working in teams and sharing models,
-- results that are hard to interpret outside specialized circles,
-- poor reproducibility across tools and groups,
-- lack of standardization in formats and workflows,
-- and the burden of updating or extending models as new data becomes available.
+- **Teamwork is hard.** Models are often locked inside proprietary tools, making collaboration feel more like passing around black boxes than working on shared code.
+- **Interpretation is tricky.** Results can be meaningful to insiders, but remain opaque to biologists, clinicians, or decision-makers who actually need to use them.
+- **Reproducibility is fragile.** The same model may give slightly different results depending on the tool, environment, or even the person running it.
+- **Standards are missing.** Each group develops its own formats and workflows, so models don't travel well between teams or platforms.
+- **Maintenance is painful.** Every new dataset or scientific insight often means heavy, manual re-work of existing models.
+
+In short, QSP has the ambition of being an "engineering discipline for pharmacology," but today it still operates with the patchiness and friction of a young science.
 
 ## 3. Anatomy of QSP models
 
-### Core Concepts
+In Quantitative Systems Pharmacology, the human body is typically represented as a network of biochemical reactions and interactions operating across multiple scales - from organs to cells to molecules. Regardless of the level of detail, these systems can usually be described in a common set of core concepts:
 
-In Quantitative Systems Pharmacology (QSP), the human body is typically represented as a network of biochemical reactions and interactions operating across multiple scales - from organs to cells to molecules. Regardless of the level of detail, these systems can usually be described in a common set of core concepts:
-
-- States – Concentrations of molecules, numbers of cells, organ volumes and dimensions, clinical biomarkers.
+- States – Concentrations of molecules, numbers of cells, organ volumes, clinical biomarkers.
 - Processes – Reactions, transport mechanisms, discrete events.
 - Parameters – Organ sizes and flows, molecular properties, interaction constants, masses.
-- Equations – Rate laws and transport equations, derived either from mechanistic descriptions or empirical relationships.
+- Equations – Rate laws and transport equations, derived either from mechanistic descriptions or by empirical relationships.
 - Datasets – Experimental, clinical, or literature data used for model calibration, validation, and testing.
 - Tasks – Practical goals for modeling such as dose optimization, treatment prediction, or, internally, parameter estimation, structural identification, verification, and uncertainty analysis.
 
@@ -103,14 +100,14 @@ In most cases, the dynamics of such a system are expressed as a set of ordinary 
 
 If we borrow concepts from software engineering, we can draw parallels between a QSP model and application architecture.
 
-- Model States are akin to domain states or stored fields.
+- Model states are similar to domain states or stored fields.
 - Processes map to business logic.
 - Equations resemble specific algorithms.
 - Parameters function like configuration settings.
 - The ODE solver plays the role of a runtime or execution engine, "running" the model.
 - Tasks are comparable to use cases or automated test scenarios.
 
-The analogy isn't always perfect, but it highlights a useful perspective: there may be untapped opportunities to improve how we develop and maintain QSP models by borrowing proven practices from software engineering
+The analogy isn't always perfect, but it highlights a useful perspective: there may be untapped opportunities to improve how we develop and maintain QSP models by borrowing proven practices from software engineering.
 
 ### A Simple Example
 
@@ -149,10 +146,10 @@ Parameter values (constants defining the fixed properties of the system):
 
 $$
 \begin{aligned}
-& gut = 1, blood = 5, \\\\
-& kabs_{Alc} = 0.1, \\\\
-& Vmax_{ADH} = 0.5, Km_{ADH} = 0.1, \\\\
-& Vmax_{ALDH} = 0.5, Km_{ALDH} = 0.1.
+& gut = 1, blood = 5.5, \\\\
+& kabs_{Alc} = 10, \\\\
+& Vmax_{ADH} = 3, Km_{ADH} = 0.1, \\\\
+& Vmax_{ALDH} = 3, Km_{ALDH} = 3.
 \end{aligned}
 $$
 
@@ -171,8 +168,8 @@ Dosing events (discrete inputs to the system at specific times):
 
 $$
 \begin{aligned}
-Alc_g\left(2\right) &\leftarrow Alc_g\left(2\right) +0.2,\\\\
-Alc_g\left(4\right) &\leftarrow Alc_g\left(4\right) +0.2.
+Alc_g\left(2\right) &\leftarrow Alc_g\left(2\right) + 50,\\\\
+Alc_g\left(4\right) &\leftarrow Alc_g\left(4\right) + 50.
 \end{aligned}
 $$
 
@@ -180,88 +177,70 @@ $$
 
 **Fig 2. Demo run of the toy alcohol model.** Results are illustrative and qualitative, not quantitative. Definitely not medical advice (or bartending advice).
 
+Most modeling environments describe the model core in some form of equations and parameters, though with varying constraints. Some tools employ macro languages, domain-specific languages (DSLs), or graphical editors to simplify model creation. However - and this is the critical point - the underlying structures and storage formats vary widely between tools, there is no common standard, and core and auxiliary information is not always saved or cleanly separated from the model code.
+
 ### Beyond the Core Equations
 
-In real-world projects, the mathematical core is important but just the part of the model. 
-A complete, reproducible modeling package also needs:
+In real-world projects, the mathematical core is important but just the part of the model. A complete, reproducible modeling package also needs:
 
-1. Structured annotations - explanations, limitations, and assumptions of model parts.
+1. Structured annotations - units of measurements, explanations, limitations, and assumptions of model parts.
 2. Input parameter sets describing specific conditions, doses, or patient characteristics.    
 3. Solver settings - the numerical methods and parameters used for ODE integration.
 4. Datasets for calibration, validation, and testing.
-5. Protocols for complex simulation workflows such as confidence interval estimation, sensitivity analysis, or uncertainty quantification.
+5. Protocols and results for complex simulation workflows such as confidence interval estimation, sensitivity analysis, or uncertainty quantification.
 6. Metadata - version history, authorship, run logs, and so on.
 
-Without these, results are not reproducible, and the model cannot be properly evaluated or reused.
-
-Most modeling environments describe the model core in some form of equations and parameters, though with varying constraints. 
-Some tools employ macro languages, domain-specific languages (DSLs), or graphical editors to simplify model creation. 
-However - and this is the critical point - the underlying structures and storage formats vary widely between tools, 
-there is no common standard, and auxiliary information is not always saved or cleanly separated from the model code.
-
-In the next section, we'll see how the same model can look dramatically different across popular QSP tools 
-and why that matters for both modelers and developers.
+Without these, results are not reproducible, and the model cannot be properly evaluated or reused. Here, we'll keep our focus on the core structure of models rather than all the surrounding layers. But keep in mind: those outer layers—parameters, data, protocols, metadata—bring their own headaches, sometimes even bigger than the model equations themselves.
 
 ## 4. Popular Tools and How They Store Models
 
-### Interaction Modes: How Users Author Models
-
-A mathematical model built on algebraic–differential equations is straightforward for mathematicians and modelers.  
-But working with it directly? Not so much.  
+At their core, QSP models are systems of algebraic and differential equations. Mathematicians are comfortable writing them down on paper, and modelers can translate them into equations without much trouble. But the moment we try to implement such a model on a computer, things get trickier. Equations need to be expressed in a very specific way - as functions, arguments, and expressions tailored for a particular programming language or solver.
 
 ![Raw scripting Matlab code](./img/fig3-raw-matlab.png)
 
 **Fig 3. Example of raw scripting in Matlab.** Model logic (right) and simulation script (left) live in separate files but are still entangled. The model carries redundant syntax just to satisfy MATLAB and cannot be directly reused in another language or tool. Adding a new reaction requires multiple updates in the model code and possibly in the simulation script.
 
-For a computer program to use it, the model needs a structured markup language and parsers to read it.  
-For biologists or pharmacologists-who may also be involved-it's even harder to interpret raw equations.
+To make life easier, many tools introduce their own DSLs or rely on macro languages. In essence, we're still writing ODEs, but now they are expressed in a more compact, structured form. This makes the model easier to read and sometimes separates the model description from the execution code - a small but important step toward better clarity and maintainability.
 
-There's another practical challenge:  
-ODE-based notation works fine for solvers, but if you introduce a complex reaction involving multiple metabolites, you often have to update several right-hand sides or add multiple new equations. This quickly becomes messy and error-prone.
+However, this approach still has its drawbacks. As models grow larger, ODE-based code becomes difficult to maintain: it resists modularization, and even small changes may require edits in multiple places or restructuring the equations themselves. On top of that, the notation is far from intuitive for biologists or pharmacologists, who tend to think in terms of reactions, metabolites, and pathways rather than differential equations.
 
 ![ODE based DSL, mrgsolve](./img/fig4-mrgsolve.png)
 
 **Fig 4. Example of ODE based DSL in mrgsolve.** The model is expressed as a macro-like C++ dialect, which makes it close to the solver and mathematically transparent. However, large models become hard to maintain: even small structural changes may require rewriting the system of equations. The syntax is tool-specific and difficult to parse or convert, limiting portability beyond mrgsolve (and partially NONMEM).
 
-One way around this is the **process-based approach**-describing the model in terms of processes that involve metabolites and other entities. The software then generates the ODE system automatically (e.g., from tables or a custom DSL) right before simulation. This approach reduces manual edits, enables modularity, and lowers the risk of mistakes.  
-The trade-off? You need to adjust your modeling mindset. The equation-level view is hidden behind generation, and you need an explicit build pipeline. Still, this method has been influential-[SBML](https://sbml.org/) is one example born from such thinking.
+One way around this is the **process-based approach** describing the model in terms of processes that involve metabolites, reactions, compartments and other entities. The software then generates the ODE system automatically (e.g., from tables or a custom DSL) right before simulation. This approach reduces manual edits, enables modularity, and lowers the risk of mistakes.  
+The trade-off? You need to adjust your modeling mindset. The equation-level view is hidden behind generation, and you need an explicit build pipeline. Still, this method has been influential [SBML](https://sbml.org/) is one example born from such thinking.
 
-To make models even more approachable, some tools offer **visual modeling**-showing the model as a map or process graph. Great for accessibility, less so for large-scale version control.
+To make models even more approachable, some tools offer **visual modeling** showing the model as a map or process graph. Great for accessibility, less so for large-scale version control.
 
 In practice, different tools offer different interaction styles. For small models, it doesn't matter much which you choose. As complexity grows, the differences become critical-impacting usability, versioning, and collaboration. For example, comparing two versions, reusing components, or organizing a modular model is often much easier in a process-based DSL than in raw ODE code.
 
 Broadly, user–model interaction falls into these categories:
 
 - **Raw scripting** - Pure code in a general-purpose language (MATLAB, Julia, R, Python). Maximum flexibility, minimal standardization. Equations are coded directly; solvers may also be custom-built.
-- **Visual modeling** - The user draws diagrams, with equations and parameters hidden in annotations (e.g., SimBiology). Great for visualization, poor for Git diffs and mass editing.
-- **DSL-based modeling** - A dedicated intermediate language. Balances readability, structure, and flexibility (e.g., HetaSimulator).
-- **Table-based modeling** - The model is defined via spreadsheets or tabular formats. Readable, but limited in expressing complex logic.
+- **Visual modeling** - The user draws diagrams, with equations and parameters hidden in annotations (e.g., SimBiology, JDesigner). Great for visualization, poor for Git diffs and mass editing.
+- **DSL-based modeling (ODE- or process-based)** - A dedicated intermediate language. Balances readability, structure, and flexibility (e.g., mrgsolve, Heta).
+- **Table-based modeling** - The model is defined via spreadsheets or tabular formats. The idea is similar to a DSL but avoids the need to memorize syntax. Readable, but limited in expressing complex logic.
 - **Mixed modeling** - Combinations such as tables + DSL, or tables + diagrams.
 
 ![Visual modeling SimBiology code snippet](./img/fig5-simbio.png)
 
-**Fig 5. Example of visual modeling in SimBiology.** Visual diagrams make it easier for beginners and biologists to start modeling, but serious work still requires editing mathematical details hidden in tables and formulas. The binary storage format complicates version control and collaboration, while large models quickly become unwieldy as diagrams grow too complex to manage effectively.
+**Fig 5. Example of visual modeling in SimBiology.** Visual diagrams make it easier for beginners and biologists to start modeling, but serious work still requires editing mathematical details hidden in tables and formulas. The binary storage format complicates version control and collaboration, while large models quickly become cumbersome as diagrams grow too complex to manage effectively.
 
 ### What Ends Up on Disk: Project Storage Formats
 
-Beyond authoring style, storage format matters-especially for collaboration, exchange, and version control.  
-Some platforms store everything in a single file; others use multiple files in different formats. 
-In QSP, these formats are usually incompatible.
+Beyond the way models are written (authoring approach), storage format matters, especially for collaboration, exchange, and version control. Some platforms store everything in a single file; others use multiple files in different formats. In QSP, storage formats often differ across tools and are rarely interoperable.
 
-Broad storage format categories:
+Broad storage format categories for QSP:
 
 - **Binary formats** - Not human-readable, hard to diff.
 - **Proprietary text formats** - Can be opened in a text editor, but structure is obscure and not meant for manual editing.
 - **Structured formats** - Based on open standards (XML, SBML, JSON, YAML). Easier to parse and transform.
 - **Human-readable text** - Best for Git and team workflows, but still needs a parser.
 
-A major step forward for modeling communities was **SBML** ([SBML Level 3 spec, 2018](https://doi.org/10.1515/jib-2017-0081)), which standardized machine-readable model exchange. 
-It enabled smoother tool integration and collaboration-but it's still an exchange format, not a project-editing format. 
-It also doesn't address QSP-specific needs.
+The **way you write a model** affects how easy it is to work with, how accessible it is for collaborators, and how reusable the code becomes. The **way you store** a project determines whether it is Git-friendly, easy to compare across versions, and possible to translate into other tools and formats. Both layers matter — and problems often come from confusing or conflating the two.
 
-Other domain formats exist SED-ML for simulation tasks ([SED-ML spec, BMC Systems Biology, 2011](https://doi.org/10.1186/1752-0509-5-198)), 
-COMBINE archives for project packaging ([COMBINE spec, BMC Bioinformatics, 2014](https://doi.org/10.1186/s12859-014-0369-z)), 
-PETAB for experiment parameterization ([PEtab spec, PLoS Comput Biol, 2021](https://doi.org/10.1371/journal.pcbi.1008646)) but they see limited adoption for QSP.
+_Some might wonder: isn't SBML already the common format? SBML is indeed a successful standard in Systems Biology and works well for exchanging models. But it falls short for QSP: it lacks project-level details like datasets and tasks, it's not particularly Git-friendly, and it was designed for model exchange, not for day-to-day project work. I'll come back to this in **Part 2**._
 
 ![HetaSimulator code snippet](./img/fig6-heta.png)
 
@@ -269,12 +248,10 @@ PETAB for experiment parameterization ([PEtab spec, PLoS Comput Biol, 2021](http
 
 ### Tool Matrix: Authoring, Storage, and Interfaces
 
-QSP has been evolving since around 2010. Many of its tools are adapted from related fields:  
-Systems Biology (SB), Physiologically Based Pharmacokinetics (PBPK), and Pharmacokinetics/Pharmacodynamics (PK/PD).  
-Some were retooled for QSP; others are brand new.
+QSP has been steadily evolving since around 2010. Many of the tools used today originated in neighboring fields such as Systems Biology, PBPK, and PK/PD. Some of them were adapted to serve QSP needs, while others were developed from scratch.
 
-Criteria for inclusion here:
-- Mentioned in QSP software reviews ([QSP tools review, CPT-PSP, 2018](https://doi.org/10.1002/psp4.12373))
+The table below summarizes key tools in the QSP landscape. Tools are included based on three criteria:
+- Mentioned in QSP software reviews (i.e. [QSP tools review, CPT-PSP, 2018](https://doi.org/10.1002/psp4.12373))
 - Positioned as QSP tools in docs or case studies
 - Designed for solving dynamics, not just auxiliary tasks
 
@@ -298,10 +275,22 @@ Criteria for inclusion here:
 
 _\* restricted - limited access to the ODE structure; pre-generated for drug distribution models._
 
-Although these tools solve similar problems, their formats are rarely compatible.  
-Switching often means rewriting models from scratch or doing painful manual conversions.  
-Most tools store states, equations, parameters, data, and tasks all together-making modular reuse and Git-based workflows difficult. 
-In DevOps terms, this is a serious bottleneck for CI/CD in model development.
+What this comparison actually tells us? Looking across tools, a few patterns stand out:
+
+- **Interoperability gap.** Most ecosystems define their own project and model formats; moving between them usually means partial rewrites or lossy conversions.
+- **Authoring ≠ storage (but they're often entangled).** A convenient way to write a model (visual editor, macro DSL) doesn't guarantee a format that's easy to diff, review, or translate. Many tools couple authoring and storage tightly, which locks projects to a runtime.
+- **Opacity hurts teamwork.** Binary or proprietary text bundles are hard to compare, branch, and merge; they don't play well with Git, code review, or CI.
+- **Scaling pain**. ODE-centric code scales poorly: small structural tweaks (e.g., making a volume dynamic) ripple across many equations. Visual maps don't scale either—large diagrams become navigation mazes.
+- **Skill barrier and mental models.** Biologists think in terms of reactions, metabolites, pathways; engineers and solvers consume equations. Many tools force one side to work in the other side's mental model.
+
+Implications for teams
+
+- **Onboarding & knowledge transfer.** Slow down without readable, layered artifacts.
+- **Reproducibility.** Degrades when part of the logic lives in GUIs or hidden project files.
+- **Change cost.** Rises: every new dataset or mechanism requires manual, multi-file edits.
+- **Vendor lock-in.** Grows as projects become inseparable from a specific tool's syntax and storage.
+
+The bigger issue, though, isn't even the formats—it's the silos around them. QSP modeling is already hard: you need to know the biology, the math, the data side, the stats. Nobody has the time or energy to learn two or three different tools on top of that. So people pick one and stay there. And once you're locked in, the circle closes: groups can't really share because their formats don't match, and the formats don't match because each tool is tuned for its own little world. That's why progress here depends not just on better tools, but on real effort toward making them talk to each other.
 
 ---
 
