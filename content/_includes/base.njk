@@ -1,5 +1,6 @@
 {#
 title: ***
+subtitle: ***
 description: ***
 author: ***
 authorURL: ***
@@ -32,7 +33,7 @@ noindex: true/false
     <!-- General -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ title }}</title>
+    <title>{{ title }}{{ ': ' + subtitle if subtitle else '' }}</title>
     <meta name="description" content="{{ description }}" />
     {%- if author is defined %}
     <meta name="author" content="{{ author }}" />
@@ -93,6 +94,7 @@ noindex: true/false
 <body>
     {% block body %}
     <h1>{{ title }}</h1>
+    <h2>{{ subtitle }}</h2>
     {{ content | safe }}
     {% endblock %}
 </body>

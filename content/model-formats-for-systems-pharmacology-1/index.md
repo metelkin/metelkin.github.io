@@ -1,6 +1,7 @@
 ---
 layout: post.njk
-title: 'Model Formats in Systems Pharmacology: The Missing Link Between Biology and Software Engineering. Part 1'
+title: 'Model Formats in Systems Pharmacology. Part 1'
+subtitle: 'The Missing Link Between Biology and Software Engineering'
 date: 2025-08-22
 lastModified: 2025-08-22
 description: 'QSP modeling still suffers from incompatible “black box” formats. This article explores why open, standardized formats are key to fixing it.'
@@ -8,7 +9,7 @@ author: Evgeny Metelkin
 authorURL: https://metelkin.me
 canonical: https://metelkin.me/model-formats-for-systems-pharmacology-1
 openGraph:
-    title: 'Model Formats in Systems Pharmacology: The Missing Link Between Biology and Software Engineering. Part 1'
+    title: 'Model Formats in Systems Pharmacology. Part 1: The Missing Link Between Biology and Software Engineering'
     description: 'QSP modeling still suffers from incompatible “black box” formats. This article explores why open, standardized formats are key to fixing it.'
     url: https://metelkin.me/model-formats-for-systems-pharmacology-1
     image: https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig0-cover.jpg
@@ -290,8 +291,8 @@ Criteria for inclusion here:
 | [Berkeley Madonna](https://www.berkeleymadonna.com/)  | Mixed: DSL + Tables     | ODE-based, Process-based       | Proprietary text (.mmd)             | GUI                              | General purpose |
 | [SimCYP](https://www.certara.com/software/simcyp-pbpk/)            | Tables                      | ODE-based (*restricted)         | Proprietary text (.wksz)            | GUI, Scripting (R)               | PBPK            |
 | [GastroPlus](https://www.simulations-plus.com/software/gastroplus/)        | Tables                      | ODE-based (*restricted)         | Binary (.gpj)                       | GUI                              | PBPK            |
-| [Monolix](https://monolixsuite.slp-software.com/monolix/2024R1/)           | DSL, Tables                | ODE-based                      | Human-readable (.mlxtran, .txt)     | GUI, Scripting (R, Python)       | PK/PD           |
-| [NONMEM](https://www.iconplc.com/solutions/technologies/nonmem)            | DSL, Tables                | ODE-based                      | Human-readable (.ctl, .mod)         | CLI, Scripting (PsN/Pirana)     | PK/PD           |
+| [Monolix](https://monolixsuite.slp-software.com/monolix/2024R1/)           | Mixed: DSL, Tables                | ODE-based                      | Human-readable (.mlxtran, .txt)     | GUI, Scripting (R, Python)       | PK/PD           |
+| [NONMEM](https://www.iconplc.com/solutions/technologies/nonmem)            | Mixed: DSL, Tables                | ODE-based                      | Human-readable (.ctl, .mod)         | CLI, Scripting (PsN/Pirana)     | PK/PD           |
 | [JDesigner](https://jdesigner.sourceforge.net/Site/JDesigner.html)         | Visual                           | Process-based                  | Binary (.jdes)                      | GUI                              | SB              |
 | PhysioLab by Enthelos        | DSL                        | ODE-based                      | Proprietary text(.phl)              | GUI                              | QSP             |
 
