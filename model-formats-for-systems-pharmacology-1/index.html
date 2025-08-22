@@ -91,8 +91,8 @@ Code can't be reused: each tool has its own syntax, its own logic, and a closed 
 <li>how we can improve the situation with model formats in QSP.</li>
 </ul>
 <h2>2. Why QSP Matters</h2>
-<p>Today, computational biology and mathematical modeling are essential in drug development - from early preclinical experiments in a test tube to full-scale clinical trials in humans. Major pharmaceutical companies are investing heavily in this field, hiring top experts in computational biology to streamline the process and make it more effective <a href="https://doi.org/10.1007/s10928-024-09905-y" target="_blank" rel="noopener noreferrer">link</a>, <a href="https://doi.org/10.1124/jpet.123.001842" target="_blank" rel="noopener noreferrer">link</a>.</p>
-<p>One of the fastest-growing areas is Quantitative Systems Pharmacology (QSP). In short, QSP builds detailed mathematical models that describe how drugs interact with the human body and how biological systems respond in return <a href="https://customsitesmedia.usc.edu/wp-content/uploads/sites/106/2012/12/17062522/NIH-White-Papaer-2011.pdf" target="_blank" rel="noopener noreferrer">link</a>.</p>
+<p>Today, computational biology and mathematical modeling are essential in drug development - from early preclinical experiments in a test tube to full-scale clinical trials in humans. Major pharmaceutical companies are investing heavily in this field, hiring top experts in computational biology to streamline the process and make it more effective (<a href="https://doi.org/10.1007/s10928-024-09905-y" target="_blank" rel="noopener noreferrer">Industry Perspective, JPKPD, 2024</a>; <a href="https://doi.org/10.1124/jpet.123.001842" target="_blank" rel="noopener noreferrer">Promotional Submission of QSP, JPET, 2024</a>).</p>
+<p>One of the fastest-growing areas is Quantitative Systems Pharmacology (QSP). In short, QSP builds detailed mathematical models that describe how drugs interact with the human body and how biological systems respond in return (<a href="https://customsitesmedia.usc.edu/wp-content/uploads/sites/106/2012/12/17062522/NIH-White-Papaer-2011.pdf" target="_blank" rel="noopener noreferrer">NIH QSP White Paper, 2011</a>).</p>
 <p>Think of the human body as a complex engineered system - full of components, feedback loops, and regulators. QSP turns this system into math: models that allow pharmacologists, engineers, and statisticians to test drug behavior virtually before moving to costly and risky experiments in the lab or clinic. These models help researchers:</p>
 <ul>
 <li>predict how a drug will behave under different dosing regimens,</li>
@@ -110,7 +110,7 @@ Code can't be reused: each tool has its own syntax, its own logic, and a closed 
 </ul>
 <p>QSP combines elements of all three, but adds a unique focus on bridging molecular mechanisms with whole-body pharmacology and clinical outcomes.</p>
 <h3>Why Software Engineers Should Care</h3>
-<p>From a developer’s perspective, QSP projects look surprisingly familiar:</p>
+<p>From a developer's perspective, QSP projects look surprisingly familiar:</p>
 <ul>
 <li>there is code (equations, parameters, model structure),</li>
 <li>there are tests (validation against clinical or experimental data),</li>
@@ -118,7 +118,7 @@ Code can't be reused: each tool has its own syntax, its own logic, and a closed 
 <li>there are teams working together on the same project,</li>
 <li>and there are real concerns about readability, reproducibility, and maintainability.</li>
 </ul>
-<p>Drug modeling is starting to resemble software engineering but without the benefit of decades of best practices. That’s why ideas like modularity, version control, open formats, and CI/CD are so relevant here.</p>
+<p>Drug modeling is starting to resemble software engineering but without the benefit of decades of best practices. That's why ideas like modularity, version control, open formats, and CI/CD are so relevant here.</p>
 <h3>Current Challenges</h3>
 <p>Despite its potential, QSP as a field still struggles with systemic problems:</p>
 <ul>
@@ -256,12 +256,12 @@ In QSP, these formats are usually incompatible.</p>
 <li><strong>Structured formats</strong> - Based on open standards (XML, SBML, JSON, YAML). Easier to parse and transform.</li>
 <li><strong>Human-readable text</strong> - Best for Git and team workflows, but still needs a parser.</li>
 </ul>
-<p>A major step forward for modeling communities was <strong>SBML</strong> <a href="https://doi.org/10.1515/jib-2017-0081" target="_blank" rel="noopener noreferrer">link</a>, which standardized machine-readable model exchange.<br>
+<p>A major step forward for modeling communities was <strong>SBML</strong> (<a href="https://doi.org/10.1515/jib-2017-0081" target="_blank" rel="noopener noreferrer">SBML Level 3 spec, 2018</a>), which standardized machine-readable model exchange.<br>
 It enabled smoother tool integration and collaboration-but it's still an exchange format, not a project-editing format.<br>
 It also doesn't address QSP-specific needs.</p>
-<p>Other domain formats exist-SED-ML (simulation tasks) <a href="https://doi.org/10.1186/1752-0509-5-198" target="_blank" rel="noopener noreferrer">link</a>,<br>
-COMBINE archives (project packaging) <a href="https://doi.org/10.1186/s12859-014-0369-z" target="_blank" rel="noopener noreferrer">link</a>,<br>
-PETAB (experiment parameterization) <a href="https://doi.org/10.1371/journal.pcbi.1008646" target="_blank" rel="noopener noreferrer">link</a> but they see limited adoption for QSP.</p>
+<p>Other domain formats exist SED-ML for simulation tasks (<a href="https://doi.org/10.1186/1752-0509-5-198" target="_blank" rel="noopener noreferrer">SED-ML spec, BMC Systems Biology, 2011</a>),<br>
+COMBINE archives for project packaging (<a href="https://doi.org/10.1186/s12859-014-0369-z" target="_blank" rel="noopener noreferrer">COMBINE spec, BMC Bioinformatics, 2014</a>),<br>
+PETAB for experiment parameterization (<a href="https://doi.org/10.1371/journal.pcbi.1008646" target="_blank" rel="noopener noreferrer">PEtab spec, PLoS Comput Biol, 2021</a>) but they see limited adoption for QSP.</p>
 <p><img src="./img/fig6-heta.png" alt="HetaSimulator code snippet"></p>
 <p><strong>Fig 6. Example for process-based DSL. Code for HetaSimulator.</strong> Heta offers a solver- and scripting-independent way to describe models and works well with version control. Support modules and namespaces. However, the format is niche, less familiar to those used to ODEs, and may feel harder to adopt outside its community. Requires a specific <a href="https://hetalang.github.io/hetacompiler" target="_blank" rel="noopener noreferrer">translator</a> for use across applications.</p>
 <h3>Tool Matrix: Authoring, Storage, and Interfaces</h3>
@@ -270,7 +270,7 @@ Systems Biology (SB), Physiologically Based Pharmacokinetics (PBPK), and Pharmac
 Some were retooled for QSP; others are brand new.</p>
 <p>Criteria for inclusion here:</p>
 <ul>
-<li>Mentioned in QSP software reviews (<a href="https://doi.org/10.1002/psp4.12373" target="_blank" rel="noopener noreferrer">link</a>)</li>
+<li>Mentioned in QSP software reviews (<a href="https://doi.org/10.1002/psp4.12373" target="_blank" rel="noopener noreferrer">QSP tools review, CPT-PSP, 2018</a>)</li>
 <li>Positioned as QSP tools in docs or case studies</li>
 <li>Designed for solving dynamics, not just auxiliary tasks</li>
 </ul>
@@ -413,6 +413,9 @@ Some were retooled for QSP; others are brand new.</p>
 Switching often means rewriting models from scratch or doing painful manual conversions.<br>
 Most tools store states, equations, parameters, data, and tasks all together-making modular reuse and Git-based workflows difficult.<br>
 In DevOps terms, this is a serious bottleneck for CI/CD in model development.</p>
+<hr>
+<p>This was a look at the problems around how QSP models are stored and shared. Next time, We'll reflect on possible ways forward - treating models as code, open formats, and what we might learn from software engineering.</p>
+<p><strong>To be continued…</strong></p>
 
     </dev>
     <dev>
