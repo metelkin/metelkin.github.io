@@ -1,0 +1,29 @@
+/* alcohol draft model */
+
+gut @Compartment .= 1;
+blood @Compartment .= 5.5;
+
+'''alcohol in stomach or gut'''
+Alc_g @Species {compartment: gut, isAmount: true, units: mole} .= 0;
+'''ethyl alcohol, EtOH'''
+Alc_b @Species {compartment: blood} .= 0;
+'''acetaldehyde, AcAld'''
+AcHc @Species {compartment: blood} .= 0;
+
+'''gut to blood absorption'''
+vabs_Alc @Reaction {actors: Alc_g => Alc_b} := kabs_Alc * Alc_g;
+'''alcohol dehydrogenase'''
+v_ADH @Reaction {actors: Alc_b => AcHc} := Vmax_ADH * Alc_b / (Km_ADH + Alc_b) * blood;
+'''aldehyde dehydrogenase'''
+v_ALDH @Reaction {actors: AcHc => } := Vmax_ALDH * AcHc / (Km_ALDH + AcHc) * blood;
+
+kabs_Alc @Const = 10;
+Vmax_ADH @Const = 3;
+Km_ADH @Const = 0.1;
+Vmax_ALDH @Const = 3;
+Km_ALDH @Const = 3;
+
+sw1 @TimeSwitcher {start: 2};
+sw2 @TimeSwitcher {start: 4};
+Alc_g [sw1]= Alc_g + 50;
+Alc_g [sw2]= Alc_g + 50;
