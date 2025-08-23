@@ -76,52 +76,52 @@
     <dev class="markdown-body">
         <p><img src="./img/fig0-cover.jpg" alt="Cover"></p>
 <h2>1. Intro</h2>
-<p>Imagine web development where every framework has its own version of HTML, CSS, and JavaScript. Git is almost useless: the project is a mix of binary files and settings hidden in a GUI. Code can't be reused: each tool has its own syntax, its own logic, and a closed &quot;project file&quot;.</p>
-<p>Sounds like a bad alternate reality, but this is still how model storage and exchange often look in drug modeling. Tools solve similar problems, but model formats are incompatible; project structure is a &quot;black box&quot;; reproducibility is fragile; exchange is painful.</p>
-<p>In this article, we propose looking at a pharmacological model as code, and at the model format as an interface between people and tools.</p>
+<p>Imagine web development where every framework has its own version of <strong>HTML</strong>, <strong>CSS</strong>, and <strong>JavaScript</strong>. <strong>Git</strong> is almost useless: the project is a mix of <strong>binary files</strong> and settings hidden in a <strong>GUI</strong>. Code can't be reused: each tool has its own syntax, its own logic, and a closed <strong>project file</strong>.</p>
+<p>Sounds like a bad alternate reality, but this is still how <strong>model storage and exchange</strong> often look in <strong>drug modeling</strong>. Tools solve similar problems, but <strong>model formats</strong> are <strong>incompatible</strong>; project structure is a <strong>&quot;black box&quot;</strong>; <strong>reproducibility</strong> is fragile; <strong>exchange</strong> is painful.</p>
+<p>In this article, we propose looking at a <strong>pharmacological model as code</strong>, and at the model format as an interface between people and tools.</p>
 <p>We'll explore:</p>
 <ul>
-<li>what QSP is and the role modeling plays in pharmacology;</li>
-<li>what makes up a QSP model and how mathematics turns into structure;</li>
-<li>the main approaches to model description (ODE scripts, process-based DSLs, tables, visual editors);</li>
-<li>how popular tools store projects and where collaboration breaks down;</li>
-<li>which software engineering practices (layered architecture, testing, CI/CD, semantic diffs) can actually work in QSP;</li>
-<li>how we can improve the situation with model formats in QSP.</li>
+<li>what <strong>QSP</strong> is and the role <strong>modeling</strong> plays in <strong>pharmacology</strong>;</li>
+<li>what makes up a QSP model and how <strong>mathematics</strong> turns into <strong>structure</strong>;</li>
+<li>the main approaches to <strong>model description</strong> (<strong>ODE</strong> scripts, <strong>process-based DSLs</strong>, <strong>tables</strong>, <strong>visual editors</strong>);</li>
+<li>how popular tools <strong>store projects</strong> and where <strong>collaboration</strong> breaks down;</li>
+<li>which software <strong>engineering practices</strong> (layered architecture, testing, CI/CD, semantic diffs) can actually work in QSP;</li>
+<li>how we can improve the situation with <strong>model formats</strong> in QSP.</li>
 </ul>
 <h2>2. Why QSP Matters</h2>
-<p>Today, computational biology and mathematical modeling are essential in drug development - from early preclinical experiments in a test tube to full-scale clinical trials in humans. Major pharmaceutical companies are investing heavily in this field, hiring top experts in computational biology to streamline the process and make it more effective (<a href="https://doi.org/10.1007/s10928-024-09905-y" target="_blank" rel="noopener noreferrer">Industry Perspective, JPKPD, 2024</a>; <a href="https://doi.org/10.1124/jpet.123.001842" target="_blank" rel="noopener noreferrer">Promotional Submission of QSP, JPET, 2024</a>).</p>
-<p>One of the fastest-growing areas is Quantitative Systems Pharmacology (QSP). In short, QSP builds detailed mathematical models that describe how drugs interact with the human body and how biological systems respond in return (<a href="https://customsitesmedia.usc.edu/wp-content/uploads/sites/106/2012/12/17062522/NIH-White-Papaer-2011.pdf" target="_blank" rel="noopener noreferrer">NIH QSP White Paper, 2011</a>).</p>
-<p>Think of the human body as a complex engineered system - full of components, feedback loops, and regulators. QSP turns this system into math: models that allow pharmacologists, engineers, and statisticians to test drug behavior virtually before moving to costly and risky experiments in the lab or clinic. Much like an aerospace engineer tests a new airplane in a simulator long before the first real flight.</p>
+<p>Today, <strong>computational biology</strong> and <strong>mathematical modeling</strong> are essential in <strong>drug development</strong> - from early <strong>preclinical experiments</strong> in a test tube to full-scale <strong>clinical trials</strong> in humans. Major <strong>pharmaceutical companies</strong> are <strong>investing heavily</strong> in this field, hiring top experts in computational biology to streamline the process and make it more effective (<a href="https://doi.org/10.1007/s10928-024-09905-y" target="_blank" rel="noopener noreferrer">Industry Perspective, JPKPD, 2024</a>; <a href="https://doi.org/10.1124/jpet.123.001842" target="_blank" rel="noopener noreferrer">Promotional Submission of QSP, JPET, 2024</a>).</p>
+<p>One of the fastest-growing areas is <strong>Quantitative Systems Pharmacology (QSP)</strong>. In short, QSP builds detailed mathematical models that describe how <strong>drugs</strong> interact with the <strong>human body</strong> and how biological systems respond in return (<a href="https://customsitesmedia.usc.edu/wp-content/uploads/sites/106/2012/12/17062522/NIH-White-Papaer-2011.pdf" target="_blank" rel="noopener noreferrer">NIH QSP White Paper, 2011</a>).</p>
+<p>Think of the human body as a <strong>complex engineered system</strong> - full of components, feedback loops, and regulators. QSP turns this system into math: models that allow pharmacologists, engineers, and statisticians to test drug behavior <strong>virtually</strong> before moving to costly and risky experiments in the lab or clinic. Much like an <strong>aerospace engineer</strong> tests a new airplane in a simulator long before the <strong>first real flight</strong>.</p>
 <h3>How QSP Relates to Other Modeling Fields</h3>
-<p>Long before QSP became a term, modelers were already working with related approaches:</p>
+<p>Long before QSP became a term, <strong>modelers</strong> were already working with related approaches:</p>
 <ul>
-<li>Systems Biology (SB) - models networks of molecules and cells (typically non-related to drugs or clinical endpoints).</li>
-<li>Physiologically Based Pharmacokinetics (PBPK) - models how drugs move through organs and tissues, and eliminates from the body.</li>
-<li>Pharmacokinetics/Pharmacodynamics (PK/PD) - links drug concentration to its therapeutic effect, typically empirically or by compartmental approach.</li>
+<li><strong>Systems Biology (SB)</strong> - models networks of <strong>molecules and cells</strong> (typically non-related to drugs or clinical endpoints).</li>
+<li><strong>Physiologically Based Pharmacokinetics (PBPK)</strong> - models how drugs move through <strong>organs and tissues</strong>, and eliminates from the <strong>body</strong>.</li>
+<li><strong>Pharmacokinetics/Pharmacodynamics (PK/PD)</strong> - links drug concentration to its <strong>therapeutic effect</strong>, typically <strong>empirically</strong> or by compartmental approach.</li>
 </ul>
-<p>QSP didn't appear out of nowhere - it grew out of all three. But it raised the level of detail, scaled up from molecules to whole-body systems, and aimed to bridge the gap between mechanism and clinic.</p>
+<p>QSP didn't appear out of nowhere - it grew out of all three. But it raised the level of detail, scaled up from molecules to <strong>whole-body systems</strong>, and aimed to bridge the gap between mechanism and clinic.</p>
 <h3>Why Software Engineers Should Care</h3>
-<p>From a developer's perspective, QSP projects look surprisingly familiar:</p>
+<p>From a <strong>developer's perspective</strong>, QSP projects look surprisingly familiar:</p>
 <ul>
-<li>there is code (equations, parameters, model structure),</li>
-<li>there are tests (validation against clinical or experimental data),</li>
-<li>there are versions (models evolve as new data arrives),</li>
-<li>there are teams working together on the same project,</li>
-<li>and there are real concerns about readability, reproducibility, and maintainability.</li>
+<li>there is <strong>code</strong> (equations, parameters, model structure),</li>
+<li>there are <strong>tests</strong> (validation against clinical or experimental data),</li>
+<li>there are <strong>versions</strong> (models evolve as new data arrives),</li>
+<li>there are <strong>teams</strong> working together on the same project,</li>
+<li>and there are real concerns about <strong>readability</strong>, <strong>reproducibility</strong>, and <strong>maintainability</strong>.</li>
 </ul>
-<p>Drug modeling is starting to resemble software engineering but without the benefit of decades of best practices. That's why ideas like modularity, version control, open formats, and CI/CD are so relevant here.</p>
+<p><strong>Drug modeling</strong> is starting to resemble <strong>software engineering</strong> but without the benefit of decades of best practices. That's why ideas like <strong>modularity</strong>, <strong>version control</strong>, <strong>open formats</strong>, and <strong>CI/CD</strong> are so relevant here.</p>
 <h3>Current Challenges</h3>
-<p>For all its promise, QSP is still far from smooth sailing. In practice, many QSP teams still run into systemic challenges.</p>
+<p>For all its <strong>promise</strong>, QSP is still far from smooth sailing. In practice, many QSP teams still run into <strong>systemic challenges</strong>.</p>
 <ul>
-<li><strong>Teamwork is hard.</strong> Models are often locked inside proprietary tools, making collaboration feel more like passing around black boxes than working on shared code.</li>
-<li><strong>Interpretation is tricky.</strong> Results can be meaningful to insiders, but remain opaque to biologists, clinicians, or decision-makers who actually need to use them.</li>
-<li><strong>Reproducibility is fragile.</strong> The same model may give slightly different results depending on the tool, environment, or even the person running it.</li>
-<li><strong>Standards are missing.</strong> Each group develops its own formats and workflows, so models don't travel well between teams or platforms.</li>
-<li><strong>Maintenance is painful.</strong> Every new dataset or scientific insight often means heavy, manual re-work of existing models.</li>
+<li><strong>Teamwork is hard.</strong> Models are often locked inside proprietary tools, making collaboration feel more like passing around <strong>black boxes</strong> than working on shared code.</li>
+<li><strong>Interpretation is tricky.</strong> Results can be meaningful to insiders, but remain <strong>opaque</strong> to biologists, clinicians, or <strong>decision-makers</strong> who actually need to use them.</li>
+<li><strong>Reproducibility is fragile.</strong> The same model may give slightly <strong>different results</strong> depending on the tool, environment, or even the person running it.</li>
+<li><strong>Standards are missing.</strong> Each group develops its own <strong>formats and workflows</strong>, so models <strong>don't travel</strong> well between teams or platforms.</li>
+<li><strong>Maintenance is painful.</strong> Every new dataset or scientific insight often means heavy, <strong>manual re-work</strong> of existing models.</li>
 </ul>
-<p>In short, QSP has the ambition of being an &quot;engineering discipline for pharmacology,&quot; but today it still operates with the patchiness and friction of a young science.</p>
+<p>In short, QSP has the ambition of being an <strong>&quot;engineering discipline for pharmacology&quot;</strong>, but today it still operates with the patchiness and friction of a young science.</p>
 <h2>3. Anatomy of QSP models</h2>
-<p>In Quantitative Systems Pharmacology, the body is usually represented as a network of reactions and interactions across scales—from organs to cells to molecules. Regardless of the level of detail, most models can be broken down into a few common building blocks. If we borrow concepts from software engineering, the parallels look like this:</p>
+<p>In Quantitative Systems Pharmacology, the body is usually represented as a <strong>network of reactions</strong> and interactions across scales—from organs to cells to molecules. Regardless of the level of detail, most models can be broken down into a few common <strong>building blocks</strong>. If we borrow concepts from software engineering, the parallels look like this:</p>
 <table>
 <thead>
 <tr>
@@ -170,10 +170,10 @@
 </table>
 <p>This mapping isn't perfect, but it highlights a useful perspective: QSP models aren't just collections of equations—they're systems with states, logic, data, and tasks.</p>
 <h3>A Simple Example</h3>
-<p>To make this more concrete, let's look at a highly simplified example - far smaller than what modelers deal with in practice, but enough to illustrate the key principles.</p>
+<p>To make this more concrete, let's look at an example - far smaller than what modelers deal with in practice, but enough to illustrate the <strong>key principles</strong>.</p>
 <p><img src="./img/fig1-scheme.png" alt="Alcohol metabolism model"></p>
 <p><strong>Fig 1. A toy QSP model of alcohol metabolism.</strong> This minimal example is used to illustrate model structure; real QSP models can include thousands of components and interactions.</p>
-<p>In this example, ethanol is consumed twice (state Alc_g), absorbed into the bloodstream (Alc_b), metabolized into acetaldehyde (AcHc), and then further converted into acetate (Acet).</p>
+<p>In this example, ethanol is consumed twice (state <strong><em>Alc_g</em></strong>), absorbed into the bloodstream (<strong><em>Alc_b</em></strong>), metabolized into acetaldehyde (<strong><em>AcHc</em></strong>), and then further converted into acetate (<strong><em>Acet</em></strong>).</p>
 <p>In ODE form, the model's core dynamics are:<br>
 $$<br>
 \begin{align}<br>
@@ -183,7 +183,7 @@ $$<br>
 \frac{d(Acet \cdot blood)}{dt} &amp; = v_{ALDH}.<br>
 \end{align}<br>
 $$</p>
-<p>where</p>
+<p><strong>where</strong></p>
 <p>$$<br>
 \begin{aligned}<br>
 vabs_{Alc} &amp; = kabs_{Alc} \cdot Alc_g,\\<br>
@@ -193,39 +193,38 @@ v_{ALDH} &amp; = \frac{Vmax_{ALDH} \cdot AcHc}{Km_{ALDH} + AcHc} \cdot blood.<br
 $$</p>
 <p><img src="./img/fig2-dynamics.png" alt="Alcohol metabolism simulation results"></p>
 <p><strong>Fig 2. Demo run of the toy alcohol model.</strong> Results are illustrative and qualitative, not quantitative. Definitely not medical advice (or bartending advice).</p>
-<p>Most modeling environments describe the model core in some form of equations and parameters, though with varying constraints. Some tools employ macro languages, domain-specific languages (DSLs), or graphical editors to simplify model creation. However - and this is the critical point - the underlying structures and storage formats vary widely between tools, there is no common standard, and core and auxiliary information is not always saved or cleanly separated from the model code.</p>
 <h3>Beyond the Core Equations</h3>
-<p>In real-world projects, the mathematical core is important but just the part of the model. A complete, reproducible modeling package also needs:</p>
+<p>In <strong>real-world projects</strong>, the mathematical core is important but just the part of the model. A complete, reproducible modeling package also needs:</p>
 <ul>
 <li><strong>Annotations</strong> - units, explanations, and key assumptions.</li>
 <li><strong>Parameter sets &amp; datasets</strong> - conditions, doses, patient characteristics, and data for calibration and validation.</li>
 <li><strong>Solver settings &amp; metadata</strong> - numerical settings and project history.</li>
 </ul>
-<p>Without these and other metadata, results are not reproducible, and the model cannot be properly evaluated or reused. Here, we'll keep our focus on the core structure of models rather than all the surrounding layers. But keep in mind: those outer layers—parameters, data, protocols, metadata—bring their own headaches, sometimes even bigger than the model equations themselves.</p>
+<p>Without these and other <strong>metadata</strong>, results are not reproducible, and the model cannot be properly evaluated or reused. Here, we'll keep our focus on the core structure of models rather than all the surrounding layers.</p>
 <h2>4. Popular Tools and How They Store Models</h2>
 <p>At their core, QSP models are systems of algebraic and differential equations. But the moment we try to implement such a model on a computer, things get trickier. Equations need to be expressed in a very specific way - as functions, arguments, and expressions tailored for a particular programming language or solver.</p>
 <p><img src="./img/fig3-raw-matlab.png" alt="Raw scripting Matlab code"></p>
 <p><strong>Fig 3. Example of raw scripting in Matlab.</strong> Model logic (right) and simulation script (left) live in separate files but are still entangled. The model carries redundant syntax just to satisfy MATLAB and cannot be directly reused in another language or tool. Updating the model code may result in changes in the simulation script.</p>
-<p>To make life easier, many tools introduce their own DSLs or rely on macro languages. In essence, we're still writing ODEs, but now they are expressed in a more compact, structured form. This makes the model easier to read and sometimes separates the model description from the execution code - a small but important step toward better clarity and maintainability.</p>
-<p>However, this approach still has its drawbacks. As models grow larger, ODE-based code becomes difficult to maintain: it resists modularization, and even small changes may require edits in multiple places or restructuring the equations themselves. On top of that, the notation is far from intuitive for biologists or pharmacologists, who tend to think in terms of reactions, metabolites, and pathways rather than ODEs.</p>
+<p>To make life easier, many tools introduce their own <strong>Domain Specific Languages (DSL)</strong> or rely on <strong>macros</strong>. In essence, we're still writing ODEs, but now they are expressed in a more compact, structured form. This makes the model easier to read and sometimes separates the model description from the execution code - a small but important step toward better clarity and maintainability.</p>
+<p>However, this approach still has its drawbacks. As models grow larger, ODE-based code becomes <strong>difficult to maintain</strong>: it resists modularization, and even small changes may require edits in multiple places or restructuring the equations themselves. On top of that, the notation is far from intuitive for biologists or pharmacologists, who tend to think in terms of reactions, metabolites, and pathways rather than ODEs.</p>
 <p><img src="./img/fig4-mrgsolve.png" alt="ODE based DSL, mrgsolve"></p>
 <p><strong>Fig 4. Example of ODE based DSL in mrgsolve.</strong> The model is expressed as a macro-like C++ dialect, which makes it close to the solver and mathematically transparent. The syntax is tool-specific and difficult to parse or convert, limiting portability beyond mrgsolve (and partially NONMEM).</p>
-<p>One way around this is the <strong>process-based approach</strong> describing the model in terms of processes that involve metabolites, reactions, compartments and other entities. The software then generates the ODE system automatically (e.g., from tables or a custom DSL) right before simulation. This approach reduces manual edits, enables modularity, and lowers the risk of mistakes.<br>
+<p>One way around this is the <strong>process-based approach</strong> describing the model in terms of processes that involve metabolites, reactions, compartments and other entities. The software then <strong>generates the ODE</strong> system automatically (e.g., from tables or a custom DSL) right before simulation. This approach reduces manual edits, enables modularity, and lowers the risk of mistakes.<br>
 The trade-off? You need to adjust your modeling mindset. The equation-level view is hidden behind generation, and you need an explicit build pipeline. Still, this method has been influential <a href="https://sbml.org/" target="_blank" rel="noopener noreferrer">SBML</a> is one example born from such thinking.</p>
 <p>To make models even more approachable, some tools offer <strong>visual modeling</strong> showing the model as a map or process graph. Great for accessibility, less so for large-scale version control.</p>
-<p>In practice, different tools offer different interaction styles. For small models, it doesn't matter much which you choose. As complexity grows, the differences become critical-impacting usability, versioning, and collaboration. For example, comparing two versions, reusing components, or organizing a modular model is often much easier in a process-based DSL than in raw ODE code.</p>
+<p>In practice, different tools offer different interaction styles. For small models, it doesn't matter much which you choose. As complexity grows, the differences become critical-impacting <strong>usability, versioning, and collaboration</strong>. For example, comparing two versions, reusing components, or organizing a modular model is often much easier in a process-based DSL than in raw ODE code.</p>
 <p>Broadly, user–model interaction falls into these categories:</p>
 <ul>
-<li><strong>Raw scripting</strong> - Pure code in a general-purpose language (MATLAB, Julia, R, Python). Maximum flexibility, minimal standardization. Equations are coded directly; solvers may also be custom-built.</li>
-<li><strong>Visual modeling</strong> - The user draws diagrams, with equations and parameters hidden in annotations (e.g., SimBiology, JDesigner). Great for visualization, poor for Git diffs and mass editing.</li>
-<li><strong>DSL-based modeling (ODE- or process-based)</strong> - A dedicated intermediate language. Balances readability, structure, and flexibility (e.g., mrgsolve, Heta).</li>
-<li><strong>Table-based modeling</strong> - The model is defined via spreadsheets or tabular formats. The idea is similar to a DSL but avoids the need to memorize syntax. Readable, but limited in expressing complex logic.</li>
-<li><strong>Mixed modeling</strong> - Combinations such as tables + DSL, or tables + diagrams.</li>
+<li><strong>Raw scripting</strong> - Pure code in a <strong>general-purpose language</strong> (MATLAB, Julia, R, Python). Maximum flexibility, minimal standardization. Equations are coded directly; solvers may also be custom-built.</li>
+<li><strong>Visual modeling</strong> - The user <strong>draws diagrams</strong>, with equations and parameters hidden in annotations (e.g., SimBiology, JDesigner). Great for visualization, poor for Git diffs and mass editing.</li>
+<li><strong>DSL-based modeling (ODE- or process-based)</strong> - A dedicated <strong>intermediate language</strong>. Balances readability, structure, and flexibility (e.g., mrgsolve, Heta).</li>
+<li><strong>Table-based modeling</strong> - The model is defined via <strong>series of spreadsheets</strong>. The idea is similar to a DSL but avoids the need to memorize syntax. Readable, but limited in expressing complex logic.</li>
+<li><strong>Mixed modeling</strong> - Combinations such as tables + DSL, or tables + diagrams, etc.</li>
 </ul>
 <p><img src="./img/fig5-simbio.png" alt="Visual modeling SimBiology code snippet"></p>
 <p><strong>Fig 5. Example of visual modeling in SimBiology.</strong> Visual diagrams make it easier for beginners and biologists to start modeling, but serious work still requires editing mathematical details hidden in tables and formulas. The binary storage format complicates version control and collaboration, while large models quickly become cumbersome as diagrams grow too complex to manage effectively.</p>
 <h3>What Ends Up on Disk: Project Storage Formats</h3>
-<p>Beyond the way models are written (authoring approach), storage format matters, especially for collaboration, exchange, and version control. Some platforms store everything in a single file; others use multiple files in different formats. In QSP, storage formats often differ across tools and are rarely interoperable.</p>
+<p>Beyond the way models are written (authoring approach), <strong>storage format</strong> matters, especially for collaboration, exchange, and version control. Some platforms store everything in a single file; others use multiple files in different formats. In QSP, storage formats often differ across tools and are rarely interoperable.</p>
 <p>Broad storage format categories for QSP:</p>
 <ul>
 <li><strong>Binary formats</strong> - Not human-readable, hard to diff.</li>
@@ -234,16 +233,15 @@ The trade-off? You need to adjust your modeling mindset. The equation-level view
 <li><strong>Human-readable text</strong> - Best for Git and team workflows, but still needs a parser.</li>
 </ul>
 <p>The <strong>way you write a model</strong> affects how easy it is to work with, how accessible it is for collaborators, and how reusable the code becomes. The <strong>way you store</strong> a project determines whether it is Git-friendly, easy to compare across versions, and possible to translate into other tools and formats. Both layers matter — and problems often come from confusing or conflating the two.</p>
-<p><em>Some might wonder: isn't SBML already the common format? SBML is indeed a successful standard in Systems Biology and works well for exchanging models. But it falls short for QSP: it lacks project-level details like datasets and tasks, it's not particularly Git-friendly, and it was designed for model exchange, not for day-to-day project work. I'll come back to this in <strong>Part 2</strong>.</em></p>
 <p><img src="./img/fig6-heta.png" alt="HetaSimulator code snippet"></p>
 <p><strong>Fig 6. Example for process-based DSL. Code for HetaSimulator.</strong> Heta offers a solver- and scripting-independent way to describe models and works well with version control. Support modules and namespaces. However, the format is niche, less familiar to those used to ODEs, and may feel harder to adopt outside its community. Requires a specific <a href="https://hetalang.github.io/hetacompiler" target="_blank" rel="noopener noreferrer">translator</a> for use across applications.</p>
 <h3>Tool Matrix: Authoring, Storage, and Interfaces</h3>
-<p>QSP has been steadily evolving since around 2010. Many of the tools used today originated in neighboring fields such as Systems Biology, PBPK, and PK/PD. Some of them were adapted to serve QSP needs, while others were developed from scratch.</p>
+<p>QSP has been steadily evolving since <strong>around 2010</strong>. Many of the tools used today originated in neighboring fields such as Systems Biology, PBPK, and PK/PD. Some of them were <strong>adapted</strong> to serve QSP needs, while others were <strong>developed</strong> from scratch.</p>
 <p>The table below summarizes key tools in the QSP landscape. Tools are included based on three criteria:</p>
 <ul>
-<li>Mentioned in QSP software reviews (i.e. <a href="https://doi.org/10.1002/psp4.12373" target="_blank" rel="noopener noreferrer">QSP tools review, CPT-PSP, 2018</a>)</li>
-<li>Positioned as QSP tools in docs or case studies</li>
-<li>Designed for solving dynamics, not just auxiliary tasks</li>
+<li><strong>Mentioned</strong> in QSP software reviews (i.e. <a href="https://doi.org/10.1002/psp4.12373" target="_blank" rel="noopener noreferrer">QSP tools review, CPT-PSP, 2018</a>)</li>
+<li><strong>Positioned</strong> as QSP tools in docs or case studies</li>
+<li><strong>Designed</strong> for solving dynamics, not just auxiliary tasks</li>
 </ul>
 <table>
 <thead>
@@ -374,14 +372,14 @@ The trade-off? You need to adjust your modeling mindset. The equation-level view
 <p><em>* restricted - limited access to the ODE structure; pre-generated for drug distribution models.</em></p>
 <p>What this comparison actually tells us? Looking across tools, a few patterns stand out:</p>
 <ul>
-<li><strong>Interoperability gap.</strong> Most ecosystems define their own project and model formats; moving between them usually means partial rewrites or lossy conversions.</li>
-<li><strong>Authoring ≠ storage (but they're often entangled).</strong> A convenient way to write a model (visual editor, macro DSL) doesn't guarantee a format that's easy to diff, review, or translate. Many tools couple authoring and storage tightly, which locks projects to a runtime.</li>
-<li><strong>Opacity hurts teamwork.</strong> Binary or proprietary text bundles are hard to compare, branch, and merge; they don't play well with Git, code review, or CI.</li>
-<li><strong>Scaling pain</strong>. ODE-centric code scales poorly: small structural tweaks (e.g., making a volume dynamic) ripple across many equations. Visual maps don't scale either—large diagrams become navigation mazes.</li>
-<li><strong>Skill barrier and mental models.</strong> Biologists think in terms of reactions, metabolites, pathways; engineers and solvers consume equations. Many tools force one side to work in the other side's mental model.</li>
+<li><strong>Interoperability gap.</strong> Most ecosystems define their own project and model formats; moving between them usually means partial <strong>rewrites or lossy conversions</strong>.</li>
+<li><strong>Authoring ≠ storage (but they're often entangled).</strong> A convenient way to write a model (visual editor, macro DSL) doesn't guarantee a format that's easy to diff, review, or translate. Many tools couple authoring and storage tightly, which <strong>locks projects</strong> to a runtime.</li>
+<li><strong>Opacity hurts teamwork.</strong> Binary or proprietary text bundles are hard to compare, branch, and merge; they don't play well with <strong>Git, code review, or CI</strong>.</li>
+<li><strong>Scaling pain</strong>. ODE-centric code <strong>scales poorly</strong>: small structural tweaks (e.g., making a volume dynamic) ripple across many equations. Visual maps don't scale either—large diagrams become navigation mazes.</li>
+<li><strong>Skill barrier and mental models.</strong> Biologists think in terms of reactions, metabolites, pathways; engineers and solvers consume equations. Many tools <strong>force one side</strong> to work in the other side's mental model.</li>
 </ul>
-<p>For teams, this creates a mix of problems: onboarding and knowledge transfer become slower, reproducibility suffers when parts of the logic are hidden in GUIs or project files, every new dataset or mechanism increases the cost of changes, and projects gradually become locked into a single vendor's toolset.</p>
-<p>The bigger issue isn't even the formats—it's the silos built around them. QSP modeling is already demanding: you need biology, math, data, statistics. Few people have the energy to master more than one tool, so most pick one and stay there. The circle closes: groups can't share because formats don't match, and formats don't match because each tool is tuned to its own little world. The way out doesn't have to come only from research groups or pharma companies—software developers can play a big role in breaking these walls too.</p>
+<p>For teams, this creates a mix of problems: onboarding and <strong>knowledge transfer become slower</strong>, <strong>reproducibility suffers</strong> when parts of the logic are hidden in GUIs or project files, every new dataset or mechanism <strong>increases the cost of changes</strong>, and projects gradually become <strong>locked into</strong> a single vendor's toolset.</p>
+<p>The <strong>bigger issue</strong> isn’t the formats themselves, but the <strong>isolation of the communities</strong> that use them. QSP modeling is already demanding: you need biology, math, data, statistics. Few people have the energy to master more than one tool, so most pick one and stay there. <strong>The circle closes</strong>: groups can't share because formats don't match, and formats don't match because each tool is tuned to its own little world. The way out doesn't have to come only from research groups or pharma companies—software <strong>developers can play a big role</strong> in breaking these walls too.</p>
 <hr>
 <p><strong>To be continued…</strong></p>
 
