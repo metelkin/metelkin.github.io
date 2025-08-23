@@ -15,15 +15,22 @@ openGraph:
     image: https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig0-cover.jpg
     site_name: Evgeny Metelkin
     type: article
+tags: 
+    - Technology
+    - Data Science
+    - Software Engineering
+    - Modeling
+    - Pharmacology
+
 ---
 
 ![Cover](./img/fig0-cover.jpg)
 
 ## 1. Intro
 
-Imagine web development where every framework has its own version of **HTML**, **CSS**, and **JavaScript**. **Git** is almost useless: the project is a mix of **binary files** and settings hidden in a **GUI**. Code can't be reused: each tool has its own syntax, its own logic, and a closed **project file**.
+Imagine **web development** where every framework has its **own version of HTML**, CSS, and JavaScript. **Git is almost useless**: the project is a mix of binary files and settings hidden in a GUI. **Code can't be reused**: each tool has its own syntax, its own logic, and a closed project file.
 
-Sounds like a bad alternate reality, but this is still how **model storage and exchange** often look in **drug modeling**. Tools solve similar problems, but **model formats** are **incompatible**; project structure is a **"black box"**; **reproducibility** is fragile; **exchange** is painful.
+Sounds like a bad alternate reality, but this is still how **data storage and exchange** often look in **drug modeling**. Tools solve similar problems, but **model formats** are **incompatible**; project structure is a "black box"; **reproducibility is fragile**; **exchange is painful**.
 
 In this article, we propose looking at a **pharmacological model as code**, and at the model format as an interface between people and tools.
 
@@ -31,14 +38,14 @@ We'll explore:
 
 - what **QSP** is and the role **modeling** plays in **pharmacology**;
 - what makes up a QSP model and how **mathematics** turns into **structure**;
-- the main approaches to **model description** (**ODE** scripts, **process-based DSLs**, **tables**, **visual editors**);
+- the main approaches to **model description** (ODE scripts, process-based DSLs, tables, visual editors);
 - how popular tools **store projects** and where **collaboration** breaks down;
 - which software **engineering practices** (layered architecture, testing, CI/CD, semantic diffs) can actually work in QSP;
 - how we can improve the situation with **model formats** in QSP.
 
 ## 2. Why QSP Matters
 
-Today, **computational biology** and **mathematical modeling** are essential in **drug development** - from early **preclinical experiments** in a test tube to full-scale **clinical trials** in humans. Major **pharmaceutical companies** are **investing heavily** in this field, hiring top experts in computational biology to streamline the process and make it more effective ([Industry Perspective, JPKPD, 2024](https://doi.org/10.1007/s10928-024-09905-y); [Promotional Submission of QSP, JPET, 2024](https://doi.org/10.1124/jpet.123.001842)).
+Today, **computational biology** and **mathematical modeling** are essential in **drug development** - from early **preclinical experiments** in a test tube to full-scale **clinical trials** in humans. Major **pharmaceutical companies** are investing heavily in this field, hiring top experts in computational biology to streamline the process and make it more effective ([Industry Perspective, JPKPD, 2024](https://doi.org/10.1007/s10928-024-09905-y); [Promotional Submission of QSP, JPET, 2024](https://doi.org/10.1124/jpet.123.001842)).
 
 One of the fastest-growing areas is **Quantitative Systems Pharmacology (QSP)**. In short, QSP builds detailed mathematical models that describe how **drugs** interact with the **human body** and how biological systems respond in return ([NIH QSP White Paper, 2011](https://customsitesmedia.usc.edu/wp-content/uploads/sites/106/2012/12/17062522/NIH-White-Papaer-2011.pdf)).
 
@@ -165,7 +172,7 @@ Broadly, user–model interaction falls into these categories:
 
 - **Raw scripting** - Pure code in a **general-purpose language** (MATLAB, Julia, R, Python). Maximum flexibility, minimal standardization. Equations are coded directly; solvers may also be custom-built.
 - **Visual modeling** - The user **draws diagrams**, with equations and parameters hidden in annotations (e.g., SimBiology, JDesigner). Great for visualization, poor for Git diffs and mass editing.
-- **DSL-based modeling (ODE- or process-based)** - A dedicated **intermediate language**. Balances readability, structure, and flexibility (e.g., mrgsolve, Heta).
+- **DSL-based modeling (ODE- or process-based)** - A dedicated **intermediate language**. Balances readability, structure, and flexibility (e.g., mrgsolve, Heta); plus separating the **model layer** from the **execution layer**.
 - **Table-based modeling** - The model is defined via **series of spreadsheets**. The idea is similar to a DSL but avoids the need to memorize syntax. Readable, but limited in expressing complex logic.
 - **Mixed modeling** - Combinations such as tables + DSL, or tables + diagrams, etc.
 
