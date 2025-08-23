@@ -76,20 +76,20 @@
     <dev class="markdown-body">
         <p><img src="./img/fig0-cover.jpg" alt="Cover"></p>
 <h2>1. Intro</h2>
-<p>Imagine web development where every framework has its own version of <strong>HTML</strong>, <strong>CSS</strong>, and <strong>JavaScript</strong>. <strong>Git</strong> is almost useless: the project is a mix of <strong>binary files</strong> and settings hidden in a <strong>GUI</strong>. Code can't be reused: each tool has its own syntax, its own logic, and a closed <strong>project file</strong>.</p>
-<p>Sounds like a bad alternate reality, but this is still how <strong>model storage and exchange</strong> often look in <strong>drug modeling</strong>. Tools solve similar problems, but <strong>model formats</strong> are <strong>incompatible</strong>; project structure is a <strong>&quot;black box&quot;</strong>; <strong>reproducibility</strong> is fragile; <strong>exchange</strong> is painful.</p>
+<p>Imagine <strong>web development</strong> where every framework has its <strong>own version of HTML</strong>, CSS, and JavaScript. <strong>Git is almost useless</strong>: the project is a mix of binary files and settings hidden in a GUI. <strong>Code can't be reused</strong>: each tool has its own syntax, its own logic, and a closed project file.</p>
+<p>Sounds like a bad alternate reality, but this is still how <strong>data storage and exchange</strong> often look in <strong>drug modeling</strong>. Tools solve similar problems, but <strong>model formats</strong> are <strong>incompatible</strong>; project structure is a &quot;black box&quot;; <strong>reproducibility is fragile</strong>; <strong>exchange is painful</strong>.</p>
 <p>In this article, we propose looking at a <strong>pharmacological model as code</strong>, and at the model format as an interface between people and tools.</p>
 <p>We'll explore:</p>
 <ul>
 <li>what <strong>QSP</strong> is and the role <strong>modeling</strong> plays in <strong>pharmacology</strong>;</li>
 <li>what makes up a QSP model and how <strong>mathematics</strong> turns into <strong>structure</strong>;</li>
-<li>the main approaches to <strong>model description</strong> (<strong>ODE</strong> scripts, <strong>process-based DSLs</strong>, <strong>tables</strong>, <strong>visual editors</strong>);</li>
+<li>the main approaches to <strong>model description</strong> (ODE scripts, process-based DSLs, tables, visual editors);</li>
 <li>how popular tools <strong>store projects</strong> and where <strong>collaboration</strong> breaks down;</li>
 <li>which software <strong>engineering practices</strong> (layered architecture, testing, CI/CD, semantic diffs) can actually work in QSP;</li>
 <li>how we can improve the situation with <strong>model formats</strong> in QSP.</li>
 </ul>
 <h2>2. Why QSP Matters</h2>
-<p>Today, <strong>computational biology</strong> and <strong>mathematical modeling</strong> are essential in <strong>drug development</strong> - from early <strong>preclinical experiments</strong> in a test tube to full-scale <strong>clinical trials</strong> in humans. Major <strong>pharmaceutical companies</strong> are <strong>investing heavily</strong> in this field, hiring top experts in computational biology to streamline the process and make it more effective (<a href="https://doi.org/10.1007/s10928-024-09905-y" target="_blank" rel="noopener noreferrer">Industry Perspective, JPKPD, 2024</a>; <a href="https://doi.org/10.1124/jpet.123.001842" target="_blank" rel="noopener noreferrer">Promotional Submission of QSP, JPET, 2024</a>).</p>
+<p>Today, <strong>computational biology</strong> and <strong>mathematical modeling</strong> are essential in <strong>drug development</strong> - from early <strong>preclinical experiments</strong> in a test tube to full-scale <strong>clinical trials</strong> in humans. Major <strong>pharmaceutical companies</strong> are investing heavily in this field, hiring top experts in computational biology to streamline the process and make it more effective (<a href="https://doi.org/10.1007/s10928-024-09905-y" target="_blank" rel="noopener noreferrer">Industry Perspective, JPKPD, 2024</a>; <a href="https://doi.org/10.1124/jpet.123.001842" target="_blank" rel="noopener noreferrer">Promotional Submission of QSP, JPET, 2024</a>).</p>
 <p>One of the fastest-growing areas is <strong>Quantitative Systems Pharmacology (QSP)</strong>. In short, QSP builds detailed mathematical models that describe how <strong>drugs</strong> interact with the <strong>human body</strong> and how biological systems respond in return (<a href="https://customsitesmedia.usc.edu/wp-content/uploads/sites/106/2012/12/17062522/NIH-White-Papaer-2011.pdf" target="_blank" rel="noopener noreferrer">NIH QSP White Paper, 2011</a>).</p>
 <p>Think of the human body as a <strong>complex engineered system</strong> - full of components, feedback loops, and regulators. QSP turns this system into math: models that allow pharmacologists, engineers, and statisticians to test drug behavior <strong>virtually</strong> before moving to costly and risky experiments in the lab or clinic. Much like an <strong>aerospace engineer</strong> tests a new airplane in a simulator long before the <strong>first real flight</strong>.</p>
 <h3>How QSP Relates to Other Modeling Fields</h3>
@@ -217,7 +217,7 @@ The trade-off? You need to adjust your modeling mindset. The equation-level view
 <ul>
 <li><strong>Raw scripting</strong> - Pure code in a <strong>general-purpose language</strong> (MATLAB, Julia, R, Python). Maximum flexibility, minimal standardization. Equations are coded directly; solvers may also be custom-built.</li>
 <li><strong>Visual modeling</strong> - The user <strong>draws diagrams</strong>, with equations and parameters hidden in annotations (e.g., SimBiology, JDesigner). Great for visualization, poor for Git diffs and mass editing.</li>
-<li><strong>DSL-based modeling (ODE- or process-based)</strong> - A dedicated <strong>intermediate language</strong>. Balances readability, structure, and flexibility (e.g., mrgsolve, Heta).</li>
+<li><strong>DSL-based modeling (ODE- or process-based)</strong> - A dedicated <strong>intermediate language</strong>. Balances readability, structure, and flexibility (e.g., mrgsolve, Heta); plus separating the <strong>model layer</strong> from the <strong>execution layer</strong>.</li>
 <li><strong>Table-based modeling</strong> - The model is defined via <strong>series of spreadsheets</strong>. The idea is similar to a DSL but avoids the need to memorize syntax. Readable, but limited in expressing complex logic.</li>
 <li><strong>Mixed modeling</strong> - Combinations such as tables + DSL, or tables + diagrams, etc.</li>
 </ul>
