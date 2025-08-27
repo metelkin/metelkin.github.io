@@ -16,11 +16,11 @@ openGraph:
     site_name: Evgeny Metelkin
     type: article
 tags: 
-    - Technology
-    - Data Science
-    - Software Engineering
-    - Modeling
-    - Pharmacology
+    - SoftwareEngineering
+    - modeling
+    - datascience
+    - pharma
+    - biology
 
 ---
 
@@ -228,7 +228,7 @@ _\* restricted - limited access to the ODE structure; pre-generated for drug dis
 What this comparison actually tells us? Looking across tools, a few patterns stand out:
 
 - **Interoperability gap.** Most ecosystems define their own project and model formats; moving between them usually means partial **rewrites or lossy conversions**.
-- **Authoring ≠ storage (but they're often entangled).** A convenient way to write a model (visual editor, macro DSL) doesn't guarantee a format that's easy to diff, review, or translate. Many tools couple authoring and storage tightly, which **locks projects** to a runtime.
+- **Authoring ≠ storage.** A convenient way to write a model (visual editor, macro DSL) doesn't guarantee a format that's easy to diff, review, or translate. Many tools couple authoring and storage tightly, which **locks projects** to a runtime.
 - **Opacity hurts teamwork.** Binary or proprietary text bundles are hard to compare, branch, and merge; they don't play well with **Git, code review, or CI**.
 - **Scaling pain**. ODE-centric code **scales poorly**: small structural tweaks (e.g., making a volume dynamic) ripple across many equations. Visual maps don't scale either—large diagrams become navigation mazes.
 - **Skill barrier and mental models.** Biologists think in terms of reactions, metabolites, pathways; engineers and solvers consume equations. Many tools **force one side** to work in the other side's mental model.
