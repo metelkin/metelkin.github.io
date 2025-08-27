@@ -373,7 +373,7 @@ The trade-off? You need to adjust your modeling mindset. The equation-level view
 <p>What this comparison actually tells us? Looking across tools, a few patterns stand out:</p>
 <ul>
 <li><strong>Interoperability gap.</strong> Most ecosystems define their own project and model formats; moving between them usually means partial <strong>rewrites or lossy conversions</strong>.</li>
-<li><strong>Authoring ≠ storage (but they're often entangled).</strong> A convenient way to write a model (visual editor, macro DSL) doesn't guarantee a format that's easy to diff, review, or translate. Many tools couple authoring and storage tightly, which <strong>locks projects</strong> to a runtime.</li>
+<li><strong>Authoring ≠ storage.</strong> A convenient way to write a model (visual editor, macro DSL) doesn't guarantee a format that's easy to diff, review, or translate. Many tools couple authoring and storage tightly, which <strong>locks projects</strong> to a runtime.</li>
 <li><strong>Opacity hurts teamwork.</strong> Binary or proprietary text bundles are hard to compare, branch, and merge; they don't play well with <strong>Git, code review, or CI</strong>.</li>
 <li><strong>Scaling pain</strong>. ODE-centric code <strong>scales poorly</strong>: small structural tweaks (e.g., making a volume dynamic) ripple across many equations. Visual maps don't scale either—large diagrams become navigation mazes.</li>
 <li><strong>Skill barrier and mental models.</strong> Biologists think in terms of reactions, metabolites, pathways; engineers and solvers consume equations. Many tools <strong>force one side</strong> to work in the other side's mental model.</li>
