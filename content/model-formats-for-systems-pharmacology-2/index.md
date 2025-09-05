@@ -28,7 +28,7 @@ tags:
 
 _**DRAFT**_
 
-_In [Part 1](/model-formats-for-systems-pharmacology-2), we looked at the landscape of QSP model formats—their origins, strengths, and limitations. We saw how tools approach modeling in different ways, yet still leave teams struggling with Locked-in projects, fragile reproducibility, and poor collaboration. In this follow-up, I want to step back and explore the problem from a software engineering perspective: what practices and design principles could make QSP modeling more transparent, modular, and reproducible, and how model formats can evolve to support that shift._
+_In [Part 1](/model-formats-for-systems-pharmacology-1), we looked at the landscape of QSP model formats—their origins, strengths, and limitations. We saw how tools approach modeling in different ways, yet still leave teams struggling with Locked-in projects, fragile reproducibility, and poor collaboration. In this follow-up, I want to step back and explore the problem from a software engineering perspective: what practices and design principles could make QSP modeling more transparent, modular, and reproducible, and how model formats can evolve to support that shift._
 
 ## 5. Modeling as code
 
