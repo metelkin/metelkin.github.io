@@ -74,7 +74,8 @@
         <p><strong>2025-09-06</strong></p>
     </div>
     <dev class="markdown-body">
-        <p><img src="./img/fig0-cover.jpg" alt="Cover"></p>
+        <p><a href="/model-formats-for-systems-pharmacology-1">Part 1</a>, <strong>Part 2</strong></p>
+<p><img src="./img/fig0-cover.jpg" alt="Cover"></p>
 <p><em>In <a href="/model-formats-for-systems-pharmacology-1">Part 1</a>, we looked at the landscape of QSP model formats—their origins, strengths, and limitations. In this follow-up, I want to step back and explore the problem from a software engineering perspective: what practices and design principles could make QSP modeling more transparent, modular, and reproducible, and how model formats can evolve to support that shift.</em></p>
 <h2>5. Modeling as code</h2>
 <p>In software, the “X as code” idea has proven itself many times over—<strong>Infrastructure as Code</strong> (<a href="https://developer.hashicorp.com/terraform/tutorials/aws-get-started/infrastructure-as-code" target="_blank" rel="noopener noreferrer">Terraform</a>), <strong>Configuration as Code</strong> (<a href="https://www.redhat.com/en/blog/ansible-automation-platform-2.3-configuration-as-code-improvements" target="_blank" rel="noopener noreferrer">Ansible</a>), and <strong>Pipeline as Code</strong> (<a href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/" target="_blank" rel="noopener noreferrer">Jenkins</a>), among others. The core idea is simple: we don’t just manage <strong>artifacts</strong> (infrastructure, configuration, pipelines) directly—we manage their <strong>textual representation</strong> under version control, even if those artifacts were never treated as “code” before. In all cases, the <strong>authoritative source</strong> (canonical source for other forms) is human-readable text. This doesn’t exclude working with diagrams or tables—authoring can stay visual or interactive, but the canonical format must still be code. This shift brought massive gains in transparency, modularity, and reproducibility, and accelerated progress in software engineering.</p>
@@ -251,30 +252,30 @@
 <p>This test is not about scoring “perfect” compliance. Instead, it highlights areas where improvements may bring the biggest benefits—such as versioning, automation, or separation of layers.</p>
 <p>Mark <code>[x]</code> for each practice that is true for your current workflow.</p>
 <ul>
-<li>[ ] <strong>Text-based authoritative source.</strong> Every part of the model (equations, states, events, etc.) can be expressed in a human-readable text format (DSL/JSON/YAML).</li>
-<li>[ ] <strong>Extensibility.</strong> You can add new components, pathways, drugs, and scripts without rewriting existing code. The time you spend on this is proportional to the size of updates, not exponential.</li>
-<li>[ ] <strong>Tool-agnostic.</strong> You can open, edit and execute the model and other project parts using more or one tool. Or at least export/import to/from other formats without loss of information.</li>
-<li>[ ] <strong>Annotated &amp; self-explanatory.</strong> Your model includes clear names, units, and comments that explain its structure and assumptions. Annotations are machine-readable and will be preserved across tools.</li>
-<li>[ ] <strong>Meaningful diffs.</strong> When a file changes, you can review and understand the difference (both technically and semantically) easily for any part of the project.</li>
-<li>[ ] <strong>Scriptable execution.</strong> You are able to run and repeat simulations, fits, tests, and analyses from the command line or scripts, not only through a GUI.</li>
-<li>[ ] <strong>Reproducible environment.</strong> Dependencies, solver versions, and configuration are pinned (e.g., lockfiles, containers).</li>
-<li>[ ] <strong>Clear structure.</strong> The project follows a consistent folder/file layout that separates model, data, tasks, and results. All members of your project understand where to find and edit each part of the project.</li>
+<li>[  ] <strong>Text-based authoritative source.</strong> Every part of the model (equations, states, events, etc.) can be expressed in a human-readable text format (DSL/JSON/YAML).</li>
+<li>[  ] <strong>Extensibility.</strong> You can add new components, pathways, drugs, and scripts without rewriting existing code. The time you spend on this is proportional to the size of updates, not exponential.</li>
+<li>[  ] <strong>Tool-agnostic.</strong> You can open, edit and execute the model and other project parts using more or one tool. Or at least export/import to/from other formats without loss of information.</li>
+<li>[  ] <strong>Annotated &amp; self-explanatory.</strong> Your model includes clear names, units, and comments that explain its structure and assumptions. Annotations are machine-readable and will be preserved across tools.</li>
+<li>[  ] <strong>Meaningful diffs.</strong> When a file changes, you can review and understand the difference (both technically and semantically) easily for any part of the project.</li>
+<li>[  ] <strong>Scriptable execution.</strong> You are able to run and repeat simulations, fits, tests, and analyses from the command line or scripts, not only through a GUI.</li>
+<li>[  ] <strong>Reproducible environment.</strong> Dependencies, solver versions, and configuration are pinned (e.g., lockfiles, containers).</li>
+<li>[  ] <strong>Clear structure.</strong> The project follows a consistent folder/file layout that separates model, data, tasks, and results. All members of your project understand where to find and edit each part of the project.</li>
 </ul>
 <p>If many of these boxes are checked, your workflow can be considered “model as code” and you can use many modern software practices with minor adjustments.</p>
 <h3>Modern Practices Readiness Checklist</h3>
 <p>This checklist helps assess how much your project or workflow utilizes modern engineering practices.</p>
 <p>Mark <code>[x]</code> for each practice that is in use.</p>
 <ul>
-<li>[ ] <strong>Version control.</strong> The project is under Git (or equivalent), with meaningful commit history.</li>
-<li>[ ] <strong>Continuous Integration &amp; Delivery (CI/CD).</strong> Substantial change triggers automated builds or checks (e.g., GitHub Actions, GitLab CI, Jenkins).</li>
-<li>[ ] <strong>Automated reporting.</strong> Reports, figures, and logs are generated directly from code and kept in sync with model versions.</li>
-<li>[ ] <strong>Automated testing.</strong> Unit or reproducibility tests verify correctness of model components and pipelines.</li>
-<li>[ ] <strong>Automation of routine tasks.</strong> Data preprocessing, parameter fitting are scripted, not manual. Routine operations can be autocompleted or assisted by AI tools.</li>
-<li>[ ] <strong>Remote execution.</strong> Workflows can seamlessly run on HPC clusters or cloud resources when needed.</li>
+<li>[  ] <strong>Version control.</strong> The project is under Git (or equivalent), with meaningful commit history.</li>
+<li>[  ] <strong>Continuous Integration &amp; Delivery (CI/CD).</strong> Substantial change triggers automated builds or checks (e.g., GitHub Actions, GitLab CI, Jenkins).</li>
+<li>[  ] <strong>Automated reporting.</strong> Reports, figures, and logs are generated directly from code and kept in sync with model versions.</li>
+<li>[  ] <strong>Automated testing.</strong> Unit or reproducibility tests verify correctness of model components and pipelines.</li>
+<li>[  ] <strong>Automation of routine tasks.</strong> Data preprocessing, parameter fitting are scripted, not manual. Routine operations can be autocompleted or assisted by AI tools.</li>
+<li>[  ] <strong>Remote execution.</strong> Workflows can seamlessly run on HPC clusters or cloud resources when needed.</li>
 </ul>
 <p>If many of these boxes are checked, your workflow is aligned with modern software practices.</p>
 <hr>
-<p><strong>To be continued…</strong></p>
+<p><strong>Next: To be continued…</strong></p>
 
     </dev>
     <dev>
