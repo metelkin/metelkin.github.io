@@ -3,7 +3,7 @@ layout: post.njk
 title: 'Model Formats in Systems Pharmacology. Part 1'
 subtitle: 'The Missing Link Between Biology and Software Engineering'
 date: 2025-08-22
-lastModified: 2025-08-22
+lastModified: 2025-09-06
 description: 'An overview of how model formats shape QSP modeling—its challenges, tools, and why engineering practices are key for progress.'
 author: Evgeny Metelkin
 authorURL: https://metelkin.me
@@ -239,4 +239,4 @@ The **bigger issue** isn’t the formats themselves, but the **isolation of the 
 
 ---
 
-**To be continued…**
+**[Part 2: Engineering Practices We Can Borrow](/model-formats-for-systems-pharmacology-2)**
