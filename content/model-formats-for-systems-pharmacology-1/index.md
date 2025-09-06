@@ -23,6 +23,7 @@ tags:
     - biology
 
 ---
+**Part 1**, [Part 2](/model-formats-for-systems-pharmacology-2)
 
 ![Cover](./img/fig0-cover.jpg)
 
@@ -239,4 +240,4 @@ The **bigger issue** isn’t the formats themselves, but the **isolation of the 
 
 ---
 
-**[Part 2: Engineering Practices We Can Borrow](/model-formats-for-systems-pharmacology-2)**
+**Next: [Part 2: Engineering Practices We Can Borrow](/model-formats-for-systems-pharmacology-2)**

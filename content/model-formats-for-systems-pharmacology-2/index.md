@@ -23,6 +23,7 @@ tags:
     - biology
 
 ---
+[Part 1](/model-formats-for-systems-pharmacology-1), **Part 2**
 
 ![Cover](./img/fig0-cover.jpg)
 
@@ -222,14 +223,14 @@ This test is not about scoring “perfect” compliance. Instead, it highlights 
 
 Mark `[x]` for each practice that is true for your current workflow.
 
-- [ ] **Text-based authoritative source.** Every part of the model (equations, states, events, etc.) can be expressed in a human-readable text format (DSL/JSON/YAML).
-- [ ] **Extensibility.** You can add new components, pathways, drugs, and scripts without rewriting existing code. The time you spend on this is proportional to the size of updates, not exponential.
-- [ ] **Tool-agnostic.** You can open, edit and execute the model and other project parts using more or one tool. Or at least export/import to/from other formats without loss of information.
-- [ ] **Annotated & self-explanatory.** Your model includes clear names, units, and comments that explain its structure and assumptions. Annotations are machine-readable and will be preserved across tools.
-- [ ] **Meaningful diffs.** When a file changes, you can review and understand the difference (both technically and semantically) easily for any part of the project.
-- [ ] **Scriptable execution.** You are able to run and repeat simulations, fits, tests, and analyses from the command line or scripts, not only through a GUI. 
-- [ ] **Reproducible environment.** Dependencies, solver versions, and configuration are pinned (e.g., lockfiles, containers).  
-- [ ] **Clear structure.** The project follows a consistent folder/file layout that separates model, data, tasks, and results. All members of your project understand where to find and edit each part of the project.
+- [  ] **Text-based authoritative source.** Every part of the model (equations, states, events, etc.) can be expressed in a human-readable text format (DSL/JSON/YAML).
+- [  ] **Extensibility.** You can add new components, pathways, drugs, and scripts without rewriting existing code. The time you spend on this is proportional to the size of updates, not exponential.
+- [  ] **Tool-agnostic.** You can open, edit and execute the model and other project parts using more or one tool. Or at least export/import to/from other formats without loss of information.
+- [  ] **Annotated & self-explanatory.** Your model includes clear names, units, and comments that explain its structure and assumptions. Annotations are machine-readable and will be preserved across tools.
+- [  ] **Meaningful diffs.** When a file changes, you can review and understand the difference (both technically and semantically) easily for any part of the project.
+- [  ] **Scriptable execution.** You are able to run and repeat simulations, fits, tests, and analyses from the command line or scripts, not only through a GUI. 
+- [  ] **Reproducible environment.** Dependencies, solver versions, and configuration are pinned (e.g., lockfiles, containers).  
+- [  ] **Clear structure.** The project follows a consistent folder/file layout that separates model, data, tasks, and results. All members of your project understand where to find and edit each part of the project.
 
 If many of these boxes are checked, your workflow can be considered “model as code” and you can use many modern software practices with minor adjustments.
 
@@ -239,15 +240,15 @@ This checklist helps assess how much your project or workflow utilizes modern en
 
 Mark `[x]` for each practice that is in use.  
 
-- [ ] **Version control.** The project is under Git (or equivalent), with meaningful commit history.  
-- [ ] **Continuous Integration & Delivery (CI/CD).** Substantial change triggers automated builds or checks (e.g., GitHub Actions, GitLab CI, Jenkins).  
-- [ ] **Automated reporting.** Reports, figures, and logs are generated directly from code and kept in sync with model versions.  
-- [ ] **Automated testing.** Unit or reproducibility tests verify correctness of model components and pipelines. 
-- [ ] **Automation of routine tasks.** Data preprocessing, parameter fitting are scripted, not manual. Routine operations can be autocompleted or assisted by AI tools.  
-- [ ] **Remote execution.** Workflows can seamlessly run on HPC clusters or cloud resources when needed.  
+- [  ] **Version control.** The project is under Git (or equivalent), with meaningful commit history.  
+- [  ] **Continuous Integration & Delivery (CI/CD).** Substantial change triggers automated builds or checks (e.g., GitHub Actions, GitLab CI, Jenkins).  
+- [  ] **Automated reporting.** Reports, figures, and logs are generated directly from code and kept in sync with model versions.  
+- [  ] **Automated testing.** Unit or reproducibility tests verify correctness of model components and pipelines. 
+- [  ] **Automation of routine tasks.** Data preprocessing, parameter fitting are scripted, not manual. Routine operations can be autocompleted or assisted by AI tools.  
+- [  ] **Remote execution.** Workflows can seamlessly run on HPC clusters or cloud resources when needed.  
 
 If many of these boxes are checked, your workflow is aligned with modern software practices.
 
 ---
 
-**To be continued…**
+**Next: To be continued…**

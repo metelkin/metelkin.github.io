@@ -48,6 +48,9 @@ Today, as Co‑founder and Technology Director at [**InSysBio CY Ltd**](https
 - [Model Formats in Systems Pharmacology. Part 1](/model-formats-for-systems-pharmacology-1)
     The Missing Link Between Biology and Software Engineering
     2025-08-22
+- [Model Formats in Systems Pharmacology. Part 2](/model-formats-for-systems-pharmacology-2)
+    Engineering Practices We Can Borrow
+    2025-09-06
 
 ---
 
