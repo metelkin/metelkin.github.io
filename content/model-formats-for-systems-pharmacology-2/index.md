@@ -4,13 +4,13 @@ title: 'Model Formats in Systems Pharmacology. Part 2'
 subtitle: 'Engineering Practices We Can Borrow'
 date: 2025-09-06
 lastModified: 2025-09-06
-description: 'An overview of how model formats shape QSP modeling—its challenges, tools, and why engineering practices are key for progress.'
+description: '"Model as code" concept and layered structures can transform QSP models into transparent, modular, and long-lasting scientific assets.'
 author: Evgeny Metelkin
 authorURL: https://metelkin.me
 canonical: https://metelkin.me/model-formats-for-systems-pharmacology-2
 openGraph:
     title: 'Model Formats in Systems Pharmacology. Part 2: Engineering Practices We Can Borrow'
-    description: 'An overview of how model formats shape QSP modeling—its challenges, tools, and why engineering practices are key for progress.'
+    description: '"Model as code" concept and layered structures can transform QSP models into transparent, modular, and long-lasting scientific assets.'
     url: https://metelkin.me/model-formats-for-systems-pharmacology-2
     image: https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig0-cover.jpg
     site_name: Evgeny Metelkin
@@ -29,7 +29,7 @@ tags:
 
 _In [Part 1](/model-formats-for-systems-pharmacology-1), we looked at the landscape of QSP model formats—their origins, strengths, and limitations. In this follow-up, I want to step back and explore the problem from a software engineering perspective: what practices and design principles could make QSP modeling more transparent, modular, and reproducible, and how model formats can evolve to support that shift._
 
-## 5. Modeling as code
+## 5. Model as code
 
 In software, the “X as code” idea has proven itself many times over—**Infrastructure as Code** ([Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/infrastructure-as-code)), **Configuration as Code** ([Ansible](https://www.redhat.com/en/blog/ansible-automation-platform-2.3-configuration-as-code-improvements)), and **Pipeline as Code** ([Jenkins](https://www.jenkins.io/doc/book/pipeline/jenkinsfile/)), among others. The core idea is simple: we don’t just manage **artifacts** (infrastructure, configuration, pipelines) directly—we manage their **textual representation** under version control, even if those artifacts were never treated as “code” before. In all cases, the **authoritative source** (canonical source for other forms) is human-readable text. This doesn’t exclude working with diagrams or tables—authoring can stay visual or interactive, but the canonical format must still be code. This shift brought massive gains in transparency, modularity, and reproducibility, and accelerated progress in software engineering.
 
