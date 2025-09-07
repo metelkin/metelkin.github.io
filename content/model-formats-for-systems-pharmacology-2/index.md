@@ -3,7 +3,7 @@ layout: post.njk
 title: 'Model Formats in Systems Pharmacology. Part 2'
 subtitle: 'Engineering Practices We Can Borrow'
 date: 2025-09-06
-lastModified: 2025-09-06
+lastModified: 2025-09-07
 description: '"Model as code" concept and layered structures can transform QSP models into transparent, modular, and long-lasting scientific assets.'
 author: Evgeny Metelkin
 authorURL: https://metelkin.me
@@ -46,17 +46,17 @@ In practice, a model becomes more than a loose collection of files: it turns int
 A second requirement is **traceable change**. This is not only about being able to read the code, but also about being able to see what changed and why between versions. With text-based formats, differences are captured by standard tools (e.g., Git diff), making version control, peer review, and collaboration far more effective.
 
 ![Traceable change for NONMEM file](./img/fig1-nonmem.png)
-_**Fig. 1. Traceable change for NONMEM model file.** Files comparison in VSCode. Can see changes clearly._
+_**Fig. 1. Traceable change for NONMEM model file.** Files comparison in VSCode: old vs. new. Can see changes clearly._
 
 A desirable (not strictly mandatory) requirement is **self-explanatory code**. This means that the model description carries enough context-through clear naming, annotations, and units-that a new reader can understand the intent without constantly referring back to external notes or publications.
 
 ![Self-explanatory code trace in Antimony modeling language](./img/fig2-antimony.png)
-_**Fig. 2. Self-explanatory code trace in Antimony modeling language.** File comparison in VSCode. Model diff meaning easy to understand at a glance because of clear syntax._
+_**Fig. 2. Self-explanatory code trace in Antimony modeling language.** File comparison in VSCode: old vs. new. Model diff meaning easy to understand at a glance because of clear syntax._
 
 By contrast, QSP environments that store models in binary, closed, or otherwise non-readable formats cannot ensure transparency. They block the very practices-review, versioning, collaboration-that modern scientific software relies on. Even when dedicated comparison tools exist, they are typically ad-hoc, tied to a single platform, and rarely integrate smoothly into a team's normal project workflow. As a result, they are used sporadically and do not replace true text-level transparency.
 
 ![Non traceable change for SimBiology project](./img/fig3-simbio.png)
-_**Fig. 3. Non traceable change for SimBiology project.** Comparison in VSCode. Model change cannot be tracked in file comparison._
+_**Fig. 3. Non traceable change for SimBiology project (.sbproj).** File comparison in VSCode: old vs. new. Model change cannot be tracked because of binary format._
 
 ### Modularity
 
@@ -217,11 +217,11 @@ In software engineering, **[anti-patterns](https://en.wikipedia.org/wiki/List_of
 
 A couple of checklists is a simple way how you can check how well your current tools and workflows align with the principles of **"model as code"**.
 
+Mark ☑ for each practice that is true for your current workflow.
+
 ### Model-as-Code Maturity Checklist
 
 This test is not about scoring "perfect" compliance. Instead, it highlights areas where improvements may bring the biggest benefits, such as versioning, automation, or separation of layers.
-
-Mark ☑ for each practice that is true for your current workflow.
 
 - ☐ **Text-based authoritative source.** Every part of the project can be expressed in a human-readable text format (DSL/Macros/JSON/YAML).
 - ☐ **Model layer separation.** The model is stored separately from data, code, and results. Model files contain only model structure, equations, parameters, and annotations.
@@ -234,7 +234,7 @@ Mark ☑ for each practice that is true for your current workflow.
 - ☐ **Clear structure.** The project follows a consistent folder/file layout that separates model, data, tasks, and results. All members of your project understand where to find and edit each part of the project.
 - ☐ **Project conventions.** Your team has agreed on conventions for naming, versioning, and structuring the project. These conventions are documented and followed consistently.
 
-### Modern Practices Readiness Checklist
+### Modern Practices Checklist
 
 This checklist helps assess how much your project or workflow utilizes modern engineering practices.
 
