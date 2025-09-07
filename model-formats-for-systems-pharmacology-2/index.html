@@ -21,7 +21,7 @@
     <!-- article -->
     <meta property="article:author" content="https://metelkin.me" />
     <meta property="article:published_time" content="2025-09-06T00:00:00Z" />
-    <meta property="article:modified_time" content="2025-09-06T00:00:00Z" />
+    <meta property="article:modified_time" content="2025-09-07T00:00:00Z" />
     <!-- SEO -->
     <link rel="canonical" href="https://metelkin.me/model-formats-for-systems-pharmacology-2" />
     <!-- Open Graph -->
@@ -86,13 +86,13 @@
 <p><strong>Code transparency</strong> means that every aspect of a model is visible, reviewable, and understandable <strong>at a glance</strong>. This covers not only the model structure, but also the equations, parameters, and the assumptions embedded within it. A transparent format allows collaborators to see what exactly the model does without needing the original author or a proprietary tool to &quot;explain&quot; it.</p>
 <p>A second requirement is <strong>traceable change</strong>. This is not only about being able to read the code, but also about being able to see what changed and why between versions. With text-based formats, differences are captured by standard tools (e.g., Git diff), making version control, peer review, and collaboration far more effective.</p>
 <p><img src="./img/fig1-nonmem.png" alt="Traceable change for NONMEM file"><br>
-<em><strong>Fig. 1. Traceable change for NONMEM model file.</strong> Files comparison in VSCode. Can see changes clearly.</em></p>
+<em><strong>Fig. 1. Traceable change for NONMEM model file.</strong> Files comparison in VSCode: old vs. new. Can see changes clearly.</em></p>
 <p>A desirable (not strictly mandatory) requirement is <strong>self-explanatory code</strong>. This means that the model description carries enough context-through clear naming, annotations, and units-that a new reader can understand the intent without constantly referring back to external notes or publications.</p>
 <p><img src="./img/fig2-antimony.png" alt="Self-explanatory code trace in Antimony modeling language"><br>
-<em><strong>Fig. 2. Self-explanatory code trace in Antimony modeling language.</strong> File comparison in VSCode. Model diff meaning easy to understand at a glance because of clear syntax.</em></p>
+<em><strong>Fig. 2. Self-explanatory code trace in Antimony modeling language.</strong> File comparison in VSCode: old vs. new. Model diff meaning easy to understand at a glance because of clear syntax.</em></p>
 <p>By contrast, QSP environments that store models in binary, closed, or otherwise non-readable formats cannot ensure transparency. They block the very practices-review, versioning, collaboration-that modern scientific software relies on. Even when dedicated comparison tools exist, they are typically ad-hoc, tied to a single platform, and rarely integrate smoothly into a team's normal project workflow. As a result, they are used sporadically and do not replace true text-level transparency.</p>
 <p><img src="./img/fig3-simbio.png" alt="Non traceable change for SimBiology project"><br>
-<em><strong>Fig. 3. Non traceable change for SimBiology project.</strong> Comparison in VSCode. Model change cannot be tracked in file comparison.</em></p>
+<em><strong>Fig. 3. Non traceable change for SimBiology project (.sbproj).</strong> File comparison in VSCode: old vs. new. Model change cannot be tracked because of binary format.</em></p>
 <h3>Modularity</h3>
 <p><strong>Modularity</strong> is the ability to divide a project into independent parts that can be developed, tested, and reused separately. It comes from having clear interfaces and well-defined dependencies between components.</p>
 <p>Here we use the term broadly. It includes both the <strong>separation of different project layers</strong>: model, data, scripts (covered in more detail in the &quot;Separation of Concerns&quot; section), and the internal modularization of the model itself into subcomponents that are easier to manage and understand.</p>
@@ -248,9 +248,9 @@
 </table>
 <h2>7. Evaluating Your Workflow</h2>
 <p>A couple of checklists is a simple way how you can check how well your current tools and workflows align with the principles of <strong>&quot;model as code&quot;</strong>.</p>
+<p>Mark ☑ for each practice that is true for your current workflow.</p>
 <h3>Model-as-Code Maturity Checklist</h3>
 <p>This test is not about scoring &quot;perfect&quot; compliance. Instead, it highlights areas where improvements may bring the biggest benefits, such as versioning, automation, or separation of layers.</p>
-<p>Mark ☑ for each practice that is true for your current workflow.</p>
 <ul>
 <li>☐ <strong>Text-based authoritative source.</strong> Every part of the project can be expressed in a human-readable text format (DSL/Macros/JSON/YAML).</li>
 <li>☐ <strong>Model layer separation.</strong> The model is stored separately from data, code, and results. Model files contain only model structure, equations, parameters, and annotations.</li>
@@ -263,7 +263,7 @@
 <li>☐ <strong>Clear structure.</strong> The project follows a consistent folder/file layout that separates model, data, tasks, and results. All members of your project understand where to find and edit each part of the project.</li>
 <li>☐ <strong>Project conventions.</strong> Your team has agreed on conventions for naming, versioning, and structuring the project. These conventions are documented and followed consistently.</li>
 </ul>
-<h3>Modern Practices Readiness Checklist</h3>
+<h3>Modern Practices Checklist</h3>
 <p>This checklist helps assess how much your project or workflow utilizes modern engineering practices.</p>
 <ul>
 <li>☐ <strong>Version control.</strong> The project is under Version Control Tools (Git or equivalent), with meaningful commit history.</li>
