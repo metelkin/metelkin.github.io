@@ -16,11 +16,11 @@ openGraph:
     site_name: Evgeny Metelkin
     type: article
 tags: 
-    - SoftwareEngineering
+    - Software Engineering
     - modeling
-    - datascience
+    - QSP modeling
     - pharma
-    - biology
+    - pharmacometrics
 
 ---
 [Part 1](/model-formats-for-systems-pharmacology-1), **Part 2**
@@ -75,7 +75,7 @@ The more logically a QSP platform is divided into modules, the easier it becomes
 
 ### Longevity
 
-**Longevity** means that a model remains usable and trustworthy years after it was first created. Instead of “remembering which buttons we clicked,” the project can be rebuilt, rerun, and revalidated from its source.
+**Longevity** means that a model remains usable and trustworthy years after it was first created. Instead of “remembering which buttons we clicked,” the project can be rebuilt, rerun, and revalidated from its source ([FAIR Principles, Scientific Data, 2016](http://dx.doi.org/10.1038/sdata.2016.18)).
 
 ![Git commit history in QSP project.](./img/fig4-git.png)
 _**Fig. 4. Git commit history in QSP project.**: Commit history provides a timeline of changes in branches, enabling easy rollback and review._
@@ -87,7 +87,7 @@ What makes longevity possible:
 - **Readable formats.** Text-based models outlive specific tools; even if a GUI disappears, the core code can still be read, parsed, and converted.
 - **Re-validation.** As new data or regulatory requirements arise, archived models can be rerun and checked against updated knowledge.
 - **Knowledge preservation.** Annotations, comments, and documentation carry context, so understanding does not depend on the original author’s memory.
-- **Regulatory and audit needs.** Long-term reproducibility is critical for submissions: teams must show exactly what model was used to support a decision at a given time.
+- **Regulatory and audit needs.** Long-term reproducibility is critical for submissions: teams must show exactly what model was used to support a decision at a given time ([MID3 Good Practices, CPT: PSP, 2016](http:/dx.doi.org/10.1002/psp4.12049)).
 
 Longevity turns a QSP model from a one-off experiment into a sustainable scientific asset—something that can be reliably shared, revisited, and built upon.
 
@@ -95,7 +95,7 @@ Longevity turns a QSP model from a one-off experiment into a sustainable scienti
 
 **Automation** means that models are executed and tested through scripts instead of manual clicks. Once a model is code, it can be integrated into pipelines that ensure consistent, repeatable runs for simulations, parameter estimation, or sensitivity analyses.
 
-With CI/CD, every commit can automatically launch validation tasks, generate reports, or even dispatch heavy computations to a more powerful server or cluster. This reduces human error, scales effortlessly, and makes QSP projects more reliable and collaborative.
+With CI/CD, every commit can automatically launch validation tasks, generate reports, or even dispatch heavy computations to a more powerful server or cluster ([Continuous Delivery, Addison-Wesley, 2010][https://www.oreilly.com/library/view/continuous-delivery-reliable/9780321670250/]). This reduces human error, scales effortlessly, and makes QSP projects more reliable and collaborative .
 
 ### LLM & AI
 
@@ -248,7 +248,3 @@ Mark `[x]` for each practice that is in use.
 - [  ] **Remote execution.** Workflows can seamlessly run on HPC clusters or cloud resources when needed.  
 
 If many of these boxes are checked, your workflow is aligned with modern software practices.
-
----
-
-**Next: To be continued…**
