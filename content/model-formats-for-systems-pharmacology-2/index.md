@@ -4,13 +4,13 @@ title: 'Model Formats in Systems Pharmacology. Part 2'
 subtitle: 'Engineering Practices We Can Borrow'
 date: 2025-09-06
 lastModified: 2025-09-07
-description: '"Model as code" concept and layered structures can transform QSP models into transparent, modular, and long-lasting scientific assets.'
+description: 'Exploring how engineering practices such as "model as code" and layered design can improve QSP modeling, making projects more transparent, modular, and reproducible.'
 author: Evgeny Metelkin
 authorURL: https://metelkin.me
 canonical: https://metelkin.me/model-formats-for-systems-pharmacology-2
 openGraph:
     title: 'Model Formats in Systems Pharmacology. Part 2: Engineering Practices We Can Borrow'
-    description: '"Model as code" concept and layered structures can transform QSP models into transparent, modular, and long-lasting scientific assets.'
+    description: 'Exploring how engineering practices such as "model as code" and layered design can improve QSP modeling, making projects more transparent, modular, and reproducible.'
     url: https://metelkin.me/model-formats-for-systems-pharmacology-2
     image: https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig0-cover.jpg
     site_name: Evgeny Metelkin
@@ -23,7 +23,7 @@ tags:
     - pharmacometrics
 
 ---
-[Part 1](/model-formats-for-systems-pharmacology-1), **Part 2**
+#### [Part 1](/model-formats-for-systems-pharmacology-1), Part 2
 
 ![Cover](./img/fig0-cover.jpg)
 
