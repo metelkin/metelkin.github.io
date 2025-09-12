@@ -95,7 +95,7 @@ Longevity turns a QSP model from a one-off experiment into a **sustainable scien
 
 **Automation** means that models are executed and tested through scripts instead of manual clicks. Once a model is code, it can be integrated into pipelines that ensure consistent, repeatable runs for testing, simulations, parameter estimation, or sensitivity analyses.
 
-With **CI/CD**, every commit can automatically launch validation tasks, generate reports, or even dispatch heavy computations to a more powerful server or cluster ([Continuous Delivery, Addison-Wesley, 2010][https://www.oreilly.com/library/view/continuous-delivery-reliable/9780321670250/]). This reduces human error, scales effortlessly, and makes QSP projects more reliable and collaborative .
+With **CI/CD**, every commit can automatically launch validation tasks, generate reports, or even dispatch heavy computations to a more powerful server or cluster ([Continuous Delivery, Addison-Wesley, 2010](https://www.oreilly.com/library/view/continuous-delivery-reliable/9780321670250/)). This reduces human error, scales effortlessly, and makes QSP projects more reliable and collaborative.
 
 ### LLM & AI
 
@@ -245,3 +245,6 @@ This checklist helps assess how much your project or workflow utilizes modern en
 - ☐ **Automation of routine tasks.** Data preprocessing, parameter fitting are scripted, not manual. Routine operations can be autocompleted or assisted by AI tools. 
 - ☐ **Remote execution.** Workflows can seamlessly run on HPC clusters (like SLURM) or cloud resources when needed.
 
+---
+
+**Previous: [Part 1: The Missing Link Between Biology and Software Engineering](/model-formats-for-systems-pharmacology-1)**
