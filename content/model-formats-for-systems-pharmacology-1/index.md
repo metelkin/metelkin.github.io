@@ -7,11 +7,11 @@ lastModified: 2025-09-06
 description: 'An overview of software and model formats in Systems Pharmacology (QSP) — their strengths and weaknesses, and how engineering practices reveal hidden limits and opportunities.'
 author: Evgeny Metelkin
 authorURL: https://metelkin.me
-canonical: https://metelkin.me/model-formats-for-systems-pharmacology-1
+canonical: https://metelkin.me/model-formats-for-systems-pharmacology-1/
 openGraph:
     title: 'Model Formats in Systems Pharmacology. Part 1: The Missing Link Between Biology and Software Engineering'
     description: 'An overview of software and model formats in Systems Pharmacology (QSP) — their strengths and weaknesses, and how engineering practices reveal hidden limits and opportunities.'
-    url: https://metelkin.me/model-formats-for-systems-pharmacology-1
+    url: https://metelkin.me/model-formats-for-systems-pharmacology-1/
     image: https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig0-cover.jpg
     site_name: Evgeny Metelkin
     type: article
@@ -23,7 +23,7 @@ tags:
     - biology
 
 ---
-#### Part 1, [Part 2](/model-formats-for-systems-pharmacology-2)
+#### Part 1, [Part 2](/model-formats-for-systems-pharmacology-2/)
 
 ![Cover](./img/fig0-cover.jpg)
 
@@ -240,4 +240,4 @@ The **bigger issue** isn’t the formats themselves, but the **isolation of the 
 
 ---
 
-**Next: [Part 2: Engineering Practices We Can Borrow](/model-formats-for-systems-pharmacology-2)**
+**Next: [Part 2: Engineering Practices We Can Borrow](/model-formats-for-systems-pharmacology-2/)**

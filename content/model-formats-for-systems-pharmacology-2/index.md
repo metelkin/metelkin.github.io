@@ -7,11 +7,11 @@ lastModified: 2025-09-07
 description: 'Exploring how engineering practices such as "model as code" and layered design can improve QSP modeling, making projects more transparent, modular, and reproducible.'
 author: Evgeny Metelkin
 authorURL: https://metelkin.me
-canonical: https://metelkin.me/model-formats-for-systems-pharmacology-2
+canonical: https://metelkin.me/model-formats-for-systems-pharmacology-2/
 openGraph:
     title: 'Model Formats in Systems Pharmacology. Part 2: Engineering Practices We Can Borrow'
     description: 'Exploring how engineering practices such as "model as code" and layered design can improve QSP modeling, making projects more transparent, modular, and reproducible.'
-    url: https://metelkin.me/model-formats-for-systems-pharmacology-2
+    url: https://metelkin.me/model-formats-for-systems-pharmacology-2/
     image: https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig0-cover.jpg
     site_name: Evgeny Metelkin
     type: article
@@ -23,11 +23,11 @@ tags:
     - pharmacometrics
 
 ---
-#### [Part 1](/model-formats-for-systems-pharmacology-1), Part 2
+#### [Part 1](/model-formats-for-systems-pharmacology-1/), Part 2
 
 ![Cover](./img/fig0-cover.jpg)
 
-_In [Part 1](/model-formats-for-systems-pharmacology-1), we looked at the landscape of QSP model formats-their origins, strengths, and limitations. In this follow-up, I want to step back and explore the problem from a software engineering perspective: what practices and design principles could make QSP modeling more transparent, modular, and reproducible, and how model formats can evolve to support that shift._
+_In [Part 1](/model-formats-for-systems-pharmacology-1/), we looked at the landscape of QSP model formats-their origins, strengths, and limitations. In this follow-up, I want to step back and explore the problem from a software engineering perspective: what practices and design principles could make QSP modeling more transparent, modular, and reproducible, and how model formats can evolve to support that shift._
 
 ## 5. Model as code
 
@@ -247,4 +247,4 @@ This checklist helps assess how much your project or workflow utilizes modern en
 
 ---
 
-**Previous: [Part 1: The Missing Link Between Biology and Software Engineering](/model-formats-for-systems-pharmacology-1)**
+**Previous: [Part 1: The Missing Link Between Biology and Software Engineering](/model-formats-for-systems-pharmacology-1/)**
