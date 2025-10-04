@@ -13,9 +13,14 @@ const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 // https://stefanzweifel.dev/posts/2024/06/03/how-i-use-shiki-in-eleventy/
 
 module.exports = async function(eleventyConfig) {
-  // collection post
-  eleventyConfig.addCollection("posts", (collection) => {
+  // collection for all pages with "post" tag
+  eleventyConfig.addCollection("postPages", (collection) => {
     return collection.getFilteredByTag("post").sort((a, b) => b.date - a.date);
+  });
+
+  // collection for all pages with "julia" tag
+  eleventyConfig.addCollection("juliaPages", (collection) => {
+    return collection.getFilteredByTag("julia").sort((a, b) => b.date - a.date);
   });
 
   // filter to format date as YYYY-MM-DD
@@ -60,9 +65,9 @@ module.exports = async function(eleventyConfig) {
   // RSS feed
   eleventyConfig.addPlugin(feedPlugin, {
 		type: "atom", // or "rss", "json"
-		outputPath: "/feed.xml",
+		outputPath: "/feed/post.xml",
 		collection: {
-			name: "posts", // iterate over `collections.posts`
+			name: "postPages", // iterate over `collections.posts`
 			limit: 0,     // 0 means no limit
 		},
 		metadata: {
@@ -76,6 +81,19 @@ module.exports = async function(eleventyConfig) {
 			}
 		}
 	});
+
+  eleventyConfig.addPlugin(feedPlugin, {
+    type: "atom",
+    outputPath: "/feed/julia.xml",
+    collection: { name: "juliaPages", limit: 0 },
+    metadata: {
+      language: "en",
+      title: "Evgeny Metelkin",
+      subtitle: "Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect",
+      base: "https://metelkin.me/",
+      author: { name: "Evgeny Metelkin" }
+    }
+  });
   
   return {
     dir: {

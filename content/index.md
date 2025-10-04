@@ -68,7 +68,7 @@ Today, as Co‑founder and Technology Director at [**InSysBio CY Ltd**](https
 - **LinkedIn:** [linkedin.com/in/metelkin](https://www.linkedin.com/in/metelkin)  
 - **GitHub:** [github.com/metelkin](https://github.com/metelkin)
 - **ResearchGate:** [researchgate.net/profile/Evgeny-Metelkin](https://www.researchgate.net/profile/Evgeny-Metelkin)
-
+- **RSS Feed (Atom):** [metelkin.me/feed/post.xml](https://metelkin.me/feed/post.xml)
 ---
 
 *© 2025 Evgeny Metelkin. Opinions expressed are my own and do not necessarily reflect those of InSysBio.*
