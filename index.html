@@ -38,6 +38,14 @@
         .half:first-child { width: 60%;}
         .half:last-child { width: 40%; }
 
+        .minlist{list-style:none;margin:0;padding:0}
+        .minlist li{padding:.5rem 0;border-bottom:1px solid #f2f2f2}
+        .minrow{display:flex;gap:.75rem;align-items:baseline}
+        .minlink{font-weight:600;text-decoration:none}
+        .minlink:hover{text-decoration:underline}
+        .mindate{margin-left:auto;color:#888;font-size:.9em;white-space:nowrap}
+        .minsub{color:#666;margin-top:.15rem}
+
         @media (max-width: 768px) {
             .container { flex-direction: column; }
             .half { width: 100% !important; }
@@ -81,7 +89,28 @@
             <img src="assets/metelkin-1.jpg" alt="Evgeny Metelkin">
         </div>
     </div>
+    
     <dev class="markdown-body">
+        <h3>Recent posts:</h3>
+        <ul class="minlist">
+        
+        <li>
+            <div class="minrow">
+            <a class="minlink" href="/model-formats-for-systems-pharmacology-1/">Model Formats in Systems Pharmacology. Part 1</a>
+            <time class="mindate" datetime="Fri Aug 22 2025 00:00:00 GMT+0000 (Coordinated Universal Time)">2025-08-22</time>
+            </div>
+            <div class="minsub">The Missing Link Between Biology and Software Engineering</div>
+        </li>
+        
+        <li>
+            <div class="minrow">
+            <a class="minlink" href="/model-formats-for-systems-pharmacology-2/">Model Formats in Systems Pharmacology. Part 2</a>
+            <time class="mindate" datetime="Sat Sep 06 2025 00:00:00 GMT+0000 (Coordinated Universal Time)">2025-09-06</time>
+            </div>
+            <div class="minsub">Engineering Practices We Can Borrow</div>
+        </li>
+        
+        </ul>
         <h2>About Me</h2>
 <p>I earned an MSc in Biochemical Physics and a PhD in Biophysics from Lomonosov Moscow State University. Since 2004 I’ve been on a mission to make Quantitative Systems Pharmacology (QSP) modeling as intuitive and scalable as modern software engineering.</p>
 <p>Today, as Co‑founder and Technology Director at <a href="https://insysbio.com" target="_blank" rel="noopener noreferrer"><strong>InSysBio CY Ltd</strong></a>, I drive the creation of next‑generation modeling platforms that empower scientists to iterate, collaborate, and make data‑backed decisions across the drug‑development lifecycle.</p>
@@ -117,16 +146,6 @@
 </tr>
 </tbody>
 </table>
-<hr>
-<h2>Posts</h2>
-<ul>
-<li><a href="/model-formats-for-systems-pharmacology-1/">Model Formats in Systems Pharmacology. Part 1</a><br>
-The Missing Link Between Biology and Software Engineering<br>
-2025-08-22</li>
-<li><a href="/model-formats-for-systems-pharmacology-2/">Model Formats in Systems Pharmacology. Part 2</a><br>
-Engineering Practices We Can Borrow<br>
-2025-09-06</li>
-</ul>
 <hr>
 <h2>Flagship Software Projects</h2>
 <ul>
