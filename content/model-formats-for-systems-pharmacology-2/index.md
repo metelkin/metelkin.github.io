@@ -16,11 +16,12 @@ openGraph:
     site_name: Evgeny Metelkin
     type: article
 tags: 
-    - Software Engineering
+    - post
+    - SystemsPharmacology
+    - SoftwareEngineering
     - modeling
-    - QSP modeling
+    - datascience
     - pharma
-    - pharmacometrics
 
 ---
 #### [Part 1](/model-formats-for-systems-pharmacology-1/), Part 2

@@ -33,7 +33,20 @@ mainPhoto: ***
             {%- endif %}
         </div>
     </div>
+    
     <dev class="markdown-body">
+        <h3>Recent posts:</h3>
+        <ul class="minlist">
+        {% for post in collections.post %}
+        <li>
+            <div class="minrow">
+            <a class="minlink" href="{{ post.url }}">{{ post.data.title }}</a>
+            <time class="mindate" datetime="{{ post.date }}">{{ post.date | ymd }}</time>
+            </div>
+            {% if post.data.subtitle %}<div class="minsub">{{ post.data.subtitle }}</div>{% endif %}
+        </li>
+        {% endfor %}
+        </ul>
         {{ content | safe }}
     </dev>
 {% endblock %}

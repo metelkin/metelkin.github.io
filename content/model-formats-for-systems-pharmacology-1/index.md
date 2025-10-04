@@ -16,11 +16,12 @@ openGraph:
     site_name: Evgeny Metelkin
     type: article
 tags: 
+    - post
+    - SystemsPharmacology
     - SoftwareEngineering
     - modeling
     - datascience
     - pharma
-    - biology
 
 ---
 #### Part 1, [Part 2](/model-formats-for-systems-pharmacology-2/)

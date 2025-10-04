@@ -12,6 +12,16 @@ const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 // https://stefanzweifel.dev/posts/2024/06/03/how-i-use-shiki-in-eleventy/
 
 module.exports = async function(eleventyConfig) {
+  // collection post
+  eleventyConfig.addCollection("posts", (collection) => {
+    return collection.getFilteredByTag("post").sort((a, b) => b.date - a.date);
+  });
+
+  // filter to format date as YYYY-MM-DD
+  eleventyConfig.addFilter("ymd", (dateObj) => {
+    try { return dateObj.toISOString().slice(0, 10); } catch { return ""; }
+  });
+
   // tune links
   let mdLib = md({html: true, breaks: true, linkify: true}).use(mila, [
       {
