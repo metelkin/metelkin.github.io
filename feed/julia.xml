@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <title>Evgeny Metelkin</title>
+  <subtitle>Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect</subtitle>
+  <link href="https://metelkin.me/feed/julia.xml" rel="self" />
+  <link href="https://metelkin.me/" />
+  <updated>2025-10-04T00:00:00Z</updated>
+  <id>https://metelkin.me/</id>
+  <author>
+    <name>Evgeny Metelkin</name>
+  </author>
+  <entry>
+    <title>Keep Julia Awake: NoSleep.jl</title>
+    <link href="https://metelkin.me/keep-julia-awake/" />
+    <updated>2025-10-04T00:00:00Z</updated>
+    <id>https://metelkin.me/keep-julia-awake/</id>
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/keep-julia-awake/img/fig0-cover.jpg&quot; alt=&quot;Cover&quot;&gt;&lt;/p&gt;
+&lt;p&gt;When you run long Julia simulations or heavy computations on a laptop, you don&#39;t want your machine to fall asleep in the middle of the job.&lt;br&gt;
+On Windows, macOS, or Linux, the system may suspend itself even if Julia is still crunching numbers — leading to wasted time, broken HTTP calls, or stalled jobs.&lt;/p&gt;
+&lt;p&gt;This is the reason &lt;a href=&quot;https://github.com/hetalang/NoSleep.jl&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;NoSleep.jl&lt;/a&gt; exists: a lightweight cross-platform Julia package that prevents your machine from falling asleep during long computations.&lt;/p&gt;
+&lt;h2&gt;How it works&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Windows:&lt;/strong&gt; uses WinAPI &lt;code&gt;SetThreadExecutionState&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;macOS:&lt;/strong&gt; uses the built-in &lt;code&gt;caffeinate&lt;/code&gt; tool.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux (systemd):&lt;/strong&gt; uses &lt;code&gt;systemd-inhibit&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Each backend is safe: once your block finishes (or Julia exits), the inhibitor is released automatically.&lt;/p&gt;
+&lt;h2&gt;Usage&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Block form&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;language-julia&quot;&gt;&lt;code class=&quot;language-julia&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;using&lt;/span&gt; NoSleep
+
+with_nosleep&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# Your long computation&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Keep the display awake too&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;language-julia&quot;&gt;&lt;code class=&quot;language-julia&quot;&gt;with_nosleep&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; keep_display&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# Your long computation&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Notes &amp;amp; Side-effects&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Saves you from wasted hours if the OS suspends mid-job. No frustration.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Useful when running code overnight or unattended.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Cross-platform: works out of the box on Windows, macOS, and Linux.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Does not prevent suspend/hibernate when you close the lid or press the laptop&#39;s power button — it only blocks automatic idle sleep.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Feedback and contributions welcome: &lt;a href=&quot;https://github.com/hetalang/NoSleep.jl&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GitHub repo&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
+</feed>
