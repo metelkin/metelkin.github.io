@@ -1,6 +1,7 @@
 const sitemap = require("@quasibit/eleventy-plugin-sitemap");
 const md = require("markdown-it");
 const mila = require("markdown-it-link-attributes");
+const { feedPlugin } = require("@11ty/eleventy-plugin-rss");
 
 // Prism highlighter
 // npm install --save-dev @11ty/eleventy-plugin-syntaxhighlight
@@ -55,6 +56,26 @@ module.exports = async function(eleventyConfig) {
   // default license for content
   eleventyConfig.addGlobalData("license", "CC-BY-4.0");
   eleventyConfig.addGlobalData("licenseUrl", "https://creativecommons.org/licenses/by/4.0/");
+
+  // RSS feed
+  eleventyConfig.addPlugin(feedPlugin, {
+		type: "atom", // or "rss", "json"
+		outputPath: "/feed.xml",
+		collection: {
+			name: "posts", // iterate over `collections.posts`
+			limit: 0,     // 0 means no limit
+		},
+		metadata: {
+			language: "en",
+			title: "Evgeny Metelkin, PhD",
+			subtitle: "Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect",
+			base: "https://metelkin.me/",
+			author: {
+				name: "Evgeny Metelkin",
+				//email: "", // Optional
+			}
+		}
+	});
   
   return {
     dir: {
