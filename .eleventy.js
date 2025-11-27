@@ -93,7 +93,7 @@ module.exports = async function(eleventyConfig) {
     collection: { name: "juliaPages", limit: 0 },
     metadata: {
       language: "en",
-      title: "Evgeny Metelkin",
+      title: "Evgeny Metelkin - Julia posts",
       subtitle: "Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect",
       base: "https://metelkin.me/",
       author: { name: "Evgeny Metelkin" }
@@ -107,7 +107,7 @@ module.exports = async function(eleventyConfig) {
     collection: { name: "rPages", limit: 0 },
     metadata: {
       language: "en",
-      title: "Evgeny Metelkin",
+      title: "Evgeny Metelkin - R posts",
       subtitle: "Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect",
       base: "https://metelkin.me/",
       author: { name: "Evgeny Metelkin" }
