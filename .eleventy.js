@@ -23,6 +23,11 @@ module.exports = async function(eleventyConfig) {
     return collection.getFilteredByTag("julia").sort((a, b) => b.date - a.date);
   });
 
+  // collection for all pages with "r" tag
+  eleventyConfig.addCollection("rPages", (collection) => {
+    return collection.getFilteredByTag("r").sort((a, b) => b.date - a.date);
+  });
+
   // filter to format date as YYYY-MM-DD
   eleventyConfig.addFilter("ymd", (dateObj) => {
     try { return dateObj.toISOString().slice(0, 10); } catch { return ""; }
