@@ -94,6 +94,20 @@ module.exports = async function(eleventyConfig) {
       author: { name: "Evgeny Metelkin" }
     }
   });
+
+  // for R
+  eleventyConfig.addPlugin(feedPlugin, {
+    type: "atom",
+    outputPath: "/feed/r.xml",
+    collection: { name: "rPages", limit: 0 },
+    metadata: {
+      language: "en",
+      title: "Evgeny Metelkin",
+      subtitle: "Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect",
+      base: "https://metelkin.me/",
+      author: { name: "Evgeny Metelkin" }
+    }
+  });
   
   return {
     dir: {
