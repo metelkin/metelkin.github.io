@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <title>Evgeny Metelkin - R posts</title>
+  <subtitle>Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect</subtitle>
+  <link href="https://metelkin.me/feed/r.xml" rel="self" />
+  <link href="https://metelkin.me/" />
+  <updated>2025-11-28T00:00:00Z</updated>
+  <id>https://metelkin.me/</id>
+  <author>
+    <name>Evgeny Metelkin</name>
+  </author>
+  <entry>
+    <title>Keep R Awake During Long Jobs with NoSleepR</title>
+    <link href="https://metelkin.me/keep-r-awake/" />
+    <updated>2025-11-28T00:00:00Z</updated>
+    <id>https://metelkin.me/keep-r-awake/</id>
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/keep-r-awake/img/fig0-cover.jpg&quot; alt=&quot;Cover&quot;&gt;&lt;/p&gt;
+&lt;p&gt;When R runs something heavy for an hour or two, laptops don&#39;t always care - many will still go to sleep if there&#39;s no user activity.&lt;br&gt;
+On Windows with Modern Standby, on macOS with default power settings, or on Linux with aggressive power-saving policies, this can interrupt work even if R is still busy.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NoSleepR&lt;/strong&gt; solves this problem with a simple idea:&lt;br&gt;
+&lt;strong&gt;keep the system awake only while R is doing something important, and let it return to normal afterward.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;It uses the operating system&#39;s official sleep-prevention mechanisms:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Windows:&lt;/strong&gt; PowerRequest API&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;macOS:&lt;/strong&gt; &lt;code&gt;caffeinate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Linux (systemd):&lt;/strong&gt; &lt;code&gt;systemd-inhibit&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;No hacks, no fake mouse movement, and no permanent power-plan changes.&lt;/p&gt;
+&lt;h2&gt;Quick start&lt;/h2&gt;
+&lt;p&gt;Install from CRAN:&lt;/p&gt;
+&lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;install.packages&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;NoSleepR&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+library&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;NoSleepR&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Basic usage&lt;/h2&gt;
+&lt;p&gt;Turn sleep prevention on manually:&lt;/p&gt;
+&lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;nosleep_on&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# long-running R work here&lt;/span&gt;
+nosleep_off&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or wrap a block:&lt;/p&gt;
+&lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;with_nosleep&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# heavy computation here&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If needed, keep the screen awake too:&lt;/p&gt;
+&lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;with_nosleep&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;keep_display &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# long-running code&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is particularly useful on Windows laptops that ignore sleep-prevention when the display turns off in battery mode.&lt;/p&gt;
+&lt;h2&gt;Why this package exists&lt;/h2&gt;
+&lt;p&gt;Disabling sleep mode globally works, but it&#39;s overkill:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;consumes battery even when idle,&lt;/li&gt;
+&lt;li&gt;requires changing system settings (sometimes blocked by admins),&lt;/li&gt;
+&lt;li&gt;easy to forget to revert.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;NoSleepR&lt;/code&gt; keeps things simple: &lt;strong&gt;only stay awake when the code runs.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If your workflow calls &lt;strong&gt;C++&lt;/strong&gt;, &lt;strong&gt;Rcpp&lt;/strong&gt;, &lt;strong&gt;external binaries&lt;/strong&gt;, or other &lt;strong&gt;blocking system calls&lt;/strong&gt;, they are covered as long as R waits for them to finish.&lt;/p&gt;
+&lt;h2&gt;What NoSleepR does &lt;em&gt;not&lt;/em&gt; do&lt;/h2&gt;
+&lt;p&gt;Some behaviors are controlled strictly by the OS and cannot be overridden:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;closing the laptop lid forces sleep,&lt;/li&gt;
+&lt;li&gt;pressing the power button forces sleep,&lt;/li&gt;
+&lt;li&gt;corporate-managed policies may override PowerRequest.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;On remote servers, the package does nothing: servers normally do not sleep, and remote session drops are usually network timeouts.&lt;/p&gt;
+&lt;h2&gt;Practical scenarios&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;overnight simulations&lt;/li&gt;
+&lt;li&gt;bootstrap or MCMC workflows&lt;/li&gt;
+&lt;li&gt;machine-learning training loops&lt;/li&gt;
+&lt;li&gt;ETL or data-cleaning pipelines&lt;/li&gt;
+&lt;li&gt;unattended scripts on laptops with aggressive sleep policies&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If the &amp;quot;YouTube tab&amp;quot; method works for you, &lt;code&gt;NoSleepR&lt;/code&gt; will work too - but without wasting power or being ridiculous.&lt;/p&gt;
+&lt;h2&gt;Feedback&lt;/h2&gt;
+&lt;p&gt;Bug reports, suggestions, and contributions are welcome:&lt;/p&gt;
+&lt;p&gt;👉 &lt;a href=&quot;https://github.com/hetalang/NoSleepR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://github.com/hetalang/NoSleepR&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+</feed>
