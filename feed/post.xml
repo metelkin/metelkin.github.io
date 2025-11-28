@@ -597,11 +597,10 @@ On Windows with Modern Standby, on macOS with default power settings, or on Linu
 &lt;li&gt;&lt;strong&gt;Linux (systemd):&lt;/strong&gt; &lt;code&gt;systemd-inhibit&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;No hacks, no fake mouse movement, and no permanent power-plan changes.&lt;/p&gt;
-&lt;h2&gt;Quick start&lt;/h2&gt;
+&lt;h2&gt;Basic usage&lt;/h2&gt;
 &lt;p&gt;Install from CRAN:&lt;/p&gt;
 &lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;install.packages&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;NoSleepR&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 library&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;NoSleepR&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;Basic usage&lt;/h2&gt;
 &lt;p&gt;Turn sleep prevention on manually:&lt;/p&gt;
 &lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;nosleep_on&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;token comment&quot;&gt;# long-running R work here&lt;/span&gt;
@@ -624,7 +623,7 @@ nosleep_off&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;spa
 &lt;/ul&gt;
 &lt;p&gt;&lt;code&gt;NoSleepR&lt;/code&gt; keeps things simple: &lt;strong&gt;only stay awake when the code runs.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;If your workflow calls &lt;strong&gt;C++&lt;/strong&gt;, &lt;strong&gt;Rcpp&lt;/strong&gt;, &lt;strong&gt;external binaries&lt;/strong&gt;, or other &lt;strong&gt;blocking system calls&lt;/strong&gt;, they are covered as long as R waits for them to finish.&lt;/p&gt;
-&lt;h2&gt;What NoSleepR does &lt;em&gt;not&lt;/em&gt; do&lt;/h2&gt;
+&lt;h2&gt;What NoSleepR does ΝΟΤ do&lt;/h2&gt;
 &lt;p&gt;Some behaviors are controlled strictly by the OS and cannot be overridden:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;closing the laptop lid forces sleep,&lt;/li&gt;
@@ -640,7 +639,7 @@ nosleep_off&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;spa
 &lt;li&gt;ETL or data-cleaning pipelines&lt;/li&gt;
 &lt;li&gt;unattended scripts on laptops with aggressive sleep policies&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;If the &amp;quot;YouTube tab&amp;quot; method works for you, &lt;code&gt;NoSleepR&lt;/code&gt; will work too - but without wasting power or being ridiculous.&lt;/p&gt;
+&lt;p&gt;If the &amp;quot;YouTube tab&amp;quot; method works for you, &lt;code&gt;NoSleepR&lt;/code&gt; will work too but without wasting power or being ridiculous.&lt;/p&gt;
 &lt;h2&gt;Feedback&lt;/h2&gt;
 &lt;p&gt;Bug reports, suggestions, and contributions are welcome:&lt;/p&gt;
 &lt;p&gt;👉 &lt;a href=&quot;https://github.com/hetalang/NoSleepR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://github.com/hetalang/NoSleepR&lt;/a&gt;&lt;/p&gt;

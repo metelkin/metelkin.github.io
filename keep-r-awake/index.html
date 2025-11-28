@@ -94,11 +94,10 @@ On Windows with Modern Standby, on macOS with default power settings, or on Linu
 <li><strong>Linux (systemd):</strong> <code>systemd-inhibit</code></li>
 </ul>
 <p>No hacks, no fake mouse movement, and no permanent power-plan changes.</p>
-<h2>Quick start</h2>
+<h2>Basic usage</h2>
 <p>Install from CRAN:</p>
 <pre class="language-r"><code class="language-r">install.packages<span class="token punctuation">(</span><span class="token string">"NoSleepR"</span><span class="token punctuation">)</span>
 library<span class="token punctuation">(</span>NoSleepR<span class="token punctuation">)</span></code></pre>
-<h2>Basic usage</h2>
 <p>Turn sleep prevention on manually:</p>
 <pre class="language-r"><code class="language-r">nosleep_on<span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token comment"># long-running R work here</span>
@@ -121,7 +120,7 @@ nosleep_off<span class="token punctuation">(</span><span class="token punctuatio
 </ul>
 <p><code>NoSleepR</code> keeps things simple: <strong>only stay awake when the code runs.</strong></p>
 <p>If your workflow calls <strong>C++</strong>, <strong>Rcpp</strong>, <strong>external binaries</strong>, or other <strong>blocking system calls</strong>, they are covered as long as R waits for them to finish.</p>
-<h2>What NoSleepR does <em>not</em> do</h2>
+<h2>What NoSleepR does ΝΟΤ do</h2>
 <p>Some behaviors are controlled strictly by the OS and cannot be overridden:</p>
 <ul>
 <li>closing the laptop lid forces sleep,</li>
@@ -137,7 +136,7 @@ nosleep_off<span class="token punctuation">(</span><span class="token punctuatio
 <li>ETL or data-cleaning pipelines</li>
 <li>unattended scripts on laptops with aggressive sleep policies</li>
 </ul>
-<p>If the &quot;YouTube tab&quot; method works for you, <code>NoSleepR</code> will work too - but without wasting power or being ridiculous.</p>
+<p>If the &quot;YouTube tab&quot; method works for you, <code>NoSleepR</code> will work too but without wasting power or being ridiculous.</p>
 <h2>Feedback</h2>
 <p>Bug reports, suggestions, and contributions are welcome:</p>
 <p>👉 <a href="https://github.com/hetalang/NoSleepR" target="_blank" rel="noopener noreferrer">https://github.com/hetalang/NoSleepR</a></p>
