@@ -38,7 +38,7 @@ It uses the operating system's official sleep-prevention mechanisms:
 
 No hacks, no fake mouse movement, and no permanent power-plan changes.
 
-## Quick start
+## Basic usage
 
 Install from CRAN:
 
@@ -46,8 +46,6 @@ Install from CRAN:
 install.packages("NoSleepR")
 library(NoSleepR)
 ```
-
-## Basic usage
 
 Turn sleep prevention on manually:
 
@@ -87,7 +85,7 @@ Disabling sleep mode globally works, but it's overkill:
 
 If your workflow calls **C++**, **Rcpp**, **external binaries**, or other **blocking system calls**, they are covered as long as R waits for them to finish.
 
-## What NoSleepR does *not* do
+## What NoSleepR does ΝΟΤ do
 
 Some behaviors are controlled strictly by the OS and cannot be overridden:
 
@@ -105,7 +103,7 @@ On remote servers, the package does nothing: servers normally do not sleep, and 
 - ETL or data-cleaning pipelines
 - unattended scripts on laptops with aggressive sleep policies
 
-If the "YouTube tab" method works for you, `NoSleepR` will work too - but without wasting power or being ridiculous.
+If the "YouTube tab" method works for you, `NoSleepR` will work too but without wasting power or being ridiculous.
 
 ## Feedback
 
