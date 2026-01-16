@@ -4,7 +4,7 @@
   <subtitle>Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect</subtitle>
   <link href="https://metelkin.me/feed/post.xml" rel="self" />
   <link href="https://metelkin.me/" />
-  <updated>2025-11-28T00:00:00Z</updated>
+  <updated>2026-01-16T00:00:00Z</updated>
   <id>https://metelkin.me/</id>
   <author>
     <name>Evgeny Metelkin</name>
@@ -643,6 +643,118 @@ nosleep_off&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;spa
 &lt;h2&gt;Feedback&lt;/h2&gt;
 &lt;p&gt;Bug reports, suggestions, and contributions are welcome:&lt;/p&gt;
 &lt;p&gt;👉 &lt;a href=&quot;https://github.com/hetalang/NoSleepR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://github.com/hetalang/NoSleepR&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;This post is syndicated at &lt;a href=&quot;https://www.r-bloggers.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;R-bloggers&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Preventing System Sleep During Long Computations</title>
+    <link href="https://metelkin.me/preventing-system-sleep-during-long-computations/" />
+    <updated>2026-01-16T00:00:00Z</updated>
+    <id>https://metelkin.me/preventing-system-sleep-during-long-computations/</id>
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/preventing-system-sleep-during-long-computations/img/fig0-cover.jpg&quot; alt=&quot;Cover&quot;&gt;&lt;/p&gt;
+&lt;p&gt;In scientific and engineering modeling it is very common to run computations that take hours: overnight simulations, parameter fitting, Monte Carlo experiments, or long-running machine learning jobs. You start the script, make sure everything looks fine, and walk away.&lt;/p&gt;
+&lt;p&gt;Then the operating system decides to go to sleep.&lt;/p&gt;
+&lt;p&gt;When that happens, the computation is paused or effectively stopped. In the morning you come back to an unfinished run and lost time. This is not a rare edge case - it is a very common and very frustrating failure mode when working on laptops or workstations.&lt;/p&gt;
+&lt;h2&gt;Why disabling sleep globally is not a great solution&lt;/h2&gt;
+&lt;p&gt;There are obvious ways to deal with this problem:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;disable sleep in system settings,&lt;/li&gt;
+&lt;li&gt;run &lt;code&gt;caffeinate&lt;/code&gt; on macOS,&lt;/li&gt;
+&lt;li&gt;enable an &amp;quot;awake&amp;quot; mode using system tools or third-party utilities.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These approaches work, but only at a very coarse level. They keep the system awake indefinitely and have no idea when your computation has actually finished. As a result, the machine may stay awake long after the job is done, wasting power and requiring manual cleanup.&lt;/p&gt;
+&lt;p&gt;In practice, this often turns into a trade-off between reliability and convenience: either risk losing the computation, or remember to manually manage system sleep every time.&lt;/p&gt;
+&lt;h2&gt;The problem is better solved at the script level&lt;/h2&gt;
+&lt;p&gt;A key observation is that this is not really an operating system problem, it is a scripting problem.&lt;/p&gt;
+&lt;p&gt;Your script knows exactly when the computation starts and when it ends. That means the script itself can request sleep prevention at the beginning of the run and release it as soon as the work is complete. If something goes wrong and the script exits early, it can still clean up properly.&lt;/p&gt;
+&lt;p&gt;This leads to a much more precise and reliable solution: keep the system awake &lt;strong&gt;only while the computation is actually running&lt;/strong&gt;, and automatically restore normal system behavior afterward.&lt;/p&gt;
+&lt;h2&gt;One idea, implemented for three languages&lt;/h2&gt;
+&lt;p&gt;Based on this idea, we implemented the same solution for three languages that are commonly used in scientific and systems modeling: &lt;strong&gt;R&lt;/strong&gt;, &lt;strong&gt;Julia&lt;/strong&gt;, and &lt;strong&gt;MATLAB&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;All three implementations are called &lt;strong&gt;NoSleep&lt;/strong&gt;. They follow the same conceptual design and expose a very similar interface, even though the languages and ecosystems are different.&lt;/p&gt;
+&lt;p&gt;The goal was not to create three unrelated utilities, but to provide a consistent solution that works across environments often used in the same modeling workflows.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/preventing-system-sleep-during-long-computations/img/fig1-sleep.jpg&quot; alt=&quot;Fig1. Computations that take hours on user laptops are often interrupted by system sleep&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;Design principles behind NoSleep&lt;/h2&gt;
+&lt;p&gt;All NoSleep implementations share a few core principles:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;They rely exclusively on &lt;strong&gt;native operating system mechanisms&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Power Request&lt;/code&gt; API on Windows,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;caffeinate&lt;/code&gt; on macOS,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;systemd-inhibit&lt;/code&gt; on Linux.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;No hacks, no simulated mouse movement, no background tricks.&lt;/li&gt;
+&lt;li&gt;Fully &lt;strong&gt;cross-platform&lt;/strong&gt;: Windows, macOS, and Linux.&lt;/li&gt;
+&lt;li&gt;Automatic cleanup: sleep prevention is released when the computation finishes or fails.&lt;/li&gt;
+&lt;li&gt;Open source and published through standard channels.&lt;/li&gt;
+&lt;li&gt;No external runtime dependencies.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The intention is to cooperate with the operating system rather than fight it, and to keep the behavior explicit and predictable.&lt;/p&gt;
+&lt;h2&gt;Using NoSleep inside your scripts&lt;/h2&gt;
+&lt;p&gt;NoSleep is designed to be used directly inside your code:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You can wrap a block of code and keep the system awake only for the duration of that block.&lt;/li&gt;
+&lt;li&gt;You can manually enable and disable sleep prevention around long-running sections.&lt;/li&gt;
+&lt;li&gt;The behavior is deterministic and reproducible, which makes scripts easier to share and reuse on other machines.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Because sleep control lives inside the script, it does not depend on external tools, system settings, or manual intervention.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/preventing-system-sleep-during-long-computations/img/fig2-nosleep.jpg&quot; alt=&quot;Fig2. NoSleep helps keep your system awake only while your long computations are running&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;Cross-language framework&lt;/h2&gt;
+&lt;p&gt;All three implementations of NoSleep share the same basic API design, making it easy to switch between languages while keeping the same approach to sleep prevention.&lt;/p&gt;
+&lt;h2&gt;R&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Repository:&lt;/strong&gt;&lt;br&gt;
+&lt;a href=&quot;https://github.com/hetalang/NoSleepR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://github.com/hetalang/NoSleepR&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;CRAN:&lt;/strong&gt;&lt;br&gt;
+&lt;a href=&quot;https://cran.r-project.org/web/packages/NoSleepR/index.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://cran.r-project.org/web/packages/NoSleepR/index.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Installation:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;install.packages&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;NoSleepR&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+library&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;NoSleepR&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Simple usage:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;nosleep_on&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# nosleep_on(TRUE) sets display activity&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# Long computation here&lt;/span&gt;
+nosleep_off&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Block usage:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;with_nosleep&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# Long computation here&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Julia&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Repository:&lt;/strong&gt;&lt;br&gt;
+&lt;a href=&quot;https://github.com/hetalang/NoSleep.jl&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://github.com/hetalang/NoSleep.jl&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Julia Registry:&lt;/strong&gt;&lt;br&gt;
+&lt;a href=&quot;https://juliahub.com/ui/Packages/General/NoSleep&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://juliahub.com/ui/Packages/General/NoSleep&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Installation:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;language-julia&quot;&gt;&lt;code class=&quot;language-julia&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;add NoSleep
+&lt;span class=&quot;token keyword&quot;&gt;using&lt;/span&gt; NoSleep&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Simple usage:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;language-julia&quot;&gt;&lt;code class=&quot;language-julia&quot;&gt;nosleep_on&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# nosleep_on(keep_display=true) sets display activity&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# Long computation here&lt;/span&gt;
+nosleep_off&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Block usage:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;language-julia&quot;&gt;&lt;code class=&quot;language-julia&quot;&gt;with_nosleep&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;# Long computation here&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;MATLAB&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Repository:&lt;/strong&gt;&lt;br&gt;
+&lt;a href=&quot;https://github.com/hetalang/NoSleepMatlab&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://github.com/hetalang/NoSleepMatlab&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;File Exchange:&lt;/strong&gt;&lt;br&gt;
+&lt;a href=&quot;https://www.mathworks.com/matlabcentral/fileexchange/183008-nosleep&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://www.mathworks.com/matlabcentral/fileexchange/183008-nosleep&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Installation:&lt;/strong&gt;&lt;br&gt;
+&lt;em&gt;Find in File Exchange and follow instructions.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Simple usage:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;language-matlab&quot;&gt;&lt;code class=&quot;language-matlab&quot;&gt;import NoSleep&lt;span class=&quot;token operator&quot;&gt;.*&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;nosleep_on&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;% nosleep_on(true) sets display activity&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;% Long computation here&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;nosleep_off&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Block usage:&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&quot;language-matlab&quot;&gt;&lt;code class=&quot;language-matlab&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;myLongComputation&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;% Long computation here&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;token function&quot;&gt;with_nosleep&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;myLongComputation&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;When NoSleep is useful, and when it isn&#39;t&lt;/h2&gt;
+&lt;p&gt;NoSleep does not make your code faster, and it does not replace proper job schedulers or cluster infrastructure. It is not meant for large distributed systems or remote compute environments.&lt;/p&gt;
+&lt;p&gt;What it does is eliminate a very common and very annoying failure mode in long local computations. In practice, small tools that quietly do one thing well often end up being used far more often than expected, simply because they remove friction from everyday work.&lt;/p&gt;
 </content>
   </entry>
 </feed>

@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6DBZB44BXE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-6DBZB44BXE');
+    </script>
+    <!-- General -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preventing System Sleep During Long Computations: NoSleep for R, Julia, and MATLAB</title>
+    <meta name="description" content="Long-running simulations, optimizations, and Monte Carlo experiments often fail when systems go to sleep. This article shows how to reliably prevent sleep during computations using NoSleep for R, Julia, and MATLAB." />
+    <meta name="author" content="Evgeny Metelkin" />
+    <!-- article -->
+    <meta property="article:author" content="https://metelkin.me" />
+    <meta property="article:published_time" content="2026-01-16T00:00:00Z" />
+    <meta property="article:modified_time" content="2026-01-16T00:00:00Z" />
+    <!-- SEO -->
+    <link rel="canonical" href="https://metelkin.me/preventing-system-sleep-during-long-computations/" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="Preventing System Sleep During Long Computations: NoSleep for R, Julia, and MATLAB" />
+    <meta property="og:description" content="Long-running simulations, optimizations, and Monte Carlo experiments often fail when systems go to sleep. This article shows how to reliably prevent sleep during computations using NoSleep for R, Julia, and MATLAB." />
+    <meta property="og:url" content="https://metelkin.me/preventing-system-sleep-during-long-computations/" />
+    <meta property="og:image" content="https://metelkin.me/preventing-system-sleep-during-long-computations/img/fig0-cover.jpg" />
+    <meta property="og:site_name" content="Evgeny Metelkin" />
+    <meta property="og:type" content="article" />
+    <!-- Style -->
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">-->
+    <style>
+        //.markdown-body { max-width: 70ch; margin-inline: auto; padding: 2rem; }
+        .container { display: flex; gap: 10px; }
+        .half { box-sizing: border-box; }
+        .half:first-child { width: 60%;}
+        .half:last-child { width: 40%; }
+
+        .minlist{list-style:none;margin:0;padding:0}
+        .minlist li{padding:.5rem 0;border-bottom:1px solid #f2f2f2}
+        .minrow{display:flex;gap:.75rem;align-items:baseline}
+        .minlink{font-weight:600;text-decoration:none}
+        .minlink:hover{text-decoration:underline}
+        .mindate{margin-left:auto;color:#888;font-size:.9em;white-space:nowrap}
+        .minsub{color:#666;margin-top:.15rem}
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .half { width: 100% !important; }
+            .half:last-child img { width: 100%; height: auto; display: block; }
+        }
+    </style>
+    <!-- To highlight code -->
+	<link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet"/>
+    <!-- MathJax -->
+    <script>
+        window.MathJax = {
+            tex: { 
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$','$$'], ['\\[','\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+</head>
+
+<body>
+    
+    <h1>Preventing System Sleep During Long Computations</h1>
+    <h2>NoSleep for R, Julia, and MATLAB</h2>
+    <div>
+        <p><strong>Evgeny Metelkin</strong></p>
+        <p><strong>2026-01-16</strong></p>
+    </div>
+    <dev class="markdown-body">
+        <p><img src="./img/fig0-cover.jpg" alt="Cover"></p>
+<p>In scientific and engineering modeling it is very common to run computations that take hours: overnight simulations, parameter fitting, Monte Carlo experiments, or long-running machine learning jobs. You start the script, make sure everything looks fine, and walk away.</p>
+<p>Then the operating system decides to go to sleep.</p>
+<p>When that happens, the computation is paused or effectively stopped. In the morning you come back to an unfinished run and lost time. This is not a rare edge case - it is a very common and very frustrating failure mode when working on laptops or workstations.</p>
+<h2>Why disabling sleep globally is not a great solution</h2>
+<p>There are obvious ways to deal with this problem:</p>
+<ul>
+<li>disable sleep in system settings,</li>
+<li>run <code>caffeinate</code> on macOS,</li>
+<li>enable an &quot;awake&quot; mode using system tools or third-party utilities.</li>
+</ul>
+<p>These approaches work, but only at a very coarse level. They keep the system awake indefinitely and have no idea when your computation has actually finished. As a result, the machine may stay awake long after the job is done, wasting power and requiring manual cleanup.</p>
+<p>In practice, this often turns into a trade-off between reliability and convenience: either risk losing the computation, or remember to manually manage system sleep every time.</p>
+<h2>The problem is better solved at the script level</h2>
+<p>A key observation is that this is not really an operating system problem, it is a scripting problem.</p>
+<p>Your script knows exactly when the computation starts and when it ends. That means the script itself can request sleep prevention at the beginning of the run and release it as soon as the work is complete. If something goes wrong and the script exits early, it can still clean up properly.</p>
+<p>This leads to a much more precise and reliable solution: keep the system awake <strong>only while the computation is actually running</strong>, and automatically restore normal system behavior afterward.</p>
+<h2>One idea, implemented for three languages</h2>
+<p>Based on this idea, we implemented the same solution for three languages that are commonly used in scientific and systems modeling: <strong>R</strong>, <strong>Julia</strong>, and <strong>MATLAB</strong>.</p>
+<p>All three implementations are called <strong>NoSleep</strong>. They follow the same conceptual design and expose a very similar interface, even though the languages and ecosystems are different.</p>
+<p>The goal was not to create three unrelated utilities, but to provide a consistent solution that works across environments often used in the same modeling workflows.</p>
+<p><img src="./img/fig1-sleep.jpg" alt="Fig1. Computations that take hours on user laptops are often interrupted by system sleep"></p>
+<h2>Design principles behind NoSleep</h2>
+<p>All NoSleep implementations share a few core principles:</p>
+<ul>
+<li>They rely exclusively on <strong>native operating system mechanisms</strong>:
+<ul>
+<li><code>Power Request</code> API on Windows,</li>
+<li><code>caffeinate</code> on macOS,</li>
+<li><code>systemd-inhibit</code> on Linux.</li>
+</ul>
+</li>
+<li>No hacks, no simulated mouse movement, no background tricks.</li>
+<li>Fully <strong>cross-platform</strong>: Windows, macOS, and Linux.</li>
+<li>Automatic cleanup: sleep prevention is released when the computation finishes or fails.</li>
+<li>Open source and published through standard channels.</li>
+<li>No external runtime dependencies.</li>
+</ul>
+<p>The intention is to cooperate with the operating system rather than fight it, and to keep the behavior explicit and predictable.</p>
+<h2>Using NoSleep inside your scripts</h2>
+<p>NoSleep is designed to be used directly inside your code:</p>
+<ul>
+<li>You can wrap a block of code and keep the system awake only for the duration of that block.</li>
+<li>You can manually enable and disable sleep prevention around long-running sections.</li>
+<li>The behavior is deterministic and reproducible, which makes scripts easier to share and reuse on other machines.</li>
+</ul>
+<p>Because sleep control lives inside the script, it does not depend on external tools, system settings, or manual intervention.</p>
+<p><img src="./img/fig2-nosleep.jpg" alt="Fig2. NoSleep helps keep your system awake only while your long computations are running"></p>
+<h2>Cross-language framework</h2>
+<p>All three implementations of NoSleep share the same basic API design, making it easy to switch between languages while keeping the same approach to sleep prevention.</p>
+<h2>R</h2>
+<p><strong>Repository:</strong><br>
+<a href="https://github.com/hetalang/NoSleepR" target="_blank" rel="noopener noreferrer">https://github.com/hetalang/NoSleepR</a></p>
+<p><strong>CRAN:</strong><br>
+<a href="https://cran.r-project.org/web/packages/NoSleepR/index.html" target="_blank" rel="noopener noreferrer">https://cran.r-project.org/web/packages/NoSleepR/index.html</a></p>
+<p><strong>Installation:</strong></p>
+<pre class="language-r"><code class="language-r">install.packages<span class="token punctuation">(</span><span class="token string">"NoSleepR"</span><span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>NoSleepR<span class="token punctuation">)</span></code></pre>
+<p><strong>Simple usage:</strong></p>
+<pre class="language-r"><code class="language-r">nosleep_on<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># nosleep_on(TRUE) sets display activity</span>
+  <span class="token comment"># Long computation here</span>
+nosleep_off<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><strong>Block usage:</strong></p>
+<pre class="language-r"><code class="language-r">with_nosleep<span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token comment"># Long computation here</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
+<h2>Julia</h2>
+<p><strong>Repository:</strong><br>
+<a href="https://github.com/hetalang/NoSleep.jl" target="_blank" rel="noopener noreferrer">https://github.com/hetalang/NoSleep.jl</a></p>
+<p><strong>Julia Registry:</strong><br>
+<a href="https://juliahub.com/ui/Packages/General/NoSleep" target="_blank" rel="noopener noreferrer">https://juliahub.com/ui/Packages/General/NoSleep</a></p>
+<p><strong>Installation:</strong></p>
+<pre class="language-julia"><code class="language-julia"><span class="token punctuation">]</span>add NoSleep
+<span class="token keyword">using</span> NoSleep</code></pre>
+<p><strong>Simple usage:</strong></p>
+<pre class="language-julia"><code class="language-julia">nosleep_on<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># nosleep_on(keep_display=true) sets display activity</span>
+  <span class="token comment"># Long computation here</span>
+nosleep_off<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p><strong>Block usage:</strong></p>
+<pre class="language-julia"><code class="language-julia">with_nosleep<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">do</span>
+  <span class="token comment"># Long computation here</span>
+<span class="token keyword">end</span></code></pre>
+<h2>MATLAB</h2>
+<p><strong>Repository:</strong><br>
+<a href="https://github.com/hetalang/NoSleepMatlab" target="_blank" rel="noopener noreferrer">https://github.com/hetalang/NoSleepMatlab</a></p>
+<p><strong>File Exchange:</strong><br>
+<a href="https://www.mathworks.com/matlabcentral/fileexchange/183008-nosleep" target="_blank" rel="noopener noreferrer">https://www.mathworks.com/matlabcentral/fileexchange/183008-nosleep</a></p>
+<p><strong>Installation:</strong><br>
+<em>Find in File Exchange and follow instructions.</em></p>
+<p><strong>Simple usage:</strong></p>
+<pre class="language-matlab"><code class="language-matlab">import NoSleep<span class="token operator">.*</span>
+<span class="token function">nosleep_on</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">% nosleep_on(true) sets display activity</span>
+  <span class="token comment">% Long computation here</span>
+<span class="token function">nosleep_off</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p><strong>Block usage:</strong></p>
+<pre class="language-matlab"><code class="language-matlab"><span class="token keyword">function</span> <span class="token function">myLongComputation</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment">% Long computation here</span>
+<span class="token keyword">end</span>
+
+<span class="token function">with_nosleep</span><span class="token punctuation">(</span><span class="token operator">@</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token function">myLongComputation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2>When NoSleep is useful, and when it isn't</h2>
+<p>NoSleep does not make your code faster, and it does not replace proper job schedulers or cluster infrastructure. It is not meant for large distributed systems or remote compute environments.</p>
+<p>What it does is eliminate a very common and very annoying failure mode in long local computations. In practice, small tools that quietly do one thing well often end up being used far more often than expected, simply because they remove friction from everyday work.</p>
+
+    </dev>
+    <dev>
+        <p><strong>License: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blanc">CC-BY-4.0</a></strong></p> 
+    </dev>
+
+</body>
