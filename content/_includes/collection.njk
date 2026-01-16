@@ -2,30 +2,11 @@
 ---
 {% extends "base.njk" %}
 
-{#
-words:
-    - ***
-snapshot:
-    - ***
-mainPhoto: ***
-#}
-
 {% block body %}
     <div class="container">
         <div class="half">
             <h1>{{ title }}</h1>
             <h2>{{ subtitle }}</h2>
-            {%- if words is defined %}
-            <p><strong>{{ words | join(" | ") }}</strong></p>
-            {%- endif %}
-            {%- if snapshot is defined %}
-            <h3>Snapshort:</h3>
-            <ul>
-                {%- for item in snapshot %}
-                    <li>{{ item }}</li>
-                {%- endfor %}
-            </ul>
-            {%- endif %}
         </div>
         <div class="half">
             {%- if mainPhoto is defined %}
@@ -35,9 +16,10 @@ mainPhoto: ***
     </div>
     
     <dev class="markdown-body">
-        <h3>Recent posts:</h3>
+        {{ content | safe }}
+        <h3>Collection:</h3>
         <ul class="minlist">
-        {% for post in collections.featuredPages %}
+        {% for post in collections.postPages %}
         <li>
             <div class="minrow">
             <a class="minlink" href="{{ post.url }}">{{ post.data.title }}</a>
@@ -46,10 +28,7 @@ mainPhoto: ***
             {% if post.data.subtitle %}<div class="minsub">{{ post.data.subtitle }}</div>{% endif %}
         </li>
         {% endfor %}
-        <li>
-            For all posts, see <strong><a href="/blog/">Blog page</a></strong>.
-        </li>
         </ul>
-        {{ content | safe }}
+        
     </dev>
 {% endblock %}
