@@ -17,6 +17,7 @@ openGraph:
     type: article
 tags: 
     - post
+    - featured
     - SystemsPharmacology
     - modeling
     - datascience

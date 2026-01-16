@@ -18,6 +18,11 @@ module.exports = async function(eleventyConfig) {
     return collection.getFilteredByTag("post").sort((a, b) => b.date - a.date);
   });
 
+  // collection for all pages with "featured" tag
+  eleventyConfig.addCollection("featuredPages", (collection) => {
+    return collection.getFilteredByTag("featured").sort((a, b) => b.date - a.date);
+  });
+
   // collection for all pages with "julia" tag
   eleventyConfig.addCollection("juliaPages", (collection) => {
     return collection.getFilteredByTag("julia").sort((a, b) => b.date - a.date);
@@ -87,6 +92,21 @@ module.exports = async function(eleventyConfig) {
 		}
 	});
 
+  // Featured posts feed
+  eleventyConfig.addPlugin(feedPlugin, {
+    type: "atom",
+    outputPath: "/feed/featured.xml",
+    collection: { name: "featuredPages", limit: 0 },
+    metadata: {
+      language: "en",
+      title: "Evgeny Metelkin - Featured posts",
+      subtitle: "Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect",
+      base: "https://metelkin.me/",
+      author: { name: "Evgeny Metelkin" }
+    }
+  });
+
+  // for Julia
   eleventyConfig.addPlugin(feedPlugin, {
     type: "atom",
     outputPath: "/feed/julia.xml",
