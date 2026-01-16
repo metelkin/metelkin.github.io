@@ -110,3 +110,7 @@ If the "YouTube tab" method works for you, `NoSleepR` will work too but without 
 Bug reports, suggestions, and contributions are welcome:
 
 👉 https://github.com/hetalang/NoSleepR
+
+---
+
+This post is syndicated at [R-bloggers](https://www.r-bloggers.com/).
