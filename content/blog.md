@@ -1,7 +1,6 @@
 ---
 layout: collection.njk
-title: By Evgeny Metelkin
-subtitle: All blog posts
+title: Blog of Evgeny Metelkin
 description: A collection of blog posts by Evgeny Metelkin, Computational Biologist and Systems Pharmacology Architect
 canonical: https://metelkin.me/blog/
 openGraph:
@@ -12,5 +11,7 @@ openGraph:
     site_name: Evgeny Metelkin
     type: website
 ---
+
+Personal notes on computational biology and pharmacological modeling: models, simulations, tools, and lessons learned from building and using scientific software.
 
 For more info, please visit the [MAIN](/) page.
