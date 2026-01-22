@@ -55,11 +55,12 @@ Today, as Co‑founder and Technology Director at [**InSysBio CY Ltd**](https
 
 ## Selected Publications & Talks
 
-1. *Heta compiler: a software tool for the development of large‑scale QSP models and compilation into simulation formats.* **JOSS** 6(67):3708, 2021.
-2. *Confidence intervals by constrained optimization—An algorithm and software package for practical identifiability analysis in systems biology.* **PLoS Comput. Biol.** 16(12):e1008495, 2020.  
-3. *Comprehensive study of the drug delivery properties of poly( l -lactide)-poly(ethylene glycol) nanoparticles in rats and tumor-bearing mice.* **J. Control. Release** 261, 2017.
-4. *Systems pharmacology perspective on FAAH inhibitors for pain.* **CPT: Pharmacometrics & Syst. Pharmacol.** 3:e91, 2014.  
-5. 60+ additional articles, posters & keynotes → [ResearchGate](https://www.researchgate.net/profile/Evgeny-Metelkin).
+1. **LikelihoodProfiler.jl: Unified profile-likelihood workflows for identifiability and confidence intervals**. JOSS 11(117), 9501, 2026. DOI: [10.21105/joss.09501](https://doi.org/10.21105/joss.09501).
+1. **Heta compiler: a software tool for the development of large‑scale QSP models and compilation into simulation formats.** JOSS 6(67):3708, 2021. DOI: [10.21105/joss.03708](https://doi.org/10.21105/joss.03708).
+1. **Confidence intervals by constrained optimization—An algorithm and software package for practical identifiability analysis in systems biology.** PLoS Comput. Biol. 16(12):e1008495, 2020. DOI: [10.1371/journal.pcbi.1008495](https://doi.org/10.1371/journal.pcbi.1008495).
+1. **Comprehensive study of the drug delivery properties of poly( l -lactide)-poly(ethylene glycol) nanoparticles in rats and tumor-bearing mice.** J. Control. Release 261, 2017. DOI: [10.1016/j.jconrel.2017.06.006](https://doi.org/10.1016/j.jconrel.2017.06.006).
+1. **Systems pharmacology perspective on FAAH inhibitors for pain.** CPT: Pharmacometrics & Syst. Pharmacol. 3:e91, 2014. DOI: [10.1038/psp.2013.72](https://doi.org/10.1038/psp.2013.72).
+5. **60+ additional articles, posters & keynotes** → [ResearchGate](https://www.researchgate.net/profile/Evgeny-Metelkin).
 
 ---
 
