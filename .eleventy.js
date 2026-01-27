@@ -68,6 +68,9 @@ module.exports = async function(eleventyConfig) {
   // identifier for Google Analytics
   eleventyConfig.addGlobalData("googleAnalytics", "G-6DBZB44BXE");
 
+  // add current year
+  eleventyConfig.addGlobalData("currentYear", new Date().getFullYear());
+
   // default license for content
   eleventyConfig.addGlobalData("license", "CC-BY-4.0");
   eleventyConfig.addGlobalData("licenseUrl", "https://creativecommons.org/licenses/by/4.0/");

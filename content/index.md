@@ -72,5 +72,4 @@ Today, as Co‑founder and Technology Director at [**InSysBio CY Ltd**](https
 - **RSS Feed (Atom):** [metelkin.me/feed/post.xml](https://metelkin.me/feed/post.xml)
 ---
 
-*© 2025 Evgeny Metelkin. Opinions expressed are my own and do not necessarily reflect those of InSysBio.*
-
+*© 2025-{{ currentYear }} Evgeny Metelkin. Opinions expressed are my own and do not necessarily reflect those of InSysBio.*
