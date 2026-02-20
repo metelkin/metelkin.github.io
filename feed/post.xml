@@ -4,7 +4,7 @@
   <subtitle>Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect</subtitle>
   <link href="https://metelkin.me/feed/post.xml" rel="self" />
   <link href="https://metelkin.me/" />
-  <updated>2026-01-16T00:00:00Z</updated>
+  <updated>2026-02-20T00:00:00Z</updated>
   <id>https://metelkin.me/</id>
   <author>
     <name>Evgeny Metelkin</name>
@@ -755,6 +755,77 @@ nosleep_off&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;spa
 &lt;h2&gt;When NoSleep is useful, and when it isn&#39;t&lt;/h2&gt;
 &lt;p&gt;NoSleep does not make your code faster, and it does not replace proper job schedulers or cluster infrastructure. It is not meant for large distributed systems or remote compute environments.&lt;/p&gt;
 &lt;p&gt;What it does is eliminate a very common and very annoying failure mode in long local computations. In practice, small tools that quietly do one thing well often end up being used far more often than expected, simply because they remove friction from everyday work.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Good Fit Is Not Enough</title>
+    <link href="https://metelkin.me/practical-identifiability-why%20a-good-fit-is-not-enough/" />
+    <updated>2026-02-20T00:00:00Z</updated>
+    <id>https://metelkin.me/practical-identifiability-why%20a-good-fit-is-not-enough/</id>
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/practical-identifiability-why%20a-good-fit-is-not-enough/img/fig0-cover.jpg&quot; alt=&quot;Cover&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;The Illusion of Certainty&lt;/h2&gt;
+&lt;p&gt;The calibration procedure produced a stable numerical solution.&lt;br&gt;
+The optimizer stopped without warnings.&lt;br&gt;
+The simulated curves match the experimental data.&lt;br&gt;
+Residuals look acceptable.&lt;br&gt;
+A final set of parameter values is reported.&lt;br&gt;
+Predictions are generated and plotted.&lt;/p&gt;
+&lt;p&gt;From a workflow perspective, everything seems complete. The calibration step is done, the numbers are fixed, and the model appears ready for interpretation or decision-making. It feels deterministic: one model, one parameter set, one set of predictions.&lt;/p&gt;
+&lt;p&gt;This is the point where many modeling projects move forward.&lt;/p&gt;
+&lt;p&gt;The optimizer may settle at one acceptable solution among many equivalent ones. A good fit does not prove that the parameters are well constrained by the data. The reported parameter values represent one possible explanation of the data, not necessarily a unique explanation.&lt;/p&gt;
+&lt;p&gt;The final parameter table may give a false impression of precision. What looks like certainty may, in fact, be an illusion.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/practical-identifiability-why%20a-good-fit-is-not-enough/img/fig1-point-estimates.png&quot; alt=&quot;Fig 1. Point estimates&quot;&gt;&lt;br&gt;
+&lt;em&gt;&lt;strong&gt;Point estimates workflow&lt;/strong&gt;. The model is calibrated to data, and a single set of parameter values is reported. The optimizer finds a solution, but it may not be unique or well-constrained.&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;Why Optimization Hides the Problem&lt;/h2&gt;
+&lt;p&gt;Parameter estimation in nonlinear models is an inverse problem: we try to estimate parameter values from observed outcomes. In general, inverse problems do not guarantee a unique solution. Different parameter values, or different combinations of parameters, can reproduce the data equally well, or very close to it.&lt;/p&gt;
+&lt;p&gt;In nonlinear systems, this non-uniqueness is common. Parameters may be correlated, partially redundant, or only weakly influential within the range supported by the data. As a result, several distinct parameter sets can produce nearly identical fits. An optimizer will return one of them, depending on initialization, algorithmic details, and numerical tolerances.&lt;/p&gt;
+&lt;p&gt;If we report only that single solution, we implicitly assume that the parameters are well determined. But without assessing the width of the admissible region (whether a finite confidence interval exists at all) this assumption may be false. The true parameter values consistent with the data may lie far from the reported point estimate.&lt;/p&gt;
+&lt;p&gt;Because nonlinear models often contain many interacting parameters, it is rarely possible to anticipate in advance which ones are tightly constrained and which are not. Optimization alone does not answer that question.&lt;/p&gt;
+&lt;h2&gt;What Is Practical Identifiability?&lt;/h2&gt;
+&lt;p&gt;Practical identifiability is not about finding a single best-fit parameter set. It is about understanding the range of parameter values that are still consistent with the observed data.&lt;/p&gt;
+&lt;p&gt;Instead of asking, &amp;quot;What are the optimal parameters?&amp;quot;, we ask a different question:&lt;br&gt;
+&amp;quot;How far can each parameter move before the model no longer agrees with the data?&amp;quot;&lt;/p&gt;
+&lt;p&gt;In this sense, identifiability analysis explores the geometry of the admissible parameter space. For each parameter, it reveals whether a finite confidence interval exists, how wide it is, and whether it remains bounded or extends indefinitely. A parameter is considered practically identifiable if its admissible region is compact and well constrained by the data.&lt;/p&gt;
+&lt;p&gt;Beyond individual intervals, identifiability analysis also exposes correlations and compensatory relationships between parameters. Directions in parameter space where changes can offset each other without degrading the fit.&lt;/p&gt;
+&lt;p&gt;Importantly, these properties reflect the structure of the data-model combination. They are far less dependent on the specific optimization algorithm or on which local minimum was found. Identifiability analysis characterizes the landscape around solutions, not just a single point.&lt;/p&gt;
+&lt;p&gt;In other words, calibration gives you a point. Identifiability analysis tells you how stable that point really is.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/practical-identifiability-why%20a-good-fit-is-not-enough/img/fig2-interval-estimate.png&quot; alt=&quot;Fig 2. Interval estimate&quot;&gt;&lt;br&gt;
+&lt;em&gt;&lt;strong&gt;Interval estimates workflow&lt;/strong&gt;. Instead of a single point, we explore the range of parameter values consistent with the data. This reveals whether parameters are well constrained or not, and how they may compensate for each other.&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;What Does Identifiability Analysis Give Us?&lt;/h2&gt;
+&lt;p&gt;Once identifiability analysis is performed, the model stops being just a calibrated object and becomes a quantified one.&lt;/p&gt;
+&lt;p&gt;If all parameters turn out to be practically identifiable - meaning their confidence intervals are finite and reasonably compact - this tells us:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The available data constrain the parameters sufficiently.&lt;/li&gt;
+&lt;li&gt;The chosen parametrization is appropriate.&lt;/li&gt;
+&lt;li&gt;The calibration result is stable, not accidental.&lt;/li&gt;
+&lt;li&gt;Predictions derived from the model can be accompanied by meaningful uncertainty bounds.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This is the best-case scenario. It does not mean the model is &amp;quot;true&amp;quot; but it means the parameter estimates are genuinely supported by the data.&lt;/p&gt;
+&lt;p&gt;If some parameters are weakly identifiable or non-identifiable, the analysis still provides actionable information. Several strategies become available:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Fix and document&lt;/strong&gt; poorly identifiable parameters, reducing the model to a reliably constrained core.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reparametrize or group&lt;/strong&gt; parameters, replacing unstable individual quantities with more robust composite ones.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Augment the data&lt;/strong&gt;, either by incorporating information from the literature or by designing additional experiments.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Use model-driven experimental design&lt;/strong&gt;, targeting conditions that improve identifiability.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Assess impact on predictions&lt;/strong&gt;, determining whether weakly identifiable parameters actually influence the outputs of interest.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In any case, identifiability analysis eliminates false confidence. It clarifies what is supported by data and what is not, reducing the risk of unpleasant surprises when predictions fail.&lt;/p&gt;
+&lt;p&gt;Despite being conceptually well established, identifiability analysis is still not routinely included in many modeling workflows. Time pressure, computational cost, and lack of accessible tools often push it aside in practice.&lt;/p&gt;
+&lt;h2&gt;Fisher Information Matrix and Its Limitations&lt;/h2&gt;
+&lt;p&gt;A widely used approach to assessing identifiability is the &lt;strong&gt;Fisher Information Matrix (FIM)&lt;/strong&gt;. It evaluates local sensitivity of the model output to parameter changes near the optimum and is often available as part of standard maximum likelihood estimation. Because it is computationally efficient, it is commonly used as a quick diagnostic of parameter identifiability.&lt;/p&gt;
+&lt;p&gt;However, the FIM is inherently local. It relies on a quadratic approximation of the likelihood surface around the optimum and may not capture flat directions, strong nonlinearities, or extended regions of near-equivalent solutions. As a result, it can miss important aspects of parameter uncertainty in complex nonlinear models.&lt;/p&gt;
+&lt;p&gt;To overcome these limitations, &lt;strong&gt;likelihood-based methods&lt;/strong&gt; that explore the objective function beyond the immediate neighborhood of the optimum provide a more informative assessment. By examining how far parameters can vary while maintaining agreement with the data, these approaches offer a more complete view of practical identifiability.&lt;/p&gt;
+&lt;h2&gt;Profile Likelihood Methods&lt;/h2&gt;
+&lt;p&gt;Likelihood-based approaches, such as profile likelihood, provide a more informative alternative to purely local diagnostics. Instead of relying on curvature at a single point, they systematically explore how far each parameter can vary while maintaining agreement with the data. This makes them more robust in the presence of nonlinearity, parameter correlations, and flat directions in the objective function.&lt;/p&gt;
+&lt;p&gt;The main barrier to their routine use is practical: they are computationally more demanding and require careful algorithmic implementation. For many modeling teams, this limits their adoption despite their conceptual advantages.&lt;/p&gt;
+&lt;p&gt;To make such analyses more accessible, we developed an open-source Julia package, &lt;a href=&quot;https://github.com/insysbio/LikelihoodProfiler.jl&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;LikelihoodProfiler.jl&lt;/a&gt;, which implements unified profile-likelihood workflows and includes an efficient constrained-optimization approach (CICO) for direct confidence interval estimation. The methodology and software are described in detail in a recent JOSS publication (&lt;a href=&quot;https://doi.org/10.21105/joss.09501&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://doi.org/10.21105/joss.09501&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/practical-identifiability-why%20a-good-fit-is-not-enough/img/fig3-profile-likelihood.png&quot; alt=&quot;Fig 3. Profile likelihood methods&quot;&gt;&lt;br&gt;
+&lt;em&gt;&lt;strong&gt;Profile likelihood methods&lt;/strong&gt; . By systematically exploring parameter space, these methods reveal the true shape of the admissible region, providing a more complete picture of identifiability.&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;Conclusion: A Shift in Mindset&lt;/h2&gt;
+&lt;p&gt;Nonlinear modeling is inherently challenging, especially when it involves solving inverse problems and estimating multiple interacting parameters. Once a model fits the data well, there is a natural temptation to move directly to interpretation and prediction.&lt;/p&gt;
+&lt;p&gt;However, optimal parameter values represent only part of the information contained in the data. Identifiability analysis reveals how strongly those values are supported and what constraints the data truly impose on the model. This distinction is essential for building trust in model-based conclusions and for making informed decisions.&lt;/p&gt;
+&lt;p&gt;Importantly, even weakly identifiable parameters do not automatically invalidate a model. When handled carefully, models with partial ambiguity can still provide useful insights. The key is to understand what is well constrained and what is not.&lt;/p&gt;
+&lt;p&gt;Today, practical tools make it possible to include identifiability analysis as a routine part of the modeling workflow rather than an afterthought.&lt;/p&gt;
 </content>
   </entry>
 </feed>
