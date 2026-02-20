@@ -15,9 +15,7 @@ openGraph:
     image: https://metelkin.me/model-formats-for-systems-pharmacology-3/img/fig0-cover.jpg
     site_name: Evgeny Metelkin
     type: article
-tags: 
-    - post
-    - featured
+tags:
     - SystemsPharmacology
     - SoftwareEngineering
     - modeling
