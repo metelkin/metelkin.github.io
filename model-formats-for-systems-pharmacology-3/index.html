@@ -1,0 +1,151 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6DBZB44BXE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-6DBZB44BXE');
+    </script>
+    <!-- General -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Model Formats in Systems Pharmacology. Part 3: Standardization Efforts vs Reality</title>
+    <meta name="description" content="A critical look at model standardization efforts in computational biology and systems pharmacology, from SBML and PharmML to PEtab. Why existing standards failed to gain adoption, and what lessons can guide the next generation of formats." />
+    <meta name="author" content="Evgeny Metelkin" />
+    <!-- article -->
+    <meta property="article:author" content="https://metelkin.me" />
+    <meta property="article:published_time" content="2025-11-08T00:00:00Z" />
+    <meta property="article:modified_time" content="2025-11-08T00:00:00Z" />
+    <!-- SEO -->
+    <link rel="canonical" href="https://metelkin.me/model-formats-for-systems-pharmacology-3/" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="Model Formats in Systems Pharmacology. Part 3: Standardization Efforts vs Reality" />
+    <meta property="og:description" content="A critical look at model standardization efforts in computational biology and systems pharmacology, from SBML and PharmML to PEtab. Why existing standards failed to gain adoption, and what lessons can guide the next generation of formats." />
+    <meta property="og:url" content="https://metelkin.me/model-formats-for-systems-pharmacology-3/" />
+    <meta property="og:image" content="https://metelkin.me/model-formats-for-systems-pharmacology-3/img/fig0-cover.jpg" />
+    <meta property="og:site_name" content="Evgeny Metelkin" />
+    <meta property="og:type" content="article" />
+    <!-- Style -->
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">-->
+    <style>
+        //.markdown-body { max-width: 70ch; margin-inline: auto; padding: 2rem; }
+        .container { display: flex; gap: 10px; }
+        .half { box-sizing: border-box; }
+        .half:first-child { width: 60%;}
+        .half:last-child { width: 40%; }
+
+        .minlist{list-style:none;margin:0;padding:0}
+        .minlist li{padding:.5rem 0;border-bottom:1px solid #f2f2f2}
+        .minrow{display:flex;gap:.75rem;align-items:baseline}
+        .minlink{font-weight:600;text-decoration:none}
+        .minlink:hover{text-decoration:underline}
+        .mindate{margin-left:auto;color:#888;font-size:.9em;white-space:nowrap}
+        .minsub{color:#666;margin-top:.15rem}
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .half { width: 100% !important; }
+            .half:last-child img { width: 100%; height: auto; display: block; }
+        }
+    </style>
+    <!-- To highlight code -->
+	<link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet"/>
+    <!-- MathJax -->
+    <script>
+        window.MathJax = {
+            tex: { 
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$','$$'], ['\\[','\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+</head>
+
+<body>
+    
+    <h1>Model Formats in Systems Pharmacology. Part 3</h1>
+    <h2>Standardization Efforts vs Reality</h2>
+    <div>
+        <p><strong>Evgeny Metelkin</strong></p>
+        <p><strong>2025-11-08</strong></p>
+    </div>
+    <dev class="markdown-body">
+        <h4><a href="/model-formats-for-systems-pharmacology-1/">Part 1</a>, <a href="/model-formats-for-systems-pharmacology-2/">Part 2</a>, <strong>Part 3</strong></h4>
+<p><img src="./img/fig0-cover.png" alt="Cover"></p>
+<p><em>In <a href="/model-formats-for-systems-pharmacology-2/">Part 2</a>, we looked at how engineering principles — transparency, modularity, and automation — can make modeling more reproducible and collaborative. In this part, we turn to the next logical question: if we agree that models should be treated as code, can we agree on how to store and exchange them?</em></p>
+<h2>8. Why Standards Matter</h2>
+<p>Стандарты в моделировании — это не про «красивые XML». Это про то, чтобы одна и та же модель давала один и тот же результат, чтобы её можно было передать между инструментами и заново запустить через годы без охоты за скрытыми настройками. Сегодня этого часто нет: проекты заперты в .sbproj/.mod/.mlxtran и т.п., логика размазана между GUI, скриптами и «неявными» настройками солвера. В итоге модель, сделанная одной командой, не переезжает к другой, а результаты сложно проверить.</p>
+<p>Что именно решают стандарты</p>
+<ol>
+<li>
+<p>Воспроизводимость (reproducibility).<br>
+Фиксируем в явном виде: структуру и уравнения, параметры c единицами, сценарии (дозировки, события, горизонты), наблюдаемые, настройки солвера (точности, шаги, алгоритмы), версию окружения и рандом-сиды. Тогда «те же входы → те же выходы» в независимой реализации. Это база для валидации, аудита и регуляторных требований.</p>
+</li>
+<li>
+<p>Обмен и переносимость (interoperability).<br>
+Нужен общий «контракт»: стабильные идентификаторы сущностей (состояния, параметры, события), понятные типы объектов, единицы измерения и аннотации. Тогда модель можно безопасно импортировать в другой инструмент без ручной правки и «угадывания».</p>
+</li>
+<li>
+<p>Долговечность (longevity).<br>
+Текстовый, открытый и проверяемый формат переживёт любой GUI. Пакет с моделью можно архивировать, цитировать, переиспользовать в новых проектах и переоценивать по мере появления данных.</p>
+</li>
+</ol>
+<p>Почему ODE «как универсальный язык» — недостаточно</p>
+<p>Сами по себе дифференциальные уравнения — только ядро. На практике к ним привязаны:</p>
+<ul>
+<li>сценарии (дозы, расписания, когорты, события),</li>
+<li>настройки вычислений (солверы, допуски, схемы),</li>
+<li>данные и сопоставление (что именно измеряем, в каких единицах, как маппим на переменные модели),</li>
+<li>задачи (симуляция, подбор параметров, чувствительность, профили правдоподобия),</li>
+<li>окружение (версии библиотек/OS/контейнер).</li>
+</ul>
+<p>Без стандарта для этих слоёв одна и та же «ODE-сущность» ведёт себя по‑разному. Именно здесь сегодня ломается воспроизводимость.</p>
+<p>Что ломается без стандарта</p>
+<ul>
+<li>Несовместимость форматов и GUI-зависимость -&gt; Единый контракт объектов и текстовый формат → импорт/экспорт без ручных хаκов</li>
+<li>«Где спрятаны дозы/единицы/толерансы?» -&gt; Явные сценарии, единицы и настройки солвера в спецификации</li>
+<li>Невозможно автоматизировать пайплайны -&gt; Машино‑читаемые схемы и задачи → CI/CD, массовые прогоны, отчёты</li>
+<li>Результаты плавают между компьютерами -&gt; Фиксированное окружение, допуски и тест‑кейсы в пакете</li>
+<li>Проекты умирают с инструментом -&gt; Открытый текстовый архив с манифестом и аннотациями</li>
+</ul>
+<p>Критерии «хорошего» стандарта (проверка на здравый смысл)</p>
+<ul>
+<li>Читаемый человеком. Без расшифровки через IDE и закрытые диалоги.</li>
+<li>Достаточно строгий для машины. Схемы/валидация, понятные ошибки, стабильные ID.</li>
+<li>Малое ядро + расширения. Минимально необходимая спецификация, всё остальное — плагины/профили.</li>
+<li>Git‑дружелюбный. Текст, детерминированные сериализации, осмысленные diff’ы.</li>
+<li>Тестируемый. В пакете — эталонные сценарии и ожидаемые результаты с допусками.</li>
+<li>Вендорно‑нейтральный. Никаких скрытых зависимостей на конкретный софт.</li>
+</ul>
+<p>Короткий пример</p>
+<p>Команда А строит модель в инструменте с визуальным GUI; дозировки и единицы заданы в таблицах проекта, толерансы — в настройках профиля. Команда B пытается воспроизвести в своём стекe: у них другой солвер и по умолчанию другие единицы. Без стандарта они никогда не узнают, что именно не совпало.<br>
+С пакетом по стандарту — сценарии, единицы, толерансы и ожидаемые результаты лежат рядом и проверяются автоматически. Разночтения видны сразу, а не после «недели охоты за отличиями».</p>
+<h2>9. The Landscape of Modeling Standards</h2>
+<h2>10. Lessons Learned</h2>
+<h2>11. What Kind of Standards We Actually Need</h2>
+<ol>
+<li>Reproducibility &amp; Exchange Standard</li>
+<li>Human-Readable Modeling Standard</li>
+<li>Validation &amp; Testing Standard</li>
+</ol>
+<hr>
+<p><strong>Previous: <a href="/model-formats-for-systems-pharmacology-2/">Part 2: Engineering Practices We Can Borrow</a></strong></p>
+
+    </dev>
+    <dev>
+        <p><strong>License: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blanc">CC-BY-4.0</a></strong></p> 
+    </dev>
+
+</body>
