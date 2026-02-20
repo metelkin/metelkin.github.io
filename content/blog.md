@@ -13,5 +13,3 @@ openGraph:
 ---
 
 Personal notes on computational biology and pharmacological modeling: models, simulations, tools, and lessons learned from building and using scientific software.
-
-For more info, please visit the [MAIN](/) page.
