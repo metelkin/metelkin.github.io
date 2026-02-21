@@ -3,7 +3,7 @@ layout: post.njk
 title: Good Fit Is Not Enough
 subtitle: Why Practical Identifiability Matters
 date: 2026-02-20
-lastModified: 2026-02-20
+lastModified: 2026-02-21
 description: 'Good fit does not guarantee reliable parameters. Learn why practical identifiability matters in nonlinear model calibration.'
 author: Evgeny Metelkin
 authorURL: https://metelkin.me
@@ -12,11 +12,12 @@ openGraph:
     title: 'Good Fit Is Not Enough: Why Practical Identifiability Matters'
     description: 'Good fit does not guarantee reliable parameters. Learn why practical identifiability matters in nonlinear model calibration.'
     url: https://metelkin.me/practical-identifiability-why-a-good-fit-is-not-enough/
-    image: https://metelkin.me/practical-identifiability-why-a-good-fit-is-not-enough/img/fig0-cover.jpg
+    image: https://metelkin.me/practical-identifiability-why-a-good-fit-is-not-enough/img/fig0-cover.png
     site_name: Evgeny Metelkin
     type: article
 tags: 
     - post
+    - featured
     - SystemsPharmacology
     - SoftwareEngineering
     - modeling
@@ -24,7 +25,7 @@ tags:
     - software
 ---
 
-![Cover](./img/fig0-cover.jpg)
+![Cover](./img/fig0-cover.png)
 
 ## The Illusion of Certainty
 
