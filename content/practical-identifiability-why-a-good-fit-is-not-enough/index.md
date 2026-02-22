@@ -45,7 +45,7 @@ The optimizer may settle at one acceptable solution among many equivalent ones. 
 The final parameter table may give a false impression of precision. What looks like certainty may, in fact, be an illusion.
 
 ![Fig 1. Point estimates](./img/fig1-point-estimates.png)
-_**Point estimates workflow**. The model is calibrated to data, and a single set of parameter values is reported. The optimizer finds a solution, but it may not be unique or well-constrained._
+_**Point estimates workflow**. Calibration produces a stable fit and a single set of parameter values. However, without identifiability analysis, the uniqueness and robustness of this solution remain unknown._
 
 ## Why Optimization Hides the Problem
 
@@ -73,7 +73,7 @@ Importantly, these properties reflect the structure of the data-model combinatio
 In other words, calibration gives you a point. Identifiability analysis tells you how stable that point really is.
 
 ![Fig 2. Interval estimate](./img/fig2-interval-estimate.png)
-_**Interval estimates workflow**. Instead of a single point, we explore the range of parameter values consistent with the data. This reveals whether parameters are well constrained or not, and how they may compensate for each other._
+_**Identifiability-aware workflow.** By estimating parameter confidence intervals and propagating uncertainty to model outputs, we distinguish well-identified parameters from weakly identifiable ones. This leads to prediction bands that are narrow where the data constrain the model and wide where they do not._
 
 ## What Does Identifiability Analysis Give Us?
 
@@ -116,7 +116,7 @@ The main barrier to their routine use is practical: they are computationally mor
 To make such analyses more accessible, we developed an open-source Julia package, [LikelihoodProfiler.jl](https://github.com/insysbio/LikelihoodProfiler.jl), which implements unified profile-likelihood workflows and includes an efficient constrained-optimization approach (CICO) for direct confidence interval estimation. The methodology and software are described in detail in a recent JOSS publication (https://doi.org/10.21105/joss.09501).
 
 ![Fig 3. Profile likelihood methods](./img/fig3-profile-likelihood.png)
-_**Profile likelihood methods** . By systematically exploring parameter space, these methods reveal the true shape of the admissible region, providing a more complete picture of identifiability._
+_**Profile likelihood examples generated with [LikelihoodProfiler.jl](https://github.com/insysbio/LikelihoodProfiler.jl).** By tracing the objective function beyond the optimum, these profiles expose the curvature and extent of the admissible parameter region. The threshold crossing determines finite or non-finite confidence intervals._
 
 ## Conclusion: A Shift in Mindset
 
