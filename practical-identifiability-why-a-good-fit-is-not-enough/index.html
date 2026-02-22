@@ -21,7 +21,7 @@
     <!-- article -->
     <meta property="article:author" content="https://metelkin.me" />
     <meta property="article:published_time" content="2026-02-20T00:00:00Z" />
-    <meta property="article:modified_time" content="2026-02-21T00:00:00Z" />
+    <meta property="article:modified_time" content="2026-02-22T00:00:00Z" />
     <!-- SEO -->
     <link rel="canonical" href="https://metelkin.me/practical-identifiability-why-a-good-fit-is-not-enough/" />
     <!-- Open Graph -->
@@ -76,8 +76,8 @@
 <body>
     
     <p style="margin-bottom: 1rem;">
-        <a href="/" style="text-decoration: none; font-weight: 600; font-size: 1.2rem;">
-            ← Home
+        <a href="/blog/" style="text-decoration: none; font-weight: 600; font-size: 1.2rem;">
+            ← Posts
         </a>
     </p>
     <h1>Good Fit Is Not Enough</h1>
@@ -89,12 +89,11 @@
     <dev class="markdown-body">
         <p><img src="./img/fig0-cover.png" alt="Cover"></p>
 <h2>The Illusion of Certainty</h2>
-<p>The calibration procedure produced a stable numerical solution.<br>
-The optimizer stopped without warnings.<br>
-The simulated curves match the experimental data.<br>
-Residuals look acceptable.<br>
-A final set of parameter values is reported.<br>
-Predictions are generated and plotted.</p>
+<p>✓  The optimizer stopped without warnings.<br>
+✓  The simulated curves match the experimental data.<br>
+✓  Residuals look acceptable.<br>
+✓  A final set of parameter values is reported.<br>
+✓  Predictions are generated and plotted.</p>
 <p>From a workflow perspective, everything seems complete. The calibration step is done, the numbers are fixed, and the model appears ready for interpretation or decision-making. It feels deterministic: one model, one parameter set, one set of predictions.</p>
 <p>This is the point where many modeling projects move forward.</p>
 <p>The optimizer may settle at one acceptable solution among many equivalent ones. A good fit does not prove that the parameters are well constrained by the data. The reported parameter values represent one possible explanation of the data, not necessarily a unique explanation.</p>
@@ -103,19 +102,20 @@ Predictions are generated and plotted.</p>
 <em><strong>Point estimates workflow</strong>. Calibration produces a stable fit and a single set of parameter values. However, without identifiability analysis, the uniqueness and robustness of this solution remain unknown.</em></p>
 <h2>Why Optimization Hides the Problem</h2>
 <p>Parameter estimation in nonlinear models is an inverse problem: we try to estimate parameter values from observed outcomes. In general, inverse problems do not guarantee a unique solution. Different parameter values, or different combinations of parameters, can reproduce the data equally well, or very close to it.</p>
-<p>In nonlinear systems, this non-uniqueness is common. Parameters may be correlated, partially redundant, or only weakly influential within the range supported by the data. As a result, several distinct parameter sets can produce nearly identical fits. An optimizer will return one of them, depending on initialization, algorithmic details, and numerical tolerances.</p>
+<p>Parameters may be correlated, partially redundant, or only weakly influential within the range supported by the data. As a result, several distinct parameter sets can produce nearly identical fits. An optimizer will return one of them, depending on initialization, algorithmic details, and numerical tolerances.</p>
 <p>If we report only that single solution, we implicitly assume that the parameters are well determined. But without assessing the width of the admissible region (whether a finite confidence interval exists at all) this assumption may be false. The true parameter values consistent with the data may lie far from the reported point estimate.</p>
 <p>Because nonlinear models often contain many interacting parameters, it is rarely possible to anticipate in advance which ones are tightly constrained and which are not. Optimization alone does not answer that question.</p>
 <h2>What Is Practical Identifiability?</h2>
 <p>Practical identifiability is not about finding a single best-fit parameter set. It is about understanding the range of parameter values that are still consistent with the observed data.</p>
-<p>Instead of asking, &quot;What are the optimal parameters?&quot;, we ask a different question:<br>
-&quot;How far can each parameter move before the model no longer agrees with the data?&quot;</p>
+<p>Instead of asking, &quot;What are the optimal parameters?&quot;, we ask a different questions:</p>
+<ul>
+<li>How far can each parameter move before the model no longer agrees with the data?</li>
+<li>What are the extreme parameter values that still provide an acceptable fit?</li>
+<li>What are the limits of the admissible parameter space?</li>
+</ul>
 <p>In this sense, identifiability analysis explores the geometry of the admissible parameter space. For each parameter, it reveals whether a finite confidence interval exists, how wide it is, and whether it remains bounded or extends indefinitely. A parameter is considered practically identifiable if its admissible region is compact and well constrained by the data.</p>
 <p>Beyond individual intervals, identifiability analysis also exposes correlations and compensatory relationships between parameters. Directions in parameter space where changes can offset each other without degrading the fit.</p>
 <p>Importantly, these properties reflect the structure of the data-model combination. They are far less dependent on the specific optimization algorithm or on which local minimum was found. Identifiability analysis characterizes the landscape around solutions, not just a single point.</p>
-<p>In other words, calibration gives you a point. Identifiability analysis tells you how stable that point really is.</p>
-<p><img src="./img/fig2-interval-estimate.png" alt="Fig 2. Interval estimate"><br>
-<em><strong>Identifiability-aware workflow.</strong> By estimating parameter confidence intervals and propagating uncertainty to model outputs, we distinguish well-identified parameters from weakly identifiable ones. This leads to prediction bands that are narrow where the data constrain the model and wide where they do not.</em></p>
 <h2>What Does Identifiability Analysis Give Us?</h2>
 <p>Once identifiability analysis is performed, the model stops being just a calibrated object and becomes a quantified one.</p>
 <p>If all parameters turn out to be practically identifiable - meaning their confidence intervals are finite and reasonably compact - this tells us:</p>
@@ -136,14 +136,16 @@ Predictions are generated and plotted.</p>
 </ul>
 <p>In any case, identifiability analysis eliminates false confidence. It clarifies what is supported by data and what is not, reducing the risk of unpleasant surprises when predictions fail.</p>
 <p>Despite being conceptually well established, identifiability analysis is still not routinely included in many modeling workflows. Time pressure, computational cost, and lack of accessible tools often push it aside in practice.</p>
+<p><img src="./img/fig2-interval-estimate.png" alt="Fig 2. Interval estimate"><br>
+<em><strong>Identifiability-aware workflow.</strong> By estimating parameter confidence intervals and propagating uncertainty to model outputs, we distinguish well-identified parameters from weakly identifiable ones. This leads to prediction bands that are narrow where the data constrain the model and wide where they do not.</em></p>
 <h2>Fisher Information Matrix and Its Limitations</h2>
 <p>A widely used approach to assessing identifiability is the <strong>Fisher Information Matrix (FIM)</strong>. It evaluates local sensitivity of the model output to parameter changes near the optimum and is often available as part of standard maximum likelihood estimation. Because it is computationally efficient, it is commonly used as a quick diagnostic of parameter identifiability.</p>
 <p>However, the FIM is inherently local. It relies on a quadratic approximation of the likelihood surface around the optimum and may not capture flat directions, strong nonlinearities, or extended regions of near-equivalent solutions. As a result, it can miss important aspects of parameter uncertainty in complex nonlinear models.</p>
 <p>To overcome these limitations, <strong>likelihood-based methods</strong> that explore the objective function beyond the immediate neighborhood of the optimum provide a more informative assessment. By examining how far parameters can vary while maintaining agreement with the data, these approaches offer a more complete view of practical identifiability.</p>
 <h2>Profile Likelihood Methods</h2>
-<p>Likelihood-based approaches, such as profile likelihood, provide a more informative alternative to purely local diagnostics. Instead of relying on curvature at a single point, they systematically explore how far each parameter can vary while maintaining agreement with the data. This makes them more robust in the presence of nonlinearity, parameter correlations, and flat directions in the objective function.</p>
-<p>The main barrier to their routine use is practical: they are computationally more demanding and require careful algorithmic implementation. For many modeling teams, this limits their adoption despite their conceptual advantages.</p>
-<p>To make such analyses more accessible, we developed an open-source Julia package, <a href="https://github.com/insysbio/LikelihoodProfiler.jl" target="_blank" rel="noopener noreferrer">LikelihoodProfiler.jl</a>, which implements unified profile-likelihood workflows and includes an efficient constrained-optimization approach (CICO) for direct confidence interval estimation. The methodology and software are described in detail in a recent JOSS publication (<a href="https://doi.org/10.21105/joss.09501" target="_blank" rel="noopener noreferrer">https://doi.org/10.21105/joss.09501</a>).</p>
+<p>Likelihood-based approaches provide a principled way to assess practical identifiability. Instead of relying on local curvature near the optimum, they examine how the objective function changes as individual parameters are systematically varied. This reveals whether confidence intervals are finite and how strongly parameters are constrained by the data.</p>
+<p>In practice, these methods are more computationally demanding and require careful implementation, which has limited their routine use in many modeling workflows.</p>
+<p>To make such analyses more accessible, we developed an open-source Julia package, <a href="https://github.com/insysbio/LikelihoodProfiler.jl" target="_blank" rel="noopener noreferrer">LikelihoodProfiler.jl</a>. It implements several profile-likelihood strategies within a unified workflow, including optimization-based, integration-based, and constrained-optimization (CICO) approaches. A detailed description of the methodology and software is available in our recent JOSS publication (<a href="https://doi.org/10.21105/joss.09501" target="_blank" rel="noopener noreferrer">https://doi.org/10.21105/joss.09501</a>).</p>
 <p><img src="./img/fig3-profile-likelihood.png" alt="Fig 3. Profile likelihood methods"><br>
 <em><strong>Profile likelihood examples generated with <a href="https://github.com/insysbio/LikelihoodProfiler.jl" target="_blank" rel="noopener noreferrer">LikelihoodProfiler.jl</a>.</strong> By tracing the objective function beyond the optimum, these profiles expose the curvature and extent of the admissible parameter region. The threshold crossing determines finite or non-finite confidence intervals.</em></p>
 <h2>Conclusion: A Shift in Mindset</h2>
