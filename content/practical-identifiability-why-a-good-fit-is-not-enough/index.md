@@ -2,8 +2,8 @@
 layout: post.njk
 title: Good Fit Is Not Enough
 subtitle: Why Practical Identifiability Matters
-date: 2026-02-20
-lastModified: 2026-02-22
+date: 2026-02-21
+lastModified: 2026-02-23
 description: 'Good fit does not guarantee reliable parameters. Learn why practical identifiability matters in nonlinear model calibration.'
 author: Evgeny Metelkin
 authorURL: https://metelkin.me
