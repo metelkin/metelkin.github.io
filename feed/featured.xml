@@ -361,7 +361,7 @@ The trade-off? You need to adjust your modeling mindset. The equation-level view
 &lt;/ul&gt;
 &lt;p&gt;The more logically a QSP platform is divided into modules, the easier it becomes to manage the work and distribute responsibilities. A single monolithic file forces the entire team to work sequentially, rather than in parallel.&lt;/p&gt;
 &lt;h3&gt;Longevity&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Longevity&lt;/strong&gt; means that a model remains usable and trustworthy years after it was first created. Instead of &amp;quot;remembering which buttons we clicked,&amp;quot; the project can be rebuilt, rerun, and revalidated from its source (&lt;a href=&quot;http://dx.doi.org/10.1038/sdata.2016.18&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;FAIR Principles, Scientific Data, 2016&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Longevity&lt;/strong&gt; means that a model remains usable and trustworthy years after it was first created. Instead of &amp;quot;remembering which buttons we clicked,&amp;quot; the project can be rebuilt, rerun, and revalidated from its source (&lt;a href=&quot;https://dx.doi.org/10.1038/sdata.2016.18&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;FAIR Principles, Scientific Data, 2016&lt;/a&gt;).&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig4-git.png&quot; alt=&quot;Git commit history in QSP project.&quot;&gt;&lt;br&gt;
 &lt;em&gt;&lt;strong&gt;Fig. 4. Git commit history in QSP project.&lt;/strong&gt;: Commit history provides a timeline of changes in branches, enabling easy rollback and review.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;What makes longevity possible:&lt;/p&gt;
@@ -371,7 +371,7 @@ The trade-off? You need to adjust your modeling mindset. The equation-level view
 &lt;li&gt;&lt;strong&gt;Readable formats.&lt;/strong&gt; Text-based models outlive specific tools; even if a GUI disappears, the core code can still be read, parsed, and converted.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Re-validation.&lt;/strong&gt; As new data or regulatory requirements arise, archived models can be rerun and checked against updated knowledge.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Knowledge preservation.&lt;/strong&gt; Annotations, comments, and documentation carry context, so understanding does not depend on the original author&#39;s memory.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Regulatory and audit needs.&lt;/strong&gt; Long-term reproducibility is critical for submissions: teams must show exactly what model was used to support a decision at a given time (&lt;a href=&quot;http:/dx.doi.org/10.1002/psp4.12049&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MID3 Good Practices, CPT: PSP, 2016&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Regulatory and audit needs.&lt;/strong&gt; Long-term reproducibility is critical for submissions: teams must show exactly what model was used to support a decision at a given time (&lt;a href=&quot;https://dx.doi.org/10.1002/psp4.12049&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;MID3 Good Practices, CPT: PSP, 2016&lt;/a&gt;).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Longevity turns a QSP model from a one-off experiment into a &lt;strong&gt;sustainable scientific asset&lt;/strong&gt;, something that can be reliably shared, revisited, and built upon.&lt;/p&gt;
 &lt;h3&gt;Automation&lt;/h3&gt;
