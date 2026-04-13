@@ -7,7 +7,7 @@ words:
     - Systems Pharmacology Architect
     - Co‑founder & Technology Director at InSysBio
 snapshot:
-    - 20 years in mechanistic modeling & pharmacometrics
+    - 20+ years in mechanistic modeling & pharmacometrics
     - 60+ scientific publications & conference talks
     - Creator of the Heta modeling language & LikelihoodProfiler.jl
     - Leader of a 25‑engineer team building QSP
@@ -45,6 +45,7 @@ Today, as Co‑founder and Technology Director at [**InSysBio CY Ltd**](https
 
 ## Flagship Software Projects
 
+- [**VPopMIP.jl**](https://github.com/hetalang/VPopMIP.jl) & [**DigiPopData.jl**](https://github.com/hetalang/DigiPopData.jl) — Tools for virtual population cohort selection.
 - [**Heta Language & Heta Compiler**](https://hetalang.github.io/) — Domain‑specific language + build pipeline for large‑scale QSP models.  
 - [**HetaSimulator.jl**](https://github.com/hetalang/HetaSimulator.jl) — Julia‑powered engine for distributed simulations and parameter estimation.  
 - [**LikelihoodProfiler.jl**](https://github.com/insysbio/LikelihoodProfiler.jl) — Toolkit for practical identifiability and confidence interval estimation.  
@@ -55,6 +56,8 @@ Today, as Co‑founder and Technology Director at [**InSysBio CY Ltd**](https
 
 ## Selected Publications & Talks
 
+1. **InSysBio Workshop: Engineering-Style QSP Modeling with Heta** — QSPC2026, Leiden, The Netherlands. [SLIDES](https://hetalang.github.io/qspc2026/)
+1. **Mixed-Integer Optimization for Virtual Population Selection in QSP Models.** QSPC2026, Leiden, The Netherlands. DOI: [10.13140/RG.2.2.31274.79049](https://doi.org/10.13140/RG.2.2.31274.79049)
 1. **LikelihoodProfiler.jl: Unified profile-likelihood workflows for identifiability and confidence intervals**. JOSS 11(117), 9501, 2026. DOI: [10.21105/joss.09501](https://doi.org/10.21105/joss.09501).
 1. **Heta compiler: a software tool for the development of large‑scale QSP models and compilation into simulation formats.** JOSS 6(67):3708, 2021. DOI: [10.21105/joss.03708](https://doi.org/10.21105/joss.03708).
 1. **Confidence intervals by constrained optimization—An algorithm and software package for practical identifiability analysis in systems biology.** PLoS Comput. Biol. 16(12):e1008495, 2020. DOI: [10.1371/journal.pcbi.1008495](https://doi.org/10.1371/journal.pcbi.1008495).
