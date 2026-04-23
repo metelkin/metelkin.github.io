@@ -6,13 +6,13 @@
 $SET end=120, delta=0.1, hmax=0.01, hmin=0, rtol=1e-3, atol=1e-6
 
 $PARAM
-kabs_Alc : 0.1 
-Vmax_ADH : 0.5 
-Km_ADH : 0.1 
-Vmax_ALDH : 0.5 
-Km_ALDH : 0.1 
-sw1_ : 1
-sw2_ : 1
+kabs_Alc = 10
+Vmax_ADH = 3
+Km_ADH = 0.1
+Vmax_ALDH = 3
+Km_ALDH = 3
+sw1_ = 1
+sw2_ = 1
 
 $CMT
 Alc_g

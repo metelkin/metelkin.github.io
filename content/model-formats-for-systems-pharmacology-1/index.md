@@ -3,7 +3,7 @@ layout: post.njk
 title: 'Model Formats in Systems Pharmacology. Part 1'
 subtitle: 'The Missing Link Between Biology and Software Engineering'
 date: 2025-08-22
-lastModified: 2025-09-06
+lastModified: 2026-04-23
 description: 'An overview of software and model formats in Systems Pharmacology (QSP) — their strengths and weaknesses, and how engineering practices reveal hidden limits and opportunities.'
 author: Evgeny Metelkin
 authorURL: https://metelkin.me
@@ -119,8 +119,7 @@ $$
 \begin{align}
 \frac{d(Alc_g)}{dt} & = -vabs_{Alc},\\\\
 \frac{d(Alc_b \cdot blood)}{dt} & = vabs_{Alc} - v_{ADH},\\\\
-\frac{d(AcHc \cdot blood)}{dt} & = v_{ADH} - v_{ALDH},\\\\
-\frac{d(Acet \cdot blood)}{dt} & = v_{ALDH}.
+\frac{d(AcHc \cdot blood)}{dt} & = v_{ADH} - v_{ALDH}.
 \end{align}
 $$
 
