@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6DBZB44BXE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-6DBZB44BXE');
+    </script>
+    <!-- General -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landscape of ODE Solvers in R: A Practical Overview</title>
+    <meta name="description" content="An overview of ODE solvers in R, highlighting their capabilities, performance, and practical considerations." />
+    <meta name="author" content="Evgeny Metelkin" />
+    <!-- article -->
+    <meta property="article:author" content="https://metelkin.me" />
+    <meta property="article:published_time" content="2026-04-26T00:00:00Z" />
+    <meta property="article:modified_time" content="2026-04-26T00:00:00Z" />
+    <!-- SEO -->
+    <link rel="canonical" href="https://metelkin.me/landscape-of-ode-solvers-in-r/" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="Landscape of ODE Solvers in R" />
+    <meta property="og:description" content="An overview of ODE solvers in R, highlighting their capabilities, performance, and practical considerations." />
+    <meta property="og:url" content="https://metelkin.me/landscape-of-ode-solvers-in-r/" />
+    <meta property="og:image" content="https://metelkin.me/landscape-of-ode-solvers-in-r/img/fig0-cover-520x270.png" />
+    <meta property="og:site_name" content="Evgeny Metelkin" />
+    <meta property="og:type" content="article" />
+    <!-- Style -->
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">-->
+    <style>
+        //.markdown-body { max-width: 70ch; margin-inline: auto; padding: 2rem; }
+        .container { display: flex; gap: 10px; }
+        .half { box-sizing: border-box; }
+        .half:first-child { width: 60%;}
+        .half:last-child { width: 40%; }
+
+        .minlist{list-style:none;margin:0;padding:0}
+        .minlist li{padding:.5rem 0;border-bottom:1px solid #f2f2f2}
+        .minrow{display:flex;gap:.75rem;align-items:baseline}
+        .minlink{font-weight:600;text-decoration:none}
+        .minlink:hover{text-decoration:underline}
+        .mindate{margin-left:auto;color:#888;font-size:.9em;white-space:nowrap}
+        .minsub{color:#666;margin-top:.15rem}
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .half { width: 100% !important; }
+            .half:last-child img { width: 100%; height: auto; display: block; }
+        }
+    </style>
+    <!-- To highlight code -->
+	<link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet"/>
+    <!-- MathJax -->
+    <script>
+        window.MathJax = {
+            tex: { 
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$','$$'], ['\\[','\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+</head>
+
+<body>
+    
+    <p style="margin-bottom: 1rem;">
+        <a href="/blog/" style="text-decoration: none; font-weight: 600; font-size: 1.2rem;">
+            ← Posts
+        </a>
+    </p>
+    <h1>Landscape of ODE Solvers in R</h1>
+    <h2>A Practical Overview</h2>
+    <div>
+        <p><strong>Evgeny Metelkin</strong></p>
+        <p><strong>2026-04-26</strong></p>
+    </div>
+    <dev class="markdown-body">
+        <p><img src="./img/fig0-cover.png" alt="Cover"></p>
+<p>Solving <strong>ordinary differential equations (ODEs)</strong> is a common task in many fields, including systems biology, pharmacometrics, and engineering. The R ecosystem offers a collection of tools for this purpose: from lightweight numerical solvers to full modeling frameworks.</p>
+<p>This article provides <strong>a practical overview of ODE solvers in R</strong>, with a focus on helping users navigate the ecosystem and choose appropriate tools.</p>
+<p>All packages here was tested with simple examples and the code was published in the <a href="https://github.com/metelkin/ode-solvers-in-r" target="_blank" rel="noopener noreferrer">GitHub repository</a>.</p>
+<h2>What is included</h2>
+<p>We include tools that:</p>
+<ul>
+<li>Provide an API for R</li>
+<li>Support solving general ODE systems</li>
+<li>Are mentioned in literature, documentation, or community discussions</li>
+</ul>
+<p>We intentionally exclude:</p>
+<ul>
+<li>Deprecated or archived packages (e.g., RxODE)</li>
+<li>Thin wrappers around other frameworks without original solvers or formats (e.g., nlmixr2)</li>
+<li>Small helper packages</li>
+<li>Highly specialized tools limited to narrow domains</li>
+</ul>
+<p>Some tools included in this review go beyond ODE solving and provide additional capabilities such as parameter estimation or simulation workflows. We include them for completeness, without going into those advanced features.</p>
+<h2>Overview table</h2>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Type</th>
+<th>Engine</th>
+<th>Algorithms</th>
+<th>Model format</th>
+<th>Stiff</th>
+<th>DAE</th>
+<th>DDE</th>
+<th>Time events</th>
+<th>Conditional events</th>
+<th>CRAN downloads (2025)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://cran.r-project.org/package=deSolve" target="_blank" rel="noopener noreferrer">deSolve</a></td>
+<td>Compiled</td>
+<td><a href="http://www.netlib.org/odepack/" target="_blank" rel="noopener noreferrer">ODEPACK</a>; <a href="http://www.netlib.org/ode/" target="_blank" rel="noopener noreferrer">DASPK</a> (in FORTRAN)</td>
+<td>lsoda, lsode, radau, euler, rk4, ode23, ode45,  etc.</td>
+<td>R func (Interpreted); C / C++ / Fortran (Compiled)</td>
+<td>Yes (via lsoda)</td>
+<td>Yes (via daspk)</td>
+<td>Yes (via dede)</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>635628</td>
+</tr>
+</tbody>
+</table>
+<h4>Type</h4>
+<ul>
+<li><strong>Pure R solvers</strong>: Numerical algorithms implemented directly in R. These are easy to inspect and flexible, but typically slower due to interpreter overhead.</li>
+<li><strong>Compiled solvers</strong>: Implemented in C/C++/Fortran or wrapping established libraries (e.g., ODEPACK). These provide significantly better performance and are the default choice for most applications.</li>
+<li><strong>External runtime interfaces</strong>: Packages that delegate computation to external ecosystems such as Julia or Python. These act as bridges rather than standalone solvers.</li>
+</ul>
+<h4>Engine / Algorithms</h4>
+<ul>
+<li>
+<p><strong>Engine</strong> refers to the underlying numerical implementation used by the package. This can be:</p>
+<ul>
+<li>a well-known external library (e.g., ODEPACK),</li>
+<li>a custom compiled implementation,</li>
+<li>or an external runtime (e.g., Julia),</li>
+<li>another R package.</li>
+</ul>
+</li>
+<li>
+<p><strong>Algorithms</strong> lists the available numerical methods (e.g., LSODA, Runge–Kutta, Radau).<br>
+Some packages expose multiple algorithms, while others are limited to a specific class.</p>
+</li>
+</ul>
+<h4>Model format</h4>
+<p>ODE models can be defined in different ways: as R functions, domain-specific languages (DSL), structured APIs, or even external code.</p>
+<p>The key distinction affecting performance is how the model is executed:</p>
+<ul>
+<li><strong>Interpreted execution</strong>: The model is defined as an R function and evaluated during each solver step.</li>
+<li><strong>Compiled execution</strong>: The model is translated into compiled code before simulation, avoiding interpreter overhead and improving performance.</li>
+</ul>
+<h4>Stiff</h4>
+<p>Indicates whether the solver can handle <strong>stiff systems</strong>.</p>
+<p>Stiffness arises when a system contains processes evolving on very different time scales. Solvers that support stiffness typically use implicit methods or adaptive switching (e.g., LSODA).</p>
+<h4>DAE / DDE</h4>
+<p>Support for these features is solver-dependent and often requires specific algorithms.</p>
+<ul>
+<li><strong>DAE (Differential-Algebraic Equations)</strong>: Systems that include algebraic constraints in addition to differential equations.</li>
+<li><strong>DDE (Delay Differential Equations)</strong>: Systems where derivatives depend on past states.</li>
+</ul>
+<h4>Time events / Conditional events</h4>
+<p>These features are important for modeling real-world systems with discontinuities.</p>
+<ul>
+<li><strong>Time events</strong>: Discrete changes applied at predefined time points (e.g., dosing events).</li>
+<li><strong>Conditional events</strong>: Events triggered when a condition is met during simulation (e.g., threshold crossing).</li>
+</ul>
+<h4>CRAN downloads</h4>
+<p>Total number of downloads in 2025, reflecting usage statistics.</p>
+<h2>Repository and test cases</h2>
+<p>To ensure practical consistency, packages were tested on two simple ODE models. The full code for all packages is available in the companion <a href="https://github.com/metelkin/ode-solvers-in-r" target="_blank" rel="noopener noreferrer">GitHub repository</a>.</p>
+<p>We are providing here the code in <code>mrgsolve</code> format for two examples: a pharmacokinetic model with non-linear elimination, and the Robertson problem, which is a classic stiff ODE system.</p>
+<h3>Example 1: Pharmacokinetic model with non-linear elimination</h3>
+<pre class="language-r"><code class="language-r">library<span class="token punctuation">(</span>mrgsolve<span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>magrittr<span class="token punctuation">)</span>
+
+<span class="token comment"># load model as DLS (C++ like)</span>
+mod <span class="token operator">&lt;-</span> mcode<span class="token punctuation">(</span><span class="token string">"pk_model"</span><span class="token punctuation">,</span> '
+<span class="token operator">$</span>PARAM
+kabs_Alc <span class="token operator">=</span> <span class="token number">10.0</span>
+Vmax_ADH <span class="token operator">=</span> <span class="token number">3</span>
+Km_ADH <span class="token operator">=</span> <span class="token number">0.1</span>
+V_blood <span class="token operator">=</span> <span class="token number">5.5</span>
+
+<span class="token operator">$</span>CMT
+Alc_g Alc_b_amt
+
+<span class="token operator">$</span>ODE
+double Alc_b <span class="token operator">=</span> Alc_b_amt <span class="token operator">/</span> V_blood<span class="token punctuation">;</span>
+double vabs_Alc <span class="token operator">=</span> kabs_Alc <span class="token operator">*</span> Alc_g<span class="token punctuation">;</span>
+double v_ADH <span class="token operator">=</span> Vmax_ADH <span class="token operator">*</span> Alc_b <span class="token operator">/</span> <span class="token punctuation">(</span>Km_ADH <span class="token operator">+</span> Alc_b<span class="token punctuation">)</span> <span class="token operator">*</span> V_blood<span class="token punctuation">;</span>
+
+dxdt_Alc_g <span class="token operator">=</span> <span class="token operator">-</span>vabs_Alc<span class="token punctuation">;</span>
+dxdt_Alc_b_amt <span class="token operator">=</span> vabs_Alc <span class="token operator">-</span> v_ADH<span class="token punctuation">;</span>
+
+<span class="token operator">$</span>TABLE
+capture Alc_b<span class="token punctuation">;</span>
+'<span class="token punctuation">)</span>
+
+<span class="token comment"># time event</span>
+ev1 <span class="token operator">&lt;-</span> ev<span class="token punctuation">(</span>time <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> amt <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> cmt <span class="token operator">=</span> <span class="token string">"Alc_g"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># solve</span>
+out <span class="token operator">&lt;-</span> mod <span class="token percent-operator operator">%>%</span>
+  init<span class="token punctuation">(</span>Alc_g <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> Alc_b_amt <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%>%</span>
+  ev<span class="token punctuation">(</span>ev1<span class="token punctuation">)</span> <span class="token percent-operator operator">%>%</span>
+  mrgsim<span class="token punctuation">(</span>start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> end <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">,</span> delta <span class="token operator">=</span> <span class="token number">0.001</span><span class="token punctuation">)</span>
+
+plot<span class="token punctuation">(</span>out<span class="token punctuation">)</span></code></pre>
+<p><img src="./img/fig1-example-1-sim.png" alt="example-1-sim"></p>
+<h3>Example 2: Robertson problem stiff ODE</h3>
+<pre class="language-r"><code class="language-r">library<span class="token punctuation">(</span>mrgsolve<span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>magrittr<span class="token punctuation">)</span>
+
+<span class="token comment"># load model as DLS (C++ like)</span>
+mod <span class="token operator">&lt;-</span> mcode<span class="token punctuation">(</span><span class="token string">"rob_model"</span><span class="token punctuation">,</span> '
+<span class="token operator">$</span>CMT
+A B C
+
+<span class="token operator">$</span>ODE
+dxdt_A <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">0.04</span> <span class="token operator">*</span> A <span class="token operator">+</span> <span class="token number">1e4</span> <span class="token operator">*</span> B <span class="token operator">*</span> C<span class="token punctuation">;</span>
+dxdt_B <span class="token operator">=</span>  <span class="token number">0.04</span> <span class="token operator">*</span> A <span class="token operator">-</span> <span class="token number">1e4</span> <span class="token operator">*</span> B <span class="token operator">*</span> C <span class="token operator">-</span> <span class="token number">3e7</span> <span class="token operator">*</span> pow<span class="token punctuation">(</span>B<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+dxdt_C <span class="token operator">=</span>  <span class="token number">3e7</span> <span class="token operator">*</span> pow<span class="token punctuation">(</span>B<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+'<span class="token punctuation">)</span>
+
+<span class="token comment"># solve</span>
+out <span class="token operator">&lt;-</span> mod <span class="token percent-operator operator">%>%</span>
+  init<span class="token punctuation">(</span>A <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> B <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> C <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token percent-operator operator">%>%</span>
+  mrgsim<span class="token punctuation">(</span>start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> end <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> delta <span class="token operator">=</span> <span class="token number">1e-2</span><span class="token punctuation">)</span>
+
+plot<span class="token punctuation">(</span>out<span class="token punctuation">)</span></code></pre>
+<p><img src="./img/fig2-example-2-sim.png" alt="example-2-sim"></p>
+<h2>Author's notes</h2>
+<p>The goal of this review was to provide <strong>a maximally complete and objective overview</strong> of tools for solving ODEs in R. The packages included in this survey differ significantly in their purpose and functionality: from simple numerical solvers to full-featured frameworks and specialized domain-specific tools. They are presented here on equal footing, without going into detailed feature comparisons.</p>
+<p>Many aspects - such as computational performance, numerical accuracy, and advanced functionality - are intentionally not covered in this article.</p>
+<p>The table includes popularity metrics in the form of download counts. However, these numbers do not reflect the actual capabilities of the packages. Downloads may include one-time installations for educational purposes, CI/CD workflows, or other non-analytical uses. Therefore, they should not be considered a deciding factor when choosing a tool, but rather as a rough indicator of visibility within the community.</p>
+<p>Below is a subjective selection of packages that I would recommend paying attention to.</p>
+<h4>General-purpose solution: deSolve</h4>
+<p><a href="https://cran.r-project.org/package=deSolve" target="_blank" rel="noopener noreferrer">deSolve</a> is a robust and well-established package with broad functionality and support for multiple numerical methods. It provides advanced capabilities such as handling stiffness, DAEs, DDEs, and events, while maintaining good computational performance through compiled solvers and model interfaces. It also offers flexible ways to define models.</p>
+<p>With a large user base and extensive documentation, it is a reliable default choice.</p>
+<p>I would recommend it as a general-purpose tool for most ODE tasks in R. If you are new to ODE modeling in R, starting with deSolve is a safe and practical choice before exploring more specialized tools.</p>
+<h4>Domain-specific tool: rxode2</h4>
+<p><a href="https://cran.r-project.org/package=rxode2" target="_blank" rel="noopener noreferrer">rxode2</a> is a powerful tool designed for pharmacokinetics and pharmacodynamics (PK/PD).</p>
+<p>Together with the <a href="https://nlmixr2.org/" target="_blank" rel="noopener noreferrer">nlmixr2</a> toolkit, it extends beyond ODE solving to include parameter estimation from data and efficient Monte Carlo simulations in parallel and distributed environments.</p>
+<p>If your work is related to PK/PD modeling, this can be an excellent choice.</p>
+<h4>Underappreciated tool: dMod</h4>
+<p><a href="https://cran.r-project.org/package=dMod" target="_blank" rel="noopener noreferrer">dMod</a> provides a powerful framework for dynamic modeling, parameter estimation, and identifiability analysis.</p>
+<p>It combines symbolic model definition with efficient numerical solvers and supports gradient-based optimization workflows. While it has a steeper learning curve compared to simpler solvers, it offers a high level of flexibility and is particularly useful for more advanced modeling tasks.</p>
+<p>Despite its capabilities, it appears to be less widely used, making it an interesting but often overlooked option.</p>
+<h4>Bridge to high-performance: diffeqr</h4>
+<p><a href="https://cran.r-project.org/package=diffeqr" target="_blank" rel="noopener noreferrer">diffeqr</a> provides an interface to the Julia-based DifferentialEquations.jl ecosystem, exposing a large collection of state-of-the-art solvers directly in R.</p>
+<p>Rather than implementing its own numerical methods, it delegates computation to Julia, allowing access to advanced algorithms, GPU acceleration, and high-performance execution that are often beyond native R tools.</p>
+
+    </dev>
+    <dev>
+        <p><strong>License: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blanc">CC-BY-4.0</a></strong></p> 
+    </dev>
+
+</body>
