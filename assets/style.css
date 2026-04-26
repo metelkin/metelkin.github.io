@@ -1,0 +1,18 @@
+/* For wide tables */
+
+.table-h-scroll {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.table-h-scroll table {
+  max-width: 1200px;
+  width: max-content;
+  border-collapse: collapse;
+}
+
+.table-h-scroll th,
+.table-h-scroll td {
+  white-space: normal;
+  vertical-align: top;
+}

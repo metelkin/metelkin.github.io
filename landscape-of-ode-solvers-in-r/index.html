@@ -56,6 +56,8 @@
             .half:last-child img { width: 100%; height: auto; display: block; }
         }
     </style>
+    
+    <link rel="stylesheet" href="/assets/style.css">
     <!-- To highlight code -->
 	<link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet"/>
     <!-- MathJax -->
@@ -110,12 +112,13 @@
 </ul>
 <p>Some tools included in this review go beyond ODE solving and provide additional capabilities such as parameter estimation or simulation workflows. We include them for completeness, without going into those advanced features.</p>
 <h2>Overview table</h2>
+<div class="table-h-scroll">
 <table>
 <thead>
 <tr>
 <th>Package</th>
-<th>Type</th>
 <th>Engine</th>
+<th>Type</th>
 <th>Algorithms</th>
 <th>Model format</th>
 <th>Stiff</th>
@@ -129,8 +132,8 @@
 <tbody>
 <tr>
 <td><a href="https://cran.r-project.org/package=deSolve" target="_blank" rel="noopener noreferrer">deSolve</a></td>
-<td>Compiled</td>
 <td><a href="http://www.netlib.org/odepack/" target="_blank" rel="noopener noreferrer">ODEPACK</a>; <a href="http://www.netlib.org/ode/" target="_blank" rel="noopener noreferrer">DASPK</a> (in FORTRAN)</td>
+<td>Compiled</td>
 <td>lsoda, lsode, radau, euler, rk4, ode23, ode45,  etc.</td>
 <td>R func (Interpreted); C / C++ / Fortran (Compiled)</td>
 <td>Yes (via lsoda)</td>
@@ -142,28 +145,23 @@
 </tr>
 </tbody>
 </table>
-<h4>Type</h4>
-<ul>
-<li><strong>Pure R solvers</strong>: Numerical algorithms implemented directly in R. These are easy to inspect and flexible, but typically slower due to interpreter overhead.</li>
-<li><strong>Compiled solvers</strong>: Implemented in C/C++/Fortran or wrapping established libraries (e.g., ODEPACK). These provide significantly better performance and are the default choice for most applications.</li>
-<li><strong>External runtime interfaces</strong>: Packages that delegate computation to external ecosystems such as Julia or Python. These act as bridges rather than standalone solvers.</li>
-</ul>
-<h4>Engine / Algorithms</h4>
-<ul>
-<li>
-<p><strong>Engine</strong> refers to the underlying numerical implementation used by the package. This can be:</p>
+</div>
+<h4>Engine</h4>
+<p>This refers to the underlying numerical implementation used by the package. This can be:</p>
 <ul>
 <li>a well-known external library (e.g., ODEPACK),</li>
 <li>a custom compiled implementation,</li>
 <li>or an external runtime (e.g., Julia),</li>
 <li>another R package.</li>
 </ul>
-</li>
-<li>
-<p><strong>Algorithms</strong> lists the available numerical methods (e.g., LSODA, Runge–Kutta, Radau).<br>
-Some packages expose multiple algorithms, while others are limited to a specific class.</p>
-</li>
+<h4>Type</h4>
+<ul>
+<li><strong>Pure R solvers</strong>: Numerical algorithms implemented directly in R. These are easy to inspect and flexible, but typically slower due to interpreter overhead.</li>
+<li><strong>Compiled solvers</strong>: Implemented in C/C++/Fortran or wrapping established libraries (e.g., ODEPACK). These provide significantly better performance and are the default choice for most applications.</li>
+<li><strong>External runtime interfaces</strong>: Packages that delegate computation to external ecosystems such as Julia or Python. These act as bridges rather than standalone solvers.</li>
 </ul>
+<h4>Algorithms</h4>
+<p>This is the list of available numerical methods (e.g., LSODA, Runge–Kutta, Radau).</p>
 <h4>Model format</h4>
 <p>ODE models can be defined in different ways: as R functions, domain-specific languages (DSL), structured APIs, or even external code.</p>
 <p>The key distinction affecting performance is how the model is executed:</p>
@@ -172,8 +170,7 @@ Some packages expose multiple algorithms, while others are limited to a specific
 <li><strong>Compiled execution</strong>: The model is translated into compiled code before simulation, avoiding interpreter overhead and improving performance.</li>
 </ul>
 <h4>Stiff</h4>
-<p>Indicates whether the solver can handle <strong>stiff systems</strong>.</p>
-<p>Stiffness arises when a system contains processes evolving on very different time scales. Solvers that support stiffness typically use implicit methods or adaptive switching (e.g., LSODA).</p>
+<p>Indicates whether the solver can handle <strong>stiff systems</strong>. Stiffness arises when a system contains processes evolving on very different time scales. Solvers that support stiffness typically use implicit methods or adaptive switching (e.g., LSODA).</p>
 <h4>DAE / DDE</h4>
 <p>Support for these features is solver-dependent and often requires specific algorithms.</p>
 <ul>
@@ -187,7 +184,7 @@ Some packages expose multiple algorithms, while others are limited to a specific
 <li><strong>Conditional events</strong>: Events triggered when a condition is met during simulation (e.g., threshold crossing).</li>
 </ul>
 <h4>CRAN downloads</h4>
-<p>Total number of downloads in 2025, reflecting usage statistics.</p>
+<p>Total number of downloads in 2025, reflecting usage statistics. Calculated with <a href="https://cranlogs.r-pkg.org/" target="_blank" rel="noopener noreferrer">CRAN logs</a> service.</p>
 <h2>Repository and test cases</h2>
 <p>To ensure practical consistency, packages were tested on two simple ODE models. The full code for all packages is available in the companion <a href="https://github.com/metelkin/ode-solvers-in-r" target="_blank" rel="noopener noreferrer">GitHub repository</a>.</p>
 <p>We are providing here the code in <code>mrgsolve</code> format for two examples: a pharmacokinetic model with non-linear elimination, and the Robertson problem, which is a classic stiff ODE system.</p>
