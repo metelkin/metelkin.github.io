@@ -50,10 +50,21 @@ We intentionally exclude:
 Some tools included in this review go beyond ODE solving and provide additional capabilities such as parameter estimation or simulation workflows. We include them for completeness, without going into those advanced features.
 
 ## Overview table
+<div class="table-h-scroll">
 
-| Package | Type | Engine | Algorithms | Model format | Stiff | DAE | DDE | Time events | Conditional events | CRAN downloads (2025) |
+| Package | Engine | Type | Algorithms | Model format | Stiff | DAE | DDE | Time events | Conditional events | CRAN downloads (2025) |
 |---------|------|---------|------------|--------------|-----------------|-----|-----|-------------|--------------------|------------------------|
-| [deSolve](https://cran.r-project.org/package=deSolve) | Compiled | [ODEPACK](http://www.netlib.org/odepack/); [DASPK](http://www.netlib.org/ode/) (in FORTRAN) | lsoda, lsode, radau, euler, rk4, ode23, ode45,  etc. | R func (Interpreted); C / C++ / Fortran (Compiled) | Yes (via lsoda) | Yes (via daspk) | Yes (via dede) | Yes | Yes | 635628 |
+| [deSolve](https://cran.r-project.org/package=deSolve) | [ODEPACK](http://www.netlib.org/odepack/); [DASPK](http://www.netlib.org/ode/) (in FORTRAN) | Compiled | lsoda, lsode, radau, euler, rk4, ode23, ode45,  etc. | R func (Interpreted); C / C++ / Fortran (Compiled) | Yes (via lsoda) | Yes (via daspk) | Yes (via dede) | Yes | Yes | 635628 |
+
+</div>
+
+#### Engine
+
+This refers to the underlying numerical implementation used by the package. This can be:
+  - a well-known external library (e.g., ODEPACK),
+  - a custom compiled implementation,
+  - or an external runtime (e.g., Julia),
+  - another R package.
 
 #### Type
 
@@ -61,16 +72,9 @@ Some tools included in this review go beyond ODE solving and provide additional 
 - **Compiled solvers**: Implemented in C/C++/Fortran or wrapping established libraries (e.g., ODEPACK). These provide significantly better performance and are the default choice for most applications.
 - **External runtime interfaces**: Packages that delegate computation to external ecosystems such as Julia or Python. These act as bridges rather than standalone solvers.
 
-#### Engine / Algorithms
-
-- **Engine** refers to the underlying numerical implementation used by the package. This can be:
-  - a well-known external library (e.g., ODEPACK),
-  - a custom compiled implementation,
-  - or an external runtime (e.g., Julia),
-  - another R package.
+#### Algorithms
   
-- **Algorithms** lists the available numerical methods (e.g., LSODA, Runge–Kutta, Radau).  
-  Some packages expose multiple algorithms, while others are limited to a specific class.
+This is the list of available numerical methods (e.g., LSODA, Runge–Kutta, Radau).
 
 #### Model format
 
@@ -83,9 +87,7 @@ The key distinction affecting performance is how the model is executed:
 
 #### Stiff
 
-Indicates whether the solver can handle **stiff systems**.
-
-Stiffness arises when a system contains processes evolving on very different time scales. Solvers that support stiffness typically use implicit methods or adaptive switching (e.g., LSODA).
+Indicates whether the solver can handle **stiff systems**. Stiffness arises when a system contains processes evolving on very different time scales. Solvers that support stiffness typically use implicit methods or adaptive switching (e.g., LSODA).
 
 #### DAE / DDE
 
@@ -103,7 +105,7 @@ These features are important for modeling real-world systems with discontinuitie
 
 #### CRAN downloads
 
-Total number of downloads in 2025, reflecting usage statistics.
+Total number of downloads in 2025, reflecting usage statistics. Calculated with [CRAN logs](https://cranlogs.r-pkg.org/) service.
 
 ## Repository and test cases
 
