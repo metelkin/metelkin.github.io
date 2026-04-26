@@ -13,24 +13,36 @@ const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 // https://stefanzweifel.dev/posts/2024/06/03/how-i-use-shiki-in-eleventy/
 
 module.exports = async function(eleventyConfig) {
-  // collection for all pages with "post" tag
+  // collection for all pages with "post" tag but not draft tag
   eleventyConfig.addCollection("postPages", (collection) => {
-    return collection.getFilteredByTag("post").sort((a, b) => b.date - a.date);
+    return collection
+      .getFilteredByTag("post")
+      .filter(item => !item.data.tags.includes("draft"))
+      .sort((a, b) => b.date - a.date);
   });
 
   // collection for all pages with "featured" tag
   eleventyConfig.addCollection("featuredPages", (collection) => {
-    return collection.getFilteredByTag("featured").sort((a, b) => b.date - a.date);
+    return collection
+      .getFilteredByTag("featured")
+      .filter(item => !item.data.tags.includes("draft"))
+      .sort((a, b) => b.date - a.date);
   });
 
   // collection for all pages with "julia" tag
   eleventyConfig.addCollection("juliaPages", (collection) => {
-    return collection.getFilteredByTag("julia").sort((a, b) => b.date - a.date);
+    return collection
+      .getFilteredByTag("julia")
+      .filter(item => !item.data.tags.includes("draft"))
+      .sort((a, b) => b.date - a.date);
   });
 
   // collection for all pages with "r" tag
   eleventyConfig.addCollection("rPages", (collection) => {
-    return collection.getFilteredByTag("r").sort((a, b) => b.date - a.date);
+    return collection
+      .getFilteredByTag("r")
+      .filter(item => !item.data.tags.includes("draft"))
+      .sort((a, b) => b.date - a.date);
   });
 
   // filter to format date as YYYY-MM-DD

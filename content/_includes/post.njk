@@ -18,6 +18,11 @@ licenseUrl: https://creativecommons.org/licenses/by/4.0/
     <div>
         <p><strong>{{ author }}</strong></p>
         <p><strong>{{ date.toISOString().slice(0, 10) }}</strong></p>
+        {%- if tags and tags.includes("draft") %} {# display red "Draft" badge #}
+        <h2 style="color: red;">
+            Draft
+        </h2>
+        {%- endif %}
     </div>
     <dev class="markdown-body">
         {{ content | safe }}

@@ -16,12 +16,13 @@ openGraph:
     site_name: Evgeny Metelkin
     type: article
 tags: 
+    - draft
     - post
-#    - featured
+    - featured
+    - r
     - SoftwareEngineering
     - modeling
     - software
-    - r
 ---
 ![Cover](./img/fig0-cover.png)
 
