@@ -118,7 +118,7 @@
 <tr>
 <th>Package</th>
 <th>Engine</th>
-<th>Type</th>
+<th>Solver type</th>
 <th>Algorithms</th>
 <th>Model format</th>
 <th>Stiff</th>
@@ -126,22 +126,100 @@
 <th>DDE</th>
 <th>Time events</th>
 <th>Conditional events</th>
-<th>CRAN downloads (2025)</th>
+<th>CRAN (2025)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><a href="https://cran.r-project.org/package=deSolve" target="_blank" rel="noopener noreferrer">deSolve</a></td>
-<td><a href="http://www.netlib.org/odepack/" target="_blank" rel="noopener noreferrer">ODEPACK</a>; <a href="http://www.netlib.org/ode/" target="_blank" rel="noopener noreferrer">DASPK</a> (in FORTRAN)</td>
+<td><a href="http://www.netlib.org/odepack/" target="_blank" rel="noopener noreferrer">ODEPACK</a>; <a href="http://www.netlib.org/ode/" target="_blank" rel="noopener noreferrer">DASPK</a> (Fortran)</td>
 <td>Compiled</td>
-<td>lsoda, lsode, radau, euler, rk4, ode23, ode45,  etc.</td>
-<td>R func (Interpreted); C / C++ / Fortran (Compiled)</td>
-<td>Yes (via lsoda)</td>
-<td>Yes (via daspk)</td>
-<td>Yes (via dede)</td>
+<td>lsoda, lsode, lsodes, lsodar, vode, daspk, bdf, adams, euler, rk4, ode23, ode45,</td>
+<td>R func (interpreted); C/C++/Fortran (compiled)</td>
+<td>Yes (lsoda)</td>
+<td>Yes (daspk)</td>
+<td>Yes (dede)</td>
 <td>Yes</td>
-<td>Yes</td>
+<td>Yes (rootfun)</td>
 <td>635628</td>
+</tr>
+<tr>
+<td><a href="https://cran.r-project.org/package=rxode2" target="_blank" rel="noopener noreferrer">rxode2</a></td>
+<td><a href="https://github.com/sdwfrost/liblsoda" target="_blank" rel="noopener noreferrer">LIBLSODA</a> + custom (C)</td>
+<td>Compiled</td>
+<td>liblsoda, lsoda, dop853, indLin</td>
+<td>DSL (R-like, compiled)</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Yes</td>
+<td>-</td>
+<td>42872</td>
+</tr>
+<tr>
+<td><a href="https://cran.r-project.org/package=mrgsolve" target="_blank" rel="noopener noreferrer">mrgsolve</a></td>
+<td><a href="http://www.netlib.org/odepack/" target="_blank" rel="noopener noreferrer">DLSODA</a> (C++ translation)</td>
+<td>Compiled</td>
+<td>lsoda</td>
+<td>DSL (C++-like, compiled)</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Yes</td>
+<td>-</td>
+<td>33544</td>
+</tr>
+<tr>
+<td><a href="https://cran.r-project.org/package=dMod" target="_blank" rel="noopener noreferrer">dMod</a></td>
+<td><em>deSolve</em></td>
+<td>Compiled</td>
+<td>depends on deSolve</td>
+<td>DSL (cOde, compiled), API (compiled)</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>4947</td>
+</tr>
+<tr>
+<td><a href="https://cran.r-project.org/package=pracma" target="_blank" rel="noopener noreferrer">pracma</a></td>
+<td>Matlab port</td>
+<td>Pure R</td>
+<td>ode23, ode23s, ode45, ode78</td>
+<td>R func (interpreted)</td>
+<td>Yes (ode23s)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>1059146</td>
+</tr>
+<tr>
+<td><a href="https://cran.r-project.org/package=odin" target="_blank" rel="noopener noreferrer">odin</a></td>
+<td><em>deSolve</em></td>
+<td>Compiled</td>
+<td>depends on deSolve</td>
+<td>DSL (R-like, compiled)</td>
+<td>Yes</td>
+<td>-</td>
+<td>Yes (dede)</td>
+<td>-</td>
+<td>-</td>
+<td>17252</td>
+</tr>
+<tr>
+<td><a href="https://cran.r-project.org/package=PKPDsim" target="_blank" rel="noopener noreferrer">PKPDsim</a></td>
+<td><a href="https://github.com/boostorg/odeint" target="_blank" rel="noopener noreferrer">Boost::odeint</a> (C++)</td>
+<td>Compiled</td>
+<td>Adaptive RK (RKCK54)</td>
+<td>DSL (compiled)</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>Yes</td>
+<td>-</td>
+<td>10319</td>
 </tr>
 </tbody>
 </table>
@@ -154,7 +232,7 @@
 <li>or an external runtime (e.g., Julia),</li>
 <li>another R package.</li>
 </ul>
-<h4>Type</h4>
+<h4>Solver type</h4>
 <ul>
 <li><strong>Pure R solvers</strong>: Numerical algorithms implemented directly in R. These are easy to inspect and flexible, but typically slower due to interpreter overhead.</li>
 <li><strong>Compiled solvers</strong>: Implemented in C/C++/Fortran or wrapping established libraries (e.g., ODEPACK). These provide significantly better performance and are the default choice for most applications.</li>
@@ -183,7 +261,7 @@
 <li><strong>Time events</strong>: Discrete changes applied at predefined time points (e.g., dosing events).</li>
 <li><strong>Conditional events</strong>: Events triggered when a condition is met during simulation (e.g., threshold crossing).</li>
 </ul>
-<h4>CRAN downloads</h4>
+<h4>CRAN 2025</h4>
 <p>Total number of downloads in 2025, reflecting usage statistics. Calculated with <a href="https://cranlogs.r-pkg.org/" target="_blank" rel="noopener noreferrer">CRAN logs</a> service.</p>
 <h2>Repository and test cases</h2>
 <p>To ensure practical consistency, packages were tested on two simple ODE models. The full code for all packages is available in the companion <a href="https://github.com/metelkin/ode-solvers-in-r" target="_blank" rel="noopener noreferrer">GitHub repository</a>.</p>
