@@ -50,11 +50,18 @@ We intentionally exclude:
 Some tools included in this review go beyond ODE solving and provide additional capabilities such as parameter estimation or simulation workflows. We include them for completeness, without going into those advanced features.
 
 ## Overview table
+
 <div class="table-h-scroll">
 
-| Package | Engine | Type | Algorithms | Model format | Stiff | DAE | DDE | Time events | Conditional events | CRAN downloads (2025) |
-|---------|------|---------|------------|--------------|-----------------|-----|-----|-------------|--------------------|------------------------|
-| [deSolve](https://cran.r-project.org/package=deSolve) | [ODEPACK](http://www.netlib.org/odepack/); [DASPK](http://www.netlib.org/ode/) (in FORTRAN) | Compiled | lsoda, lsode, radau, euler, rk4, ode23, ode45,  etc. | R func (Interpreted); C / C++ / Fortran (Compiled) | Yes (via lsoda) | Yes (via daspk) | Yes (via dede) | Yes | Yes | 635628 |
+| Package | Engine | Solver type | Algorithms | Model format | Stiff | DAE | DDE | Time events | Conditional events | CRAN (2025) |
+|--------|--------|------|------------|--------------|-------|-----|-----|-------------|--------------------|------------------------|
+| [deSolve](https://cran.r-project.org/package=deSolve) | [ODEPACK](http://www.netlib.org/odepack/); [DASPK](http://www.netlib.org/ode/) (Fortran) | Compiled | lsoda, lsode, lsodes, lsodar, vode, daspk, bdf, adams, euler, rk4, ode23, ode45, | R func (interpreted); C/C++/Fortran (compiled) | Yes (lsoda) | Yes (daspk) | Yes (dede) | Yes | Yes (rootfun) | 635628 |
+| [rxode2](https://cran.r-project.org/package=rxode2) | [LIBLSODA](https://github.com/sdwfrost/liblsoda) + custom (C) | Compiled | liblsoda, lsoda, dop853, indLin | DSL (R-like, compiled) | Yes | - | - | Yes | - | 42872 |
+| [mrgsolve](https://cran.r-project.org/package=mrgsolve) | [DLSODA](http://www.netlib.org/odepack/) (C++ translation) | Compiled | lsoda | DSL (C++-like, compiled) | Yes | - | - | Yes | - | 33544 |
+| [dMod](https://cran.r-project.org/package=dMod) | _deSolve_ | Compiled | depends on deSolve | DSL (cOde, compiled), API (compiled)| Yes | - | - | - | - | 4947 |
+| [pracma](https://cran.r-project.org/package=pracma) | Matlab port | Pure R | ode23, ode23s, ode45, ode78 | R func (interpreted) | Yes (ode23s) | - | - | - | - | 1059146 |
+| [odin](https://cran.r-project.org/package=odin) | _deSolve_ | Compiled | depends on deSolve | DSL (R-like, compiled) | Yes | - | Yes (dede) | - | - | 17252 |
+| [PKPDsim](https://cran.r-project.org/package=PKPDsim) | [Boost::odeint](https://github.com/boostorg/odeint) (C++) | Compiled | Adaptive RK (RKCK54) | DSL (compiled) | - | - | - | Yes | - | 10319 |
 
 </div>
 
@@ -66,7 +73,7 @@ This refers to the underlying numerical implementation used by the package. This
   - or an external runtime (e.g., Julia),
   - another R package.
 
-#### Type
+#### Solver type
 
 - **Pure R solvers**: Numerical algorithms implemented directly in R. These are easy to inspect and flexible, but typically slower due to interpreter overhead.
 - **Compiled solvers**: Implemented in C/C++/Fortran or wrapping established libraries (e.g., ODEPACK). These provide significantly better performance and are the default choice for most applications.
@@ -103,7 +110,7 @@ These features are important for modeling real-world systems with discontinuitie
 - **Time events**: Discrete changes applied at predefined time points (e.g., dosing events).
 - **Conditional events**: Events triggered when a condition is met during simulation (e.g., threshold crossing).
 
-#### CRAN downloads
+#### CRAN 2025
 
 Total number of downloads in 2025, reflecting usage statistics. Calculated with [CRAN logs](https://cranlogs.r-pkg.org/) service.
 
