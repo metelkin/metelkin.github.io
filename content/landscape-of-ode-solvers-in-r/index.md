@@ -58,12 +58,12 @@ Some tools included in this review go beyond ODE solving and provide additional 
 | [deSolve](https://cran.r-project.org/package=deSolve) | [ODEPACK](http://www.netlib.org/odepack/); [DASPK](http://www.netlib.org/ode/) (Fortran) | Compiled | lsoda, lsode, lsodes, lsodar, vode, daspk, bdf, adams, euler, rk4, ode23, ode45, | R func (interpreted); C/C++/Fortran (compiled) | Yes (lsoda) | Yes (daspk) | Yes (dede) | Yes | Yes (rootfun) | 635628 |
 | [rxode2](https://cran.r-project.org/package=rxode2) | [LIBLSODA](https://github.com/sdwfrost/liblsoda) + custom (C) | Compiled | liblsoda, lsoda, dop853, indLin | DSL (R-like, compiled) | Yes | - | - | Yes | - | 42872 |
 | [mrgsolve](https://cran.r-project.org/package=mrgsolve) | [DLSODA](http://www.netlib.org/odepack/) (C++ translation) | Compiled | lsoda | DSL (C++-like, compiled) | Yes | - | - | Yes | - | 33544 |
-| [dMod](https://cran.r-project.org/package=dMod) | _deSolve_ | Compiled | depends on deSolve | DSL (cOde, compiled), API (compiled)| Yes | - | - | - | - | 4947 |
+| [dMod](https://cran.r-project.org/package=dMod) | _deSolve_ | Compiled | _depends on deSolve_ | DSL (cOde, compiled), API (compiled)| Yes | - | - | - | - | 4947 |
 | [pracma](https://cran.r-project.org/package=pracma) | Matlab port | Pure R | ode23, ode23s, ode45, ode78 | R func (interpreted) | Yes (ode23s) | - | - | - | - | 1059146 |
-| [odin](https://cran.r-project.org/package=odin) | _deSolve_ | Compiled | depends on deSolve | DSL (R-like, compiled) | Yes | - | Yes (dede) | - | - | 17252 |
+| [odin](https://cran.r-project.org/package=odin) | _deSolve_ | Compiled | _depends on deSolve_ | DSL (R-like, compiled) | Yes | - | Yes (dede) | - | - | 17252 |
 | [PKPDsim](https://cran.r-project.org/package=PKPDsim) | [Boost::odeint](https://github.com/boostorg/odeint) (C++) | Compiled | Adaptive RK (RKCK54) | DSL (compiled) | - | - | - | Yes | - | 10319 |
-| [EpiModel](https://cran.r-project.org/package=EpiModel) | _deSolve_ | Compiled | depends on deSolve | R func (interpreted) | Yes | - | Yes (dede) | - | - | 23088 |
-| [PBSddesolve](https://cran.r-project.org/package=PBSddesolve) | [solv95](https://webhomes.maths.ed.ac.uk/~swood34/simon/dde.html) (C) | Compiled | dde | | R func (interpreted) | - | - | Yes | - | - | 10341 |
+| [EpiModel](https://cran.r-project.org/package=EpiModel) | _deSolve_ | Compiled | _depends on deSolve_ | R func (interpreted) | Yes | - | Yes (dede) | - | - | 23088 |
+| [PBSddesolve](https://cran.r-project.org/package=PBSddesolve) | [solv95](https://webhomes.maths.ed.ac.uk/~swood34/simon/dde.html) (C) | Compiled | dde | R func (interpreted) | - | - | Yes | - | - | 10341 |
 
 </div>
 
