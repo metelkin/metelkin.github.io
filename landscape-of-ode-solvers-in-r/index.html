@@ -221,6 +221,19 @@
 <td>-</td>
 <td>10319</td>
 </tr>
+<tr>
+<td><a href="https://cran.r-project.org/package=EpiModel" target="_blank" rel="noopener noreferrer">EpiModel</a></td>
+<td><em>deSolve</em></td>
+<td>Compiled</td>
+<td>depends on deSolve</td>
+<td>R func (interpreted)</td>
+<td>Yes</td>
+<td>-</td>
+<td>Yes (dede)</td>
+<td>-</td>
+<td>-</td>
+<td>23088</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -329,7 +342,7 @@ plot<span class="token punctuation">(</span>out<span class="token punctuation">)
 <h2>Author's notes</h2>
 <p>The goal of this review was to provide <strong>a maximally complete and objective overview</strong> of tools for solving ODEs in R. The packages included in this survey differ significantly in their purpose and functionality: from simple numerical solvers to full-featured frameworks and specialized domain-specific tools. They are presented here on equal footing, without going into detailed feature comparisons.</p>
 <p>Many aspects - such as computational performance, numerical accuracy, and advanced functionality - are intentionally not covered in this article.</p>
-<p>The table includes popularity metrics in the form of download counts. However, these numbers do not reflect the actual capabilities of the packages. Downloads may include one-time installations for educational purposes, CI/CD workflows, or other non-analytical uses. Therefore, they should not be considered a deciding factor when choosing a tool, but rather as a rough indicator of visibility within the community.</p>
+<p>The table includes popularity metrics as download counts. However, these numbers do not reflect the actual capabilities of the packages. Downloads may include one-time installations for educational purposes, CI/CD workflows, or usage for non-ODE problems. Therefore, they should not be considered a deciding factor when choosing a tool, but rather as a rough indicator of visibility within the community.</p>
 <p>Below is a subjective selection of packages that I would recommend paying attention to.</p>
 <h4>General-purpose solution: deSolve</h4>
 <p><a href="https://cran.r-project.org/package=deSolve" target="_blank" rel="noopener noreferrer">deSolve</a> is a robust and well-established package with broad functionality and support for multiple numerical methods. It provides advanced capabilities such as handling stiffness, DAEs, DDEs, and events, while maintaining good computational performance through compiled solvers and model interfaces. It also offers flexible ways to define models.</p>
