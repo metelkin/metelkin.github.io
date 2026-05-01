@@ -62,6 +62,7 @@ Some tools included in this review go beyond ODE solving and provide additional 
 | [pracma](https://cran.r-project.org/package=pracma) | Matlab port | Pure R | ode23, ode23s, ode45, ode78 | R func (interpreted) | Yes (ode23s) | - | - | - | - | 1059146 |
 | [odin](https://cran.r-project.org/package=odin) | _deSolve_ | Compiled | depends on deSolve | DSL (R-like, compiled) | Yes | - | Yes (dede) | - | - | 17252 |
 | [PKPDsim](https://cran.r-project.org/package=PKPDsim) | [Boost::odeint](https://github.com/boostorg/odeint) (C++) | Compiled | Adaptive RK (RKCK54) | DSL (compiled) | - | - | - | Yes | - | 10319 |
+| [EpiModel](https://cran.r-project.org/package=EpiModel) | _deSolve_ | Compiled | depends on deSolve | R func (interpreted) | Yes | - | Yes (dede) | - | - | 23088 |
 
 </div>
 
@@ -196,7 +197,7 @@ The goal of this review was to provide **a maximally complete and objective over
 
 Many aspects - such as computational performance, numerical accuracy, and advanced functionality - are intentionally not covered in this article.
 
-The table includes popularity metrics in the form of download counts. However, these numbers do not reflect the actual capabilities of the packages. Downloads may include one-time installations for educational purposes, CI/CD workflows, or other non-analytical uses. Therefore, they should not be considered a deciding factor when choosing a tool, but rather as a rough indicator of visibility within the community.
+The table includes popularity metrics as download counts. However, these numbers do not reflect the actual capabilities of the packages. Downloads may include one-time installations for educational purposes, CI/CD workflows, or usage for non-ODE problems. Therefore, they should not be considered a deciding factor when choosing a tool, but rather as a rough indicator of visibility within the community.
 
 Below is a subjective selection of packages that I would recommend paying attention to.
 
