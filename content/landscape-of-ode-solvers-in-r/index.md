@@ -63,6 +63,7 @@ Some tools included in this review go beyond ODE solving and provide additional 
 | [odin](https://cran.r-project.org/package=odin) | _deSolve_ | Compiled | depends on deSolve | DSL (R-like, compiled) | Yes | - | Yes (dede) | - | - | 17252 |
 | [PKPDsim](https://cran.r-project.org/package=PKPDsim) | [Boost::odeint](https://github.com/boostorg/odeint) (C++) | Compiled | Adaptive RK (RKCK54) | DSL (compiled) | - | - | - | Yes | - | 10319 |
 | [EpiModel](https://cran.r-project.org/package=EpiModel) | _deSolve_ | Compiled | depends on deSolve | R func (interpreted) | Yes | - | Yes (dede) | - | - | 23088 |
+| [PBSddesolve](https://cran.r-project.org/package=PBSddesolve) | [solv95](https://webhomes.maths.ed.ac.uk/~swood34/simon/dde.html) (C) | Compiled | dde | | R func (interpreted) | - | - | Yes | - | - | 10341 |
 
 </div>
 
@@ -82,7 +83,7 @@ This refers to the underlying numerical implementation used by the package. This
 
 #### Algorithms
   
-This is the list of available numerical methods (e.g., LSODA, Runge–Kutta, Radau).
+This is the list of available numerical methods as documented by the package.
 
 #### Model format
 
@@ -193,11 +194,11 @@ plot(out)
 
 ## Author's notes
 
-The goal of this review was to provide **a maximally complete and objective overview** of tools for solving ODEs in R. The packages included in this survey differ significantly in their purpose and functionality: from simple numerical solvers to full-featured frameworks and specialized domain-specific tools. They are presented here on equal footing, without going into detailed feature comparisons.
+The goal of this review was to provide **a maximally complete and objective overview** of tools for solving ODEs in R. The packages included in this survey differ significantly in their purpose and functionality: from simple numerical solvers to full-featured frameworks and specialized domain-specific tools.
 
 Many aspects - such as computational performance, numerical accuracy, and advanced functionality - are intentionally not covered in this article.
 
-The table includes popularity metrics as download counts. However, these numbers do not reflect the actual capabilities of the packages. Downloads may include one-time installations for educational purposes, CI/CD workflows, or usage for non-ODE problems. Therefore, they should not be considered a deciding factor when choosing a tool, but rather as a rough indicator of visibility within the community.
+The table includes popularity metrics as download counts. However, these numbers do not reflect the actual capabilities of the packages. Downloads may include one-time installations for educational purposes, CI/CD workflows, or usage of a package for non-ODE problems. Therefore, they should not be considered a deciding factor when choosing a tool, but rather as a rough indicator of visibility within the community.
 
 Below is a subjective selection of packages that I would recommend paying attention to.
 
