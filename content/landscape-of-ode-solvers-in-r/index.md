@@ -49,7 +49,7 @@ We intentionally exclude:
 
 Some tools included in this review go beyond ODE solving and provide additional capabilities such as parameter estimation or simulation workflows. We include them for completeness, without going into those advanced features.
 
-## Overview table
+## Packages overview table
 
 <div class="table-h-scroll">
 
@@ -67,6 +67,7 @@ Some tools included in this review go beyond ODE solving and provide additional 
 | [sundialr](https://cran.r-project.org/package=sundialr) | [SUNDIALS](https://computing.llnl.gov/projects/sundials) (C) | Compiled | BDF, Adams | R func (interpreted); C++ (compiled) | Yes | Yes (via IDA) | - | Yes | - | 2024 |
 | [r2sundials](https://cran.r-project.org/package=r2sundials) | [SUNDIALS](https://computing.llnl.gov/projects/sundials) (C) | Compiled | BDF, Adams | R func (interpreted); C++ (compiled) | Yes | Yes (via IDA) | - | - | Yes (via rootfinding) | 3439 |
 | [rstan](https://cran.r-project.org/package=rstan) | [Stan Math Library](https://mc-stan.org/docs/2_27/functions-reference/functions-ode-solver.html) (C++) | Compiled | rk45, bdf, adams, ckrk | DSL (Stan language, compiled) | Yes (bdf) | Yes (index-1) | - | - | - | 1107167 |
+| [rodeo](https://cran.r-project.org/package=rodeo) | _deSolve_ | Compiled | _depends on deSolve_ | Table format (interpreted/compiled) | Yes | - | - | Yes | Yes (via deSolve roots) | 3386 |
 
 
 </div>
