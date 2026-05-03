@@ -204,9 +204,11 @@ Many aspects - such as computational performance, numerical accuracy, and advanc
 
 Many packages designed for specific application areas (e.g., PK/PD) can also be used to solve general ODE systems. These are included here on equal footing, without focusing on their domain-specific features.
 
-The table includes popularity metrics as download counts. However, these numbers do not reflect the actual capabilities of the packages. Downloads may include one-time installations for educational purposes, CI/CD workflows, or usage of a package for non-ODE problems. Therefore, they should not be considered a deciding factor when choosing a tool, but rather as a rough indicator of visibility within the community.
-
 For a broader catalogue, see the [CRAN Task View: Differential Equations](https://cran.r-project.org/web/views/DifferentialEquations.html), which also covers SDEs, DDEs, DAEs, PDEs, boundary value problems, calibration tools, and related modeling packages. The present review is narrower and more practical: it focuses on packages that can be used to solve general ODE systems in R and provides tested examples for each included tool.
+
+### Download metrics
+
+The table includes popularity metrics as download counts. However, these numbers do not reflect the actual capabilities of the packages. Downloads may include one-time installations for educational purposes, CI/CD workflows, or usage of a package for non-ODE problems. Therefore, they should not be considered a deciding factor when choosing a tool, but rather as a rough indicator of visibility within the community.
 
 ### deSolve
 
@@ -217,4 +219,12 @@ It provides a broad set of numerical methods and supports a wide range of proble
 Overall, deSolve can be seen as a foundational tool in the R ecosystem for differential equations. Its popularity is well justified by its versatility, stability, and long-term development. If you are new to ODE modeling in R, starting with deSolve is a safe and practical choice before exploring more specialized tools.
 
 ### Model formats
+
+An important factor when choosing a tool is the model definition format. The R ecosystem offers a wide range of approaches: from simple R functions (deSolve, pracma, PBSddesolve) and tabular specifications (rodeo) to domain-specific languages (PKPDsim, rstan) and low-level compiled code (rxode2, mrgsolve, deSolve).
+
+These differences affect both performance and usability, and often determine how easily a model can be developed, modified, and integrated into a workflow.
+
+### Limitations and gaps
+
+Despite the variety of available tools, support for some important features remains limited across the R ecosystem. In particular, capabilities such as delay differential equations (DDE), differential-algebraic equations (DAE), and advanced event handling are only partially implemented and are available in relatively few packages. As a result, modeling tasks that rely on these capabilities may require additional effort, careful selection of tools, or even custom implementations.
 
