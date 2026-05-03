@@ -26,26 +26,25 @@ tags:
 ---
 ![Cover](./img/fig0-cover.png)
 
-Solving **ordinary differential equations (ODEs)** is a common task in many fields, including systems biology, pharmacometrics, and engineering. The R ecosystem offers a collection of tools for this purpose: from lightweight numerical solvers to full modeling frameworks.
+Solving **ordinary differential equations (ODEs)** is a common task in many fields, including systems biology, pharmacometrics, physics, and engineering. The R ecosystem offers a collection of tools for this purpose: from lightweight numerical solvers to full modeling frameworks.
 
 This article provides **a practical overview of ODE solvers in R**, with a focus on helping users navigate the ecosystem and choose appropriate tools.
 
-All packages here was tested with simple examples and the code was published in the [GitHub repository](https://github.com/metelkin/ode-solvers-in-r).
+All packages included here were tested with simple examples and the code was published in the [GitHub repository](https://github.com/metelkin/ode-solvers-in-r).
 
 ## What is included
 
-We include tools that:
+We include R packages that:
 
-- Provide an API for R
 - Support solving general ODE systems
 - Are mentioned in literature, documentation, or community discussions
 
 We intentionally exclude:
 
-- Deprecated or archived packages (e.g., RxODE)
-- Thin wrappers around other frameworks without original solvers or formats (e.g., nlmixr2)
+- Deprecated or archived packages
+- Thin wrappers around other frameworks without original solvers or formats
 - Small helper packages
-- Highly specialized tools limited to narrow domains
+- Proprietary tools with limited public documentation
 
 Some tools included in this review go beyond ODE solving and provide additional capabilities such as parameter estimation or simulation workflows. We include them for completeness, without going into those advanced features.
 
@@ -53,7 +52,7 @@ Some tools included in this review go beyond ODE solving and provide additional 
 
 <div class="table-h-scroll">
 
-| Package | Engine | Solver type | Algorithms | Model format | Stiff | DAE | DDE | Time events | Conditional events | CRAN (2025) |
+| Package | Engine | Solver type | Algorithms | Model format | Stiff | DAE | DDE | Time events | Conditional events | Downloads (2025) |
 |--------|--------|------|------------|--------------|-------|-----|-----|-------------|--------------------|------------------------|
 | [deSolve](https://cran.r-project.org/package=deSolve) | [ODEPACK](http://www.netlib.org/odepack/); [DASPK](http://www.netlib.org/ode/) (Fortran) | Compiled | lsoda, lsode, lsodes, lsodar, vode, daspk, bdf, adams, euler, rk4, ode23, ode45, | R func (interpreted); C/C++/Fortran (compiled) | Yes (lsoda) | Yes (daspk) | Yes (dede) | Yes | Yes (rootfun) | 635628 |
 | [rxode2](https://cran.r-project.org/package=rxode2) | [LIBLSODA](https://github.com/sdwfrost/liblsoda) + custom (C) | Compiled | liblsoda, lsoda, dop853, indLin | DSL (R-like, compiled) | Yes | - | - | Yes | - | 42872 |
@@ -75,10 +74,10 @@ Some tools included in this review go beyond ODE solving and provide additional 
 #### Engine
 
 This refers to the underlying numerical implementation used by the package. This can be:
-  - a well-known external library (e.g., ODEPACK),
-  - a custom compiled implementation,
-  - or an external runtime (e.g., Julia),
-  - another R package.
+  - a well-known external library (e.g., ODEPACK)
+  - a custom compiled implementation
+  - another R package
+  - or an external runtime (e.g., another language)
 
 #### Solver type
 
@@ -117,9 +116,9 @@ These features are important for modeling real-world systems with discontinuitie
 - **Time events**: Discrete changes applied at predefined time points (e.g., dosing events).
 - **Conditional events**: Events triggered when a condition is met during simulation (e.g., threshold crossing).
 
-#### CRAN 2025
+#### Downloads 2025
 
-Total number of downloads in 2025, reflecting usage statistics. Calculated with [CRAN logs](https://cranlogs.r-pkg.org/) service.
+Total number of downloads in 2025 from CRAN, reflecting usage statistics. Calculated with [CRAN logs](https://cranlogs.r-pkg.org/).
 
 ## Repository and test cases
 
@@ -203,36 +202,19 @@ The goal of this review was to provide **a maximally complete and objective over
 
 Many aspects - such as computational performance, numerical accuracy, and advanced functionality - are intentionally not covered in this article.
 
+Many packages designed for specific application areas (e.g., PK/PD) can also be used to solve general ODE systems. These are included here on equal footing, without focusing on their domain-specific features.
+
 The table includes popularity metrics as download counts. However, these numbers do not reflect the actual capabilities of the packages. Downloads may include one-time installations for educational purposes, CI/CD workflows, or usage of a package for non-ODE problems. Therefore, they should not be considered a deciding factor when choosing a tool, but rather as a rough indicator of visibility within the community.
 
-Below is a subjective selection of packages that I would recommend paying attention to.
+For a broader catalogue, see the [CRAN Task View: Differential Equations](https://cran.r-project.org/web/views/DifferentialEquations.html), which also covers SDEs, DDEs, DAEs, PDEs, boundary value problems, calibration tools, and related modeling packages. The present review is narrower and more practical: it focuses on packages that can be used to solve general ODE systems in R and provides tested examples for each included tool.
 
-#### General-purpose solution: deSolve
+### deSolve
 
-[deSolve](https://cran.r-project.org/package=deSolve) is a robust and well-established package with broad functionality and support for multiple numerical methods. It provides advanced capabilities such as handling stiffness, DAEs, DDEs, and events, while maintaining good computational performance through compiled solvers and model interfaces. It also offers flexible ways to define models.
+[deSolve](https://cran.r-project.org/package=deSolve) is one of the most widely used and established ODE packages in R. Its central role in the ecosystem is reflected not only in its large user base, but also in the number of other packages that build on top of it.
 
-With a large user base and extensive documentation, it is a reliable default choice.
+It provides a broad set of numerical methods and supports a wide range of problem types, including stiff systems, DAEs, DDEs, and event handling. At the same time, it offers flexible model definitions, from simple R functions to compiled code.
 
-I would recommend it as a general-purpose tool for most ODE tasks in R. If you are new to ODE modeling in R, starting with deSolve is a safe and practical choice before exploring more specialized tools.
+Overall, deSolve can be seen as a foundational tool in the R ecosystem for differential equations. Its popularity is well justified by its versatility, stability, and long-term development. If you are new to ODE modeling in R, starting with deSolve is a safe and practical choice before exploring more specialized tools.
 
-#### Domain-specific tool: rxode2
+### Model formats
 
-[rxode2](https://cran.r-project.org/package=rxode2) is a powerful tool designed for pharmacokinetics and pharmacodynamics (PK/PD).
-
-Together with the [nlmixr2](https://nlmixr2.org/) toolkit, it extends beyond ODE solving to include parameter estimation from data and efficient Monte Carlo simulations in parallel and distributed environments.
-
-If your work is related to PK/PD modeling, this can be an excellent choice.
-
-#### Underappreciated tool: dMod
-
-[dMod](https://cran.r-project.org/package=dMod) provides a powerful framework for dynamic modeling, parameter estimation, and identifiability analysis.
-
-It combines symbolic model definition with efficient numerical solvers and supports gradient-based optimization workflows. While it has a steeper learning curve compared to simpler solvers, it offers a high level of flexibility and is particularly useful for more advanced modeling tasks.
-
-Despite its capabilities, it appears to be less widely used, making it an interesting but often overlooked option.
-
-#### Bridge to high-performance: diffeqr
-
-[diffeqr](https://cran.r-project.org/package=diffeqr) provides an interface to the Julia-based DifferentialEquations.jl ecosystem, exposing a large collection of state-of-the-art solvers directly in R.
-
-Rather than implementing its own numerical methods, it delegates computation to Julia, allowing access to advanced algorithms, GPU acceleration, and high-performance execution that are often beyond native R tools.
