@@ -20,15 +20,15 @@
     <meta name="author" content="Evgeny Metelkin" />
     <!-- article -->
     <meta property="article:author" content="https://metelkin.me" />
-    <meta property="article:published_time" content="2026-04-26T00:00:00Z" />
-    <meta property="article:modified_time" content="2026-04-26T00:00:00Z" />
+    <meta property="article:published_time" content="2026-05-04T00:00:00Z" />
+    <meta property="article:modified_time" content="2026-05-04T00:00:00Z" />
     <!-- SEO -->
     <link rel="canonical" href="https://metelkin.me/landscape-of-ode-solvers-in-r/" />
     <!-- Open Graph -->
     <meta property="og:title" content="Landscape of ODE Solvers in R" />
     <meta property="og:description" content="An overview of ODE solvers in R, highlighting their capabilities, performance, and practical considerations." />
     <meta property="og:url" content="https://metelkin.me/landscape-of-ode-solvers-in-r/" />
-    <meta property="og:image" content="https://metelkin.me/landscape-of-ode-solvers-in-r/img/fig0-cover-520x270.png" />
+    <meta property="og:image" content="https://metelkin.me/landscape-of-ode-solvers-in-r/img/fig0-cover.png" />
     <meta property="og:site_name" content="Evgeny Metelkin" />
     <meta property="og:type" content="article" />
     <!-- Style -->
@@ -86,16 +86,13 @@
     <h2>A Practical Overview</h2>
     <div>
         <p><strong>Evgeny Metelkin</strong></p>
-        <p><strong>2026-04-26</strong></p> 
-        <h2 style="color: red;">
-            Draft
-        </h2>
+        <p><strong>2026-05-04</strong></p>
     </div>
     <dev class="markdown-body">
         <p><img src="./img/fig0-cover.png" alt="Cover"></p>
 <p>Solving <strong>ordinary differential equations (ODEs)</strong> is a common task in many fields, including systems biology, pharmacometrics, physics, and engineering. The R ecosystem offers a collection of tools for this purpose: from lightweight numerical solvers to full modeling frameworks.</p>
 <p>This article provides <strong>a practical overview of ODE solvers in R</strong>, with a focus on helping users navigate the ecosystem and choose appropriate tools.</p>
-<p>All packages included here were tested with simple examples and the code was published in the <a href="https://github.com/metelkin/ode-solvers-in-r" target="_blank" rel="noopener noreferrer">GitHub repository</a>.</p>
+<p>All packages included here were tested with simple examples and the code is available in the <a href="https://github.com/metelkin/ode-solvers-in-r" target="_blank" rel="noopener noreferrer">GitHub repository</a>.</p>
 <h2>What is included</h2>
 <p>We include R packages that:</p>
 <ul>
@@ -183,7 +180,7 @@
 </tr>
 <tr>
 <td><a href="https://cran.r-project.org/package=pracma" target="_blank" rel="noopener noreferrer">pracma</a></td>
-<td>Matlab port</td>
+<td>Matlab-inspired implementation</td>
 <td>Pure R</td>
 <td>ode23, ode23s, ode45, ode78</td>
 <td>R func (interpreted)</td>
@@ -279,7 +276,7 @@
 <td>rk45, bdf, adams, ckrk</td>
 <td>DSL (Stan language, compiled)</td>
 <td>Yes (bdf)</td>
-<td>Yes (index-1)</td>
+<td>Yes (limited, index-1)</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -290,7 +287,7 @@
 <td><em>deSolve</em></td>
 <td>Compiled</td>
 <td><em>depends on deSolve</em></td>
-<td>Table format (interpreted/compiled)</td>
+<td>Table format (interpreted / compiled)</td>
 <td>Yes</td>
 <td>-</td>
 <td>-</td>
@@ -300,7 +297,7 @@
 </tr>
 <tr>
 <td>* <a href="https://iqrtools.intiquan.com/doc/book/license-and-availability.html" target="_blank" rel="noopener noreferrer">IQRTools</a></td>
-<td><a href="https://sundials.readthedocs.io/en/latest/cvodes/index.html" target="_blank" rel="noopener noreferrer">CVODES</a> (SUNDIALS) (С)</td>
+<td><a href="https://sundials.readthedocs.io/en/latest/cvodes/index.html" target="_blank" rel="noopener noreferrer">CVODES</a> (SUNDIALS) (C)</td>
 <td>Compiled</td>
 <td>BDF, Adams</td>
 <td>DSL (Compiled)</td>
@@ -418,7 +415,7 @@ out <span class="token operator">&lt;-</span> mod <span class="token percent-ope
 plot<span class="token punctuation">(</span>out<span class="token punctuation">)</span></code></pre>
 <p><img src="./img/fig2-example-2-sim.png" alt="example-2-sim"></p>
 <h2>Author's notes</h2>
-<p>The goal of this review was to provide <strong>a maximally complete and objective overview</strong> of tools for solving ODEs in R. The packages included in this survey differ significantly in their purpose and functionality: from simple numerical solvers to full-featured frameworks and specialized domain-specific tools. Many aspects - such as computational performance, numerical accuracy, and advanced functionality - are intentionally not covered in this article.</p>
+<p>The goal of this review was to provide <strong>a maximally complete and objective overview</strong> of tools for solving ODEs in R. The packages included in this survey differ in their purpose and functionality: from simple numerical solvers to full-featured frameworks and specialized domain-specific tools. Many aspects, such as computational performance, numerical accuracy, and advanced functionality are intentionally not covered in this article.</p>
 <p>Many packages designed for specific application areas (e.g., PK/PD) can also be used to solve general ODE systems. These are included here on equal footing, without focusing on their domain-specific features.</p>
 <p>Due to the nature of the R ecosystem, most tools that could be systematically reviewed, tested, and compared in a reproducible way are open-source packages.  While several <strong>proprietary engines</strong> also provide ODE-solving capabilities, their internal implementations, numerical methods, and usage are not always publicly documented or accessible without licenses. As a result, they are not included in the main comparison table.</p>
 <p>For a broader overview, see the <a href="https://cran.r-project.org/web/views/DifferentialEquations.html" target="_blank" rel="noopener noreferrer">CRAN Task View: Differential Equations</a>.</p>
