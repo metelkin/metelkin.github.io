@@ -67,7 +67,9 @@ Some tools included in this review go beyond ODE solving and provide additional 
 | [r2sundials](https://cran.r-project.org/package=r2sundials) | [SUNDIALS](https://computing.llnl.gov/projects/sundials) (C) | Compiled | BDF, Adams | R func (interpreted); C++ (compiled) | Yes | Yes (via IDA) | - | - | Yes (via rootfinding) | 3439 |
 | [rstan](https://cran.r-project.org/package=rstan) | [Stan Math Library](https://mc-stan.org/docs/2_27/functions-reference/functions-ode-solver.html) (C++) | Compiled | rk45, bdf, adams, ckrk | DSL (Stan language, compiled) | Yes (bdf) | Yes (index-1) | - | - | - | 1107167 |
 | [rodeo](https://cran.r-project.org/package=rodeo) | _deSolve_ | Compiled | _depends on deSolve_ | Table format (interpreted/compiled) | Yes | - | - | Yes | Yes (via deSolve roots) | 3386 |
+| * [IQRTools](https://iqrtools.intiquan.com/doc/book/license-and-availability.html) | [CVODES](https://sundials.readthedocs.io/en/latest/cvodes/index.html) (SUNDIALS) (С) | Compiled | BDF, Adams | DSL (Compiled) | Yes (BDF) | - | - | Yes | - | _NA_ |
 
+\* IQRTools is proprietary; version 99.0.0 is available under AGPL-3.0 and was used in this review.
 
 </div>
 
@@ -198,13 +200,13 @@ plot(out)
 
 ## Author's notes
 
-The goal of this review was to provide **a maximally complete and objective overview** of tools for solving ODEs in R. The packages included in this survey differ significantly in their purpose and functionality: from simple numerical solvers to full-featured frameworks and specialized domain-specific tools.
-
-Many aspects - such as computational performance, numerical accuracy, and advanced functionality - are intentionally not covered in this article.
+The goal of this review was to provide **a maximally complete and objective overview** of tools for solving ODEs in R. The packages included in this survey differ significantly in their purpose and functionality: from simple numerical solvers to full-featured frameworks and specialized domain-specific tools. Many aspects - such as computational performance, numerical accuracy, and advanced functionality - are intentionally not covered in this article.
 
 Many packages designed for specific application areas (e.g., PK/PD) can also be used to solve general ODE systems. These are included here on equal footing, without focusing on their domain-specific features.
 
-For a broader catalogue, see the [CRAN Task View: Differential Equations](https://cran.r-project.org/web/views/DifferentialEquations.html), which also covers SDEs, DDEs, DAEs, PDEs, boundary value problems, calibration tools, and related modeling packages. The present review is narrower and more practical: it focuses on packages that can be used to solve general ODE systems in R and provides tested examples for each included tool.
+Due to the nature of the R ecosystem, most tools that could be systematically reviewed, tested, and compared in a reproducible way are open-source packages.  While several **proprietary engines** also provide ODE-solving capabilities, their internal implementations, numerical methods, and usage are not always publicly documented or accessible without licenses. As a result, they are not included in the main comparison table.
+
+For a broader overview, see the [CRAN Task View: Differential Equations](https://cran.r-project.org/web/views/DifferentialEquations.html).
 
 ### Download metrics
 
@@ -228,3 +230,7 @@ These differences affect both performance and usability, and often determine how
 
 Despite the variety of available tools, support for some important features remains limited across the R ecosystem. In particular, capabilities such as delay differential equations (DDE), differential-algebraic equations (DAE), and advanced event handling are only partially implemented and are available in relatively few packages. As a result, modeling tasks that rely on these capabilities may require additional effort, careful selection of tools, or even custom implementations.
 
+## Disclaimer
+
+This article will be continuously updated. If you find any inaccuracies or have suggestions, feel free to open an issue:  
+https://github.com/metelkin/ode-solvers-in-r/issues
