@@ -298,8 +298,22 @@
 <td>Yes (via deSolve roots)</td>
 <td>3386</td>
 </tr>
+<tr>
+<td>* <a href="https://iqrtools.intiquan.com/doc/book/license-and-availability.html" target="_blank" rel="noopener noreferrer">IQRTools</a></td>
+<td><a href="https://sundials.readthedocs.io/en/latest/cvodes/index.html" target="_blank" rel="noopener noreferrer">CVODES</a> (SUNDIALS) (С)</td>
+<td>Compiled</td>
+<td>BDF, Adams</td>
+<td>DSL (Compiled)</td>
+<td>Yes (BDF)</td>
+<td>-</td>
+<td>-</td>
+<td>Yes</td>
+<td>-</td>
+<td><em>NA</em></td>
+</tr>
 </tbody>
 </table>
+<p>* IQRTools is proprietary; version 99.0.0 is available under AGPL-3.0 and was used in this review.</p>
 </div>
 <h4>Engine</h4>
 <p>This refers to the underlying numerical implementation used by the package. This can be:</p>
@@ -404,10 +418,10 @@ out <span class="token operator">&lt;-</span> mod <span class="token percent-ope
 plot<span class="token punctuation">(</span>out<span class="token punctuation">)</span></code></pre>
 <p><img src="./img/fig2-example-2-sim.png" alt="example-2-sim"></p>
 <h2>Author's notes</h2>
-<p>The goal of this review was to provide <strong>a maximally complete and objective overview</strong> of tools for solving ODEs in R. The packages included in this survey differ significantly in their purpose and functionality: from simple numerical solvers to full-featured frameworks and specialized domain-specific tools.</p>
-<p>Many aspects - such as computational performance, numerical accuracy, and advanced functionality - are intentionally not covered in this article.</p>
+<p>The goal of this review was to provide <strong>a maximally complete and objective overview</strong> of tools for solving ODEs in R. The packages included in this survey differ significantly in their purpose and functionality: from simple numerical solvers to full-featured frameworks and specialized domain-specific tools. Many aspects - such as computational performance, numerical accuracy, and advanced functionality - are intentionally not covered in this article.</p>
 <p>Many packages designed for specific application areas (e.g., PK/PD) can also be used to solve general ODE systems. These are included here on equal footing, without focusing on their domain-specific features.</p>
-<p>For a broader catalogue, see the <a href="https://cran.r-project.org/web/views/DifferentialEquations.html" target="_blank" rel="noopener noreferrer">CRAN Task View: Differential Equations</a>, which also covers SDEs, DDEs, DAEs, PDEs, boundary value problems, calibration tools, and related modeling packages. The present review is narrower and more practical: it focuses on packages that can be used to solve general ODE systems in R and provides tested examples for each included tool.</p>
+<p>Due to the nature of the R ecosystem, most tools that could be systematically reviewed, tested, and compared in a reproducible way are open-source packages.  While several <strong>proprietary engines</strong> also provide ODE-solving capabilities, their internal implementations, numerical methods, and usage are not always publicly documented or accessible without licenses. As a result, they are not included in the main comparison table.</p>
+<p>For a broader overview, see the <a href="https://cran.r-project.org/web/views/DifferentialEquations.html" target="_blank" rel="noopener noreferrer">CRAN Task View: Differential Equations</a>.</p>
 <h3>Download metrics</h3>
 <p>The table includes popularity metrics as download counts. However, these numbers do not reflect the actual capabilities of the packages. Downloads may include one-time installations for educational purposes, CI/CD workflows, or usage of a package for non-ODE problems. Therefore, they should not be considered a deciding factor when choosing a tool, but rather as a rough indicator of visibility within the community.</p>
 <h3>deSolve</h3>
@@ -419,6 +433,9 @@ plot<span class="token punctuation">(</span>out<span class="token punctuation">)
 <p>These differences affect both performance and usability, and often determine how easily a model can be developed, modified, and integrated into a workflow.</p>
 <h3>Limitations and gaps</h3>
 <p>Despite the variety of available tools, support for some important features remains limited across the R ecosystem. In particular, capabilities such as delay differential equations (DDE), differential-algebraic equations (DAE), and advanced event handling are only partially implemented and are available in relatively few packages. As a result, modeling tasks that rely on these capabilities may require additional effort, careful selection of tools, or even custom implementations.</p>
+<h2>Disclaimer</h2>
+<p>This article will be continuously updated. If you find any inaccuracies or have suggestions, feel free to open an issue:<br>
+<a href="https://github.com/metelkin/ode-solvers-in-r/issues" target="_blank" rel="noopener noreferrer">https://github.com/metelkin/ode-solvers-in-r/issues</a></p>
 
     </dev>
     <dev>
