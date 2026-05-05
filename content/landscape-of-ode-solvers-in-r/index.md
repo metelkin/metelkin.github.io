@@ -3,7 +3,7 @@ layout: post.njk
 title: Landscape of ODE Solvers in R
 subtitle: A Practical Overview
 date: 2026-05-04
-lastModified: 2026-05-04
+lastModified: 2026-05-05
 description: 'An overview of ODE solvers in R, highlighting their capabilities, performance, and practical considerations.'
 author: Evgeny Metelkin
 authorURL: https://metelkin.me
@@ -60,8 +60,8 @@ Some tools included in this review go beyond ODE solving and provide additional 
 
 | Package | Engine | Solver type | Algorithms | Model format | Stiff | DAE | DDE | Time events | Conditional events | Downloads (2025) |
 |--------|--------|------|------------|--------------|-------|-----|-----|-------------|--------------------|------------------------|
-| [deSolve](https://cran.r-project.org/package=deSolve) | [ODEPACK](http://www.netlib.org/odepack/); [DASPK](http://www.netlib.org/ode/) (Fortran) | Compiled | lsoda, lsode, lsodes, lsodar, vode, daspk, bdf, adams, euler, rk4, ode23, ode45, | R func (interpreted); C/C++/Fortran (compiled) | Yes (lsoda) | Yes (daspk) | Yes (dede) | Yes | Yes (rootfun) | 635628 |
-| [diffeqr](https://cran.r-project.org/package=diffeqr) | [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/) SciML ecosystem | External runtime (Julia) | _depends on DifferentialEquations.jl_ [see docs](https://docs.sciml.ai/DiffEqDocs/stable/solvers/ode_solve/) | R func (interpreted); Julia func (JIT/compiled) | Yes | Yes | Yes | Yes | Yes | 4688 |
+| [deSolve](https://cran.r-project.org/package=deSolve) | [ODEPACK](http://www.netlib.org/odepack/); [DASPK](http://www.netlib.org/ode/) (Fortran) | Compiled | lsoda, lsode, lsodes, lsodar, vode, daspk, bdf, adams, euler, rk4, ode23, ode45, | R func (interpreted); C/C++/Fortran (compiled) | Yes (lsoda) | Yes (daspk) | Yes (dede) | Yes | Yes (root finding) | 635628 |
+| [diffeqr](https://cran.r-project.org/package=diffeqr) | [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/) SciML ecosystem | External runtime (Julia) | > 200 algorithms [see docs](https://docs.sciml.ai/DiffEqDocs/stable/solvers/ode_solve/) | R func (interpreted); Julia func (JIT/compiled) | Yes | Yes | Yes | Yes | Yes (root finding) | 4688 |
 | [dMod](https://cran.r-project.org/package=dMod) | _deSolve_ | Compiled | _depends on deSolve_ | DSL (cOde, compiled), API (compiled)| Yes | - | - | - | - | 4947 |
 | [EpiModel](https://cran.r-project.org/package=EpiModel) | _deSolve_ | Compiled | _depends on deSolve_ | R func (interpreted) | Yes | - | Yes (dede) | - | - | 23088 |
 | * [IQRTools](https://iqrtools.intiquan.com/doc/book/license-and-availability.html) | [CVODES](https://sundials.readthedocs.io/en/latest/cvodes/index.html) (SUNDIALS) (C) | Compiled | BDF, Adams | DSL (Compiled) | Yes (BDF) | - | - | Yes | - | _NA_ |
@@ -70,8 +70,9 @@ Some tools included in this review go beyond ODE solving and provide additional 
 | [PBSddesolve](https://cran.r-project.org/package=PBSddesolve) | [solv95](https://webhomes.maths.ed.ac.uk/~swood34/simon/dde.html) (C) | Compiled | dde | R func (interpreted) | - | - | Yes | - | - | 10341 |
 | [PKPDsim](https://cran.r-project.org/package=PKPDsim) | [Boost::odeint](https://github.com/boostorg/odeint) (C++) | Compiled | Adaptive RK (RKCK54) | DSL (compiled) | - | - | - | Yes | - | 10319 |
 | [pracma](https://cran.r-project.org/package=pracma) | Matlab-inspired implementation | Pure R | ode23, ode23s, ode45, ode78 | R func (interpreted) | Yes (ode23s) | - | - | - | - | 1059146 |
-| [r2sundials](https://cran.r-project.org/package=r2sundials) | [SUNDIALS](https://computing.llnl.gov/projects/sundials) (C) | Compiled | BDF, Adams | R func (interpreted); C++ (compiled) | Yes | Yes (via IDA) | - | - | Yes (via rootfinding) | 3439 |
-| [rodeo](https://cran.r-project.org/package=rodeo) | _deSolve_ | Compiled | _depends on deSolve_ | Table format (interpreted / compiled) | Yes | - | - | Yes | Yes (via deSolve roots) | 3386 |
+| [r2sundials](https://cran.r-project.org/package=r2sundials) | [SUNDIALS](https://computing.llnl.gov/projects/sundials) (C) | Compiled | BDF, Adams | R func (interpreted); C++ (compiled) | Yes | Yes (via IDA) | - | - | Yes (root finding) | 3439 |
+| [reticulate](https://cran.r-project.org/package=reticulate) | [SciPy solve_ivp](https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html) (Python) | External runtime (Python) | RK45, RK23, DOP853, Radau, BDF, LSODA | R func (interpreted); Python func (interpreted) | Yes | - | - | - | Yes (root detection only) | 3566483 |
+| [rodeo](https://cran.r-project.org/package=rodeo) | _deSolve_ | Compiled | _depends on deSolve_ | Table format (interpreted / compiled) | Yes | - | - | Yes | Yes (root finding) | 3386 |
 | [rstan](https://cran.r-project.org/package=rstan) | [Stan Math Library](https://mc-stan.org/docs/2_27/functions-reference/functions-ode-solver.html) (C++) | Compiled | rk45, bdf, adams, ckrk | DSL (Stan language, compiled) | Yes (bdf) | Yes (limited, index-1) | - | - | - | 1107167 |
 | [rxode2](https://cran.r-project.org/package=rxode2) | [LIBLSODA](https://github.com/sdwfrost/liblsoda) + custom (C) | Compiled | liblsoda, lsoda, dop853, indLin | DSL (R-like, compiled) | Yes | - | - | Yes | - | 42872 |
 | [sundialr](https://cran.r-project.org/package=sundialr) | [SUNDIALS](https://computing.llnl.gov/projects/sundials) (C) | Compiled | BDF, Adams | R func (interpreted); C++ (compiled) | Yes | Yes (via IDA) | - | Yes | - | 2024 |
