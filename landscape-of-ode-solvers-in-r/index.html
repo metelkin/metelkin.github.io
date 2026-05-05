@@ -21,7 +21,7 @@
     <!-- article -->
     <meta property="article:author" content="https://metelkin.me" />
     <meta property="article:published_time" content="2026-05-04T00:00:00Z" />
-    <meta property="article:modified_time" content="2026-05-04T00:00:00Z" />
+    <meta property="article:modified_time" content="2026-05-05T00:00:00Z" />
     <!-- SEO -->
     <link rel="canonical" href="https://metelkin.me/landscape-of-ode-solvers-in-r/" />
     <!-- Open Graph -->
@@ -143,20 +143,20 @@ $$</p>
 <td>Yes (daspk)</td>
 <td>Yes (dede)</td>
 <td>Yes</td>
-<td>Yes (rootfun)</td>
+<td>Yes (root finding)</td>
 <td>635628</td>
 </tr>
 <tr>
 <td><a href="https://cran.r-project.org/package=diffeqr" target="_blank" rel="noopener noreferrer">diffeqr</a></td>
 <td><a href="https://docs.sciml.ai/DiffEqDocs/stable/" target="_blank" rel="noopener noreferrer">DifferentialEquations.jl</a> SciML ecosystem</td>
 <td>External runtime (Julia)</td>
-<td><em>depends on DifferentialEquations.jl</em> <a href="https://docs.sciml.ai/DiffEqDocs/stable/solvers/ode_solve/" target="_blank" rel="noopener noreferrer">see docs</a></td>
+<td>&gt; 200 algorithms <a href="https://docs.sciml.ai/DiffEqDocs/stable/solvers/ode_solve/" target="_blank" rel="noopener noreferrer">see docs</a></td>
 <td>R func (interpreted); Julia func (JIT/compiled)</td>
 <td>Yes</td>
 <td>Yes</td>
 <td>Yes</td>
 <td>Yes</td>
-<td>Yes</td>
+<td>Yes (root finding)</td>
 <td>4688</td>
 </tr>
 <tr>
@@ -273,8 +273,21 @@ $$</p>
 <td>Yes (via IDA)</td>
 <td>-</td>
 <td>-</td>
-<td>Yes (via rootfinding)</td>
+<td>Yes (root finding)</td>
 <td>3439</td>
+</tr>
+<tr>
+<td><a href="https://cran.r-project.org/package=reticulate" target="_blank" rel="noopener noreferrer">reticulate</a></td>
+<td><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html" target="_blank" rel="noopener noreferrer">SciPy solve_ivp</a> (Python)</td>
+<td>External runtime (Python)</td>
+<td>RK45, RK23, DOP853, Radau, BDF, LSODA</td>
+<td>R func (interpreted); Python func (interpreted)</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>Yes (root detection only)</td>
+<td>3566483</td>
 </tr>
 <tr>
 <td><a href="https://cran.r-project.org/package=rodeo" target="_blank" rel="noopener noreferrer">rodeo</a></td>
@@ -286,7 +299,7 @@ $$</p>
 <td>-</td>
 <td>-</td>
 <td>Yes</td>
-<td>Yes (via deSolve roots)</td>
+<td>Yes (root finding)</td>
 <td>3386</td>
 </tr>
 <tr>
