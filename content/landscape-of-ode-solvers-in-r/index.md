@@ -25,9 +25,16 @@ tags:
 ---
 ![Cover](./img/fig0-cover.png)
 
-Solving **ordinary differential equations (ODEs)** is a common task in many fields, including systems biology, pharmacometrics, physics, and engineering. The R ecosystem offers a collection of tools for this purpose: from lightweight numerical solvers to full modeling frameworks.
+Solving **ordinary differential equations (ODEs)** is a common task in many fields, including systems biology, pharmacometrics, physics, and engineering where dynamic systems are studied. An ODE describes how a variables evolve over time, typically written as 
+$$
+\begin{align}
+\frac{dx_1}{dt} & = f_1\left(t, x_1, x_2, \ldots \right), \\\\
+\frac{dx_2}{dt} & = f_2\left(t, x_1, x_2, \ldots \right), \\\\
+\vdots & \\\\
+\end{align}
+$$
 
-This article provides **a practical overview of ODE solvers in R**, with a focus on helping users navigate the ecosystem and choose appropriate tools.
+The R ecosystem offers a collection of tools for this purpose: from lightweight numerical solvers to full modeling frameworks. This article provides **a practical overview of ODE solvers in R**, with a focus on helping users navigate the ecosystem and choose appropriate tools.
 
 All packages included here were tested with simple examples and the code is available in the [GitHub repository](https://github.com/metelkin/ode-solvers-in-r).
 
@@ -54,23 +61,22 @@ Some tools included in this review go beyond ODE solving and provide additional 
 | Package | Engine | Solver type | Algorithms | Model format | Stiff | DAE | DDE | Time events | Conditional events | Downloads (2025) |
 |--------|--------|------|------------|--------------|-------|-----|-----|-------------|--------------------|------------------------|
 | [deSolve](https://cran.r-project.org/package=deSolve) | [ODEPACK](http://www.netlib.org/odepack/); [DASPK](http://www.netlib.org/ode/) (Fortran) | Compiled | lsoda, lsode, lsodes, lsodar, vode, daspk, bdf, adams, euler, rk4, ode23, ode45, | R func (interpreted); C/C++/Fortran (compiled) | Yes (lsoda) | Yes (daspk) | Yes (dede) | Yes | Yes (rootfun) | 635628 |
-| [rxode2](https://cran.r-project.org/package=rxode2) | [LIBLSODA](https://github.com/sdwfrost/liblsoda) + custom (C) | Compiled | liblsoda, lsoda, dop853, indLin | DSL (R-like, compiled) | Yes | - | - | Yes | - | 42872 |
-| [mrgsolve](https://cran.r-project.org/package=mrgsolve) | [DLSODA](http://www.netlib.org/odepack/) (C++ translation) | Compiled | lsoda | DSL (C++-like, compiled) | Yes | - | - | Yes | - | 33544 |
 | [dMod](https://cran.r-project.org/package=dMod) | _deSolve_ | Compiled | _depends on deSolve_ | DSL (cOde, compiled), API (compiled)| Yes | - | - | - | - | 4947 |
-| [pracma](https://cran.r-project.org/package=pracma) | Matlab-inspired implementation | Pure R | ode23, ode23s, ode45, ode78 | R func (interpreted) | Yes (ode23s) | - | - | - | - | 1059146 |
-| [odin](https://cran.r-project.org/package=odin) | _deSolve_ | Compiled | _depends on deSolve_ | DSL (R-like, compiled) | Yes | - | Yes (dede) | - | - | 17252 |
-| [PKPDsim](https://cran.r-project.org/package=PKPDsim) | [Boost::odeint](https://github.com/boostorg/odeint) (C++) | Compiled | Adaptive RK (RKCK54) | DSL (compiled) | - | - | - | Yes | - | 10319 |
 | [EpiModel](https://cran.r-project.org/package=EpiModel) | _deSolve_ | Compiled | _depends on deSolve_ | R func (interpreted) | Yes | - | Yes (dede) | - | - | 23088 |
-| [PBSddesolve](https://cran.r-project.org/package=PBSddesolve) | [solv95](https://webhomes.maths.ed.ac.uk/~swood34/simon/dde.html) (C) | Compiled | dde | R func (interpreted) | - | - | Yes | - | - | 10341 |
-| [sundialr](https://cran.r-project.org/package=sundialr) | [SUNDIALS](https://computing.llnl.gov/projects/sundials) (C) | Compiled | BDF, Adams | R func (interpreted); C++ (compiled) | Yes | Yes (via IDA) | - | Yes | - | 2024 |
-| [r2sundials](https://cran.r-project.org/package=r2sundials) | [SUNDIALS](https://computing.llnl.gov/projects/sundials) (C) | Compiled | BDF, Adams | R func (interpreted); C++ (compiled) | Yes | Yes (via IDA) | - | - | Yes (via rootfinding) | 3439 |
-| [rstan](https://cran.r-project.org/package=rstan) | [Stan Math Library](https://mc-stan.org/docs/2_27/functions-reference/functions-ode-solver.html) (C++) | Compiled | rk45, bdf, adams, ckrk | DSL (Stan language, compiled) | Yes (bdf) | Yes (limited, index-1) | - | - | - | 1107167 |
-| [rodeo](https://cran.r-project.org/package=rodeo) | _deSolve_ | Compiled | _depends on deSolve_ | Table format (interpreted / compiled) | Yes | - | - | Yes | Yes (via deSolve roots) | 3386 |
 | * [IQRTools](https://iqrtools.intiquan.com/doc/book/license-and-availability.html) | [CVODES](https://sundials.readthedocs.io/en/latest/cvodes/index.html) (SUNDIALS) (C) | Compiled | BDF, Adams | DSL (Compiled) | Yes (BDF) | - | - | Yes | - | _NA_ |
-
-\* IQRTools is proprietary; version 99.0.0 is available under AGPL-3.0 and was used in this review.
-
+| [mrgsolve](https://cran.r-project.org/package=mrgsolve) | [DLSODA](http://www.netlib.org/odepack/) (C++ translation) | Compiled | lsoda | DSL (C++-like, compiled) | Yes | - | - | Yes | - | 33544 |
+| [odin](https://cran.r-project.org/package=odin) | _deSolve_ | Compiled | _depends on deSolve_ | DSL (R-like, compiled) | Yes | - | Yes (dede) | - | - | 17252 |
+| [PBSddesolve](https://cran.r-project.org/package=PBSddesolve) | [solv95](https://webhomes.maths.ed.ac.uk/~swood34/simon/dde.html) (C) | Compiled | dde | R func (interpreted) | - | - | Yes | - | - | 10341 |
+| [PKPDsim](https://cran.r-project.org/package=PKPDsim) | [Boost::odeint](https://github.com/boostorg/odeint) (C++) | Compiled | Adaptive RK (RKCK54) | DSL (compiled) | - | - | - | Yes | - | 10319 |
+| [pracma](https://cran.r-project.org/package=pracma) | Matlab-inspired implementation | Pure R | ode23, ode23s, ode45, ode78 | R func (interpreted) | Yes (ode23s) | - | - | - | - | 1059146 |
+| [r2sundials](https://cran.r-project.org/package=r2sundials) | [SUNDIALS](https://computing.llnl.gov/projects/sundials) (C) | Compiled | BDF, Adams | R func (interpreted); C++ (compiled) | Yes | Yes (via IDA) | - | - | Yes (via rootfinding) | 3439 |
+| [rodeo](https://cran.r-project.org/package=rodeo) | _deSolve_ | Compiled | _depends on deSolve_ | Table format (interpreted / compiled) | Yes | - | - | Yes | Yes (via deSolve roots) | 3386 |
+| [rstan](https://cran.r-project.org/package=rstan) | [Stan Math Library](https://mc-stan.org/docs/2_27/functions-reference/functions-ode-solver.html) (C++) | Compiled | rk45, bdf, adams, ckrk | DSL (Stan language, compiled) | Yes (bdf) | Yes (limited, index-1) | - | - | - | 1107167 |
+| [rxode2](https://cran.r-project.org/package=rxode2) | [LIBLSODA](https://github.com/sdwfrost/liblsoda) + custom (C) | Compiled | liblsoda, lsoda, dop853, indLin | DSL (R-like, compiled) | Yes | - | - | Yes | - | 42872 |
+| [sundialr](https://cran.r-project.org/package=sundialr) | [SUNDIALS](https://computing.llnl.gov/projects/sundials) (C) | Compiled | BDF, Adams | R func (interpreted); C++ (compiled) | Yes | Yes (via IDA) | - | Yes | - | 2024 |
 </div>
+
+_\* IQRTools is proprietary; version 99.0.0 is available under AGPL-3.0 and was used in this review._
 
 #### Engine
 
