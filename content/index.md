@@ -76,9 +76,9 @@ Today, as Co‑founder and Technology Director at [**InSysBio CY Ltd**](https
 
 ## Also see:
 
-- **R-bloggers:** <https://www.r-bloggers.com>
-- **Julia Bloggers:** <https://www.juliabloggers.com/>
-- **dev.to:** <https://dev.to/metelkin>
+- **R-bloggers:** <https://www.r-bloggers.com/>
+- **juliabloggers.com:** <https://www.juliabloggers.com/>
+- **DEV:** <https://dev.to/metelkin>
 
 ---
 
