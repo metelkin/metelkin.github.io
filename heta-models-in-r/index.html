@@ -1,0 +1,131 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6DBZB44BXE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-6DBZB44BXE');
+    </script>
+    <!-- General -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>From Heta to R: Simulating a Model with DynMSR and mrgsolve</title>
+    <meta name="description" content="A simple example of converting a Heta model and simulating it in R with DynMSR and mrgsolve." />
+    <meta name="author" content="Evgeny Metelkin" />
+    <!-- article -->
+    <meta property="article:author" content="https://metelkin.me" />
+    <meta property="article:published_time" content="2026-11-03T00:00:00Z" />
+    <meta property="article:modified_time" content="2026-11-10T00:00:00Z" />
+    <!-- SEO -->
+    <link rel="canonical" href="https://metelkin.me/heta-models-in-r/" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="From Heta to R: Simulating a Model with DynMSR and mrgsolve" />
+    <meta property="og:description" content="A simple example of converting a Heta model and simulating it in R with DynMSR and mrgsolve." />
+    <meta property="og:url" content="https://metelkin.me/heta-models-in-r/" />
+    <meta property="og:site_name" content="Evgeny Metelkin" />
+    <meta property="og:type" content="article" />
+    <!-- Style -->
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">-->
+    <style>
+        //.markdown-body { max-width: 70ch; margin-inline: auto; padding: 2rem; }
+        .container { display: flex; gap: 10px; }
+        .half { box-sizing: border-box; }
+        .half:first-child { width: 60%;}
+        .half:last-child { width: 40%; }
+
+        .minlist{list-style:none;margin:0;padding:0}
+        .minlist li{padding:.5rem 0;border-bottom:1px solid #f2f2f2}
+        .minrow{display:flex;gap:.75rem;align-items:baseline}
+        .minlink{font-weight:600;text-decoration:none}
+        .minlink:hover{text-decoration:underline}
+        .mindate{margin-left:auto;color:#888;font-size:.9em;white-space:nowrap}
+        .minsub{color:#666;margin-top:.15rem}
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .half { width: 100% !important; }
+            .half:last-child img { width: 100%; height: auto; display: block; }
+        }
+    </style>
+    
+    <link rel="stylesheet" href="/assets/style.css">
+    <!-- To highlight code -->
+	<link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet"/>
+    <!-- MathJax -->
+    <script>
+        window.MathJax = {
+            tex: { 
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$','$$'], ['\\[','\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+</head>
+
+<body>
+    
+    <p style="margin-bottom: 1rem;">
+        <a href="/blog/" style="text-decoration: none; font-weight: 600; font-size: 1.2rem;">
+            ← Posts
+        </a>
+    </p>
+    <h1>From Heta to R: Simulating a Model with DynMSR and mrgsolve</h1>
+    <h2></h2>
+    <div>
+        <p><strong>Evgeny Metelkin</strong></p>
+        <p><strong>2026-11-03</strong></p> 
+        <h2 style="color: red;">
+            Draft
+        </h2>
+    </div>
+    <dev class="markdown-body">
+        <p>Models written in Heta can be brought into R for simulation and analysis. In this example, we will use <strong>DynMSR</strong> to load a small Heta project and build a model for simulation with <strong>mrgsolve</strong>.</p>
+<p><a href="/dynmsr-on-cran/">DynMSR is available on CRAN</a> and is part of the <a href="https://hetalang.github.io/" target="_blank" rel="noopener noreferrer">Heta project</a>, a language and toolchain for building structured, reusable models. DynMSR uses Heta Compiler to convert the project before preparing the model for mrgsolve.</p>
+<h2>A simple Heta model</h2>
+<p>Create a directory for the model and save the following as <code>index.heta</code> inside it:</p>
+<pre class="language-text"><code class="language-text">comp1 @Compartment .= 1;
+
+A @Species { compartment: comp1 } .= 10;
+B @Species { compartment: comp1 } .= 0;
+r1 @Reaction { actors: A => 2B } := k1 * A * comp1;
+
+k1 @Const = 1.2e-1;</code></pre>
+<p>The model describes a reaction in which one unit of A produces two units of B. Its rate depends on A and the rate constant <code>k1</code>.</p>
+<h2>Install the tools</h2>
+<p>Install DynMSR and mrgsolve from CRAN:</p>
+<pre class="language-r"><code class="language-r">install.packages<span class="token punctuation">(</span><span class="token string">"DynMSR"</span><span class="token punctuation">)</span>
+install.packages<span class="token punctuation">(</span><span class="token string">"mrgsolve"</span><span class="token punctuation">)</span></code></pre>
+<p>Loading a Heta project also requires a compatible installation of Heta Compiler. See the <a href="https://github.com/hetalang/DynMSR" target="_blank" rel="noopener noreferrer">DynMSR README</a> for setup instructions and the supported compiler version.</p>
+<h2>Convert and simulate the model</h2>
+<p>Load the project, select its model, and build it for mrgsolve. Replace the path with the directory containing <code>index.heta</code>:</p>
+<pre class="language-r"><code class="language-r">library<span class="token punctuation">(</span>DynMSR<span class="token punctuation">)</span>
+library<span class="token punctuation">(</span>mrgsolve<span class="token punctuation">)</span>
+
+platform <span class="token operator">&lt;-</span> heta_load<span class="token punctuation">(</span><span class="token string">"path/to/heta-quick-start"</span><span class="token punctuation">)</span>
+model <span class="token operator">&lt;-</span> get_model<span class="token punctuation">(</span>platform<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+mrgsolve_model <span class="token operator">&lt;-</span> build_mrgsolve<span class="token punctuation">(</span>model<span class="token punctuation">)</span>
+
+result <span class="token operator">&lt;-</span> mrgsim<span class="token punctuation">(</span>mrgsolve_model<span class="token punctuation">,</span> end <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> delta <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span>
+plot<span class="token punctuation">(</span>result<span class="token punctuation">)</span></code></pre>
+<p><img src="./img/simulation-placeholder.png" alt="Placeholder for a plot of the simulation results"></p>
+<p><em>Placeholder: replace with the actual simulation output for this example.</em></p>
+<p>The simulation results can then be explored further with the tools available in R and mrgsolve. For more examples and package documentation, see <a href="https://github.com/hetalang/DynMSR" target="_blank" rel="noopener noreferrer">DynMSR on GitHub</a>.</p>
+
+    </dev>
+    <dev>
+        <p><strong>License: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blanc">CC-BY-4.0</a></strong></p> 
+    </dev>
+
+</body>

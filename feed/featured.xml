@@ -4,7 +4,7 @@
   <subtitle>Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect</subtitle>
   <link href="https://metelkin.me/feed/featured.xml" rel="self" />
   <link href="https://metelkin.me/" />
-  <updated>2026-05-04T00:00:00Z</updated>
+  <updated>2026-11-03T00:00:00Z</updated>
   <id>https://metelkin.me/</id>
   <author>
     <name>Evgeny Metelkin</name>
@@ -1097,6 +1097,20 @@ plot&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;out&lt;span cl
 &lt;h2&gt;Disclaimer&lt;/h2&gt;
 &lt;p&gt;This article will be continuously updated. If you find any inaccuracies or have suggestions, feel free to open an issue:&lt;br&gt;
 &lt;a href=&quot;https://github.com/metelkin/ode-solvers-in-r/issues&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://github.com/metelkin/ode-solvers-in-r/issues&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>DynMSR is now available on CRAN</title>
+    <link href="https://metelkin.me/dynmsr-on-cran/" />
+    <updated>2026-11-03T00:00:00Z</updated>
+    <id>https://metelkin.me/dynmsr-on-cran/</id>
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/dynmsr-on-cran/img/fig0-cover.png&quot; alt=&quot;DynMSR connects Heta and SBML models to mrgsolve in R&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Happy to announce that &lt;strong&gt;DynMSR&lt;/strong&gt; is now available on &lt;a href=&quot;https://cran.r-project.org/web/packages/DynMSR/index.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CRAN&lt;/a&gt;. The R package connects systems biology and systems pharmacology models to simulation workflows in R.&lt;/p&gt;
+&lt;p&gt;DynMSR supports Heta and SBML models and can prepare them for simulation with &lt;a href=&quot;https://mrgsolve.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;mrgsolve&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;DynMSR is part of the &lt;a href=&quot;https://hetalang.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Heta project&lt;/a&gt;, which develops tools for building and working with reusable models.&lt;/p&gt;
+&lt;p&gt;Install DynMSR from CRAN:&lt;/p&gt;
+&lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;install.packages&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;DynMSR&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Find guides and examples on &lt;a href=&quot;https://github.com/hetalang/DynMSR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
 </content>
   </entry>
 </feed>

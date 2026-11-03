@@ -1,0 +1,105 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6DBZB44BXE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-6DBZB44BXE');
+    </script>
+    <!-- General -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DynMSR is now available on CRAN</title>
+    <meta name="description" content="DynMSR connects systems biology and systems pharmacology models to simulation workflows in R." />
+    <meta name="author" content="Evgeny Metelkin" />
+    <!-- article -->
+    <meta property="article:author" content="https://metelkin.me" />
+    <meta property="article:published_time" content="2026-11-03T00:00:00Z" />
+    <meta property="article:modified_time" content="2026-11-03T00:00:00Z" />
+    <!-- SEO -->
+    <link rel="canonical" href="https://metelkin.me/dynmsr-on-cran/" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="DynMSR is now available on CRAN" />
+    <meta property="og:description" content="DynMSR connects systems biology and systems pharmacology models to simulation workflows in R." />
+    <meta property="og:url" content="https://metelkin.me/dynmsr-on-cran/" />
+    <meta property="og:image" content="https://metelkin.me/dynmsr-on-cran/img/fig0-cover.png" />
+    <meta property="og:site_name" content="Evgeny Metelkin" />
+    <meta property="og:type" content="article" />
+    <!-- Style -->
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">-->
+    <style>
+        //.markdown-body { max-width: 70ch; margin-inline: auto; padding: 2rem; }
+        .container { display: flex; gap: 10px; }
+        .half { box-sizing: border-box; }
+        .half:first-child { width: 60%;}
+        .half:last-child { width: 40%; }
+
+        .minlist{list-style:none;margin:0;padding:0}
+        .minlist li{padding:.5rem 0;border-bottom:1px solid #f2f2f2}
+        .minrow{display:flex;gap:.75rem;align-items:baseline}
+        .minlink{font-weight:600;text-decoration:none}
+        .minlink:hover{text-decoration:underline}
+        .mindate{margin-left:auto;color:#888;font-size:.9em;white-space:nowrap}
+        .minsub{color:#666;margin-top:.15rem}
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .half { width: 100% !important; }
+            .half:last-child img { width: 100%; height: auto; display: block; }
+        }
+    </style>
+    
+    <link rel="stylesheet" href="/assets/style.css">
+    <!-- To highlight code -->
+	<link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet"/>
+    <!-- MathJax -->
+    <script>
+        window.MathJax = {
+            tex: { 
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$','$$'], ['\\[','\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+</head>
+
+<body>
+    
+    <p style="margin-bottom: 1rem;">
+        <a href="/blog/" style="text-decoration: none; font-weight: 600; font-size: 1.2rem;">
+            ← Posts
+        </a>
+    </p>
+    <h1>DynMSR is now available on CRAN</h1>
+    <h2></h2>
+    <div>
+        <p><strong>Evgeny Metelkin</strong></p>
+        <p><strong>2026-11-03</strong></p>
+    </div>
+    <dev class="markdown-body">
+        <p><img src="./img/fig0-cover.png" alt="DynMSR connects Heta and SBML models to mrgsolve in R"></p>
+<p>Happy to announce that <strong>DynMSR</strong> is now available on <a href="https://cran.r-project.org/web/packages/DynMSR/index.html" target="_blank" rel="noopener noreferrer">CRAN</a>. The R package connects systems biology and systems pharmacology models to simulation workflows in R.</p>
+<p>DynMSR supports Heta and SBML models and can prepare them for simulation with <a href="https://mrgsolve.org/" target="_blank" rel="noopener noreferrer">mrgsolve</a>.</p>
+<p>DynMSR is part of the <a href="https://hetalang.github.io/" target="_blank" rel="noopener noreferrer">Heta project</a>, which develops tools for building and working with reusable models.</p>
+<p>Install DynMSR from CRAN:</p>
+<pre class="language-r"><code class="language-r">install.packages<span class="token punctuation">(</span><span class="token string">"DynMSR"</span><span class="token punctuation">)</span></code></pre>
+<p>Find guides and examples on <a href="https://github.com/hetalang/DynMSR" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+
+    </dev>
+    <dev>
+        <p><strong>License: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blanc">CC-BY-4.0</a></strong></p> 
+    </dev>
+
+</body>
