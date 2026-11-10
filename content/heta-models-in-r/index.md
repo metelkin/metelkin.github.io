@@ -1,34 +1,56 @@
 ---
 layout: post.njk
-title: 'From Heta to R: Simulating a Model with DynMSR and mrgsolve'
-date: 2026-11-03
+title: 'How to Run Heta Models in R with DynMSR and mrgsolve'
+date: 2026-11-10
 lastModified: 2026-11-10
-description: 'A simple example of converting a Heta model and simulating it in R with DynMSR and mrgsolve.'
+description: 'A practical guide to running Heta models in R with DynMSR and mrgsolve: install the required tools, load and compile a Heta project, simulate the model, visualize results, and explore parameter variability across a virtual population.'
 author: Evgeny Metelkin
 authorURL: https://metelkin.me
 canonical: https://metelkin.me/heta-models-in-r/
 openGraph:
-    title: 'From Heta to R: Simulating a Model with DynMSR and mrgsolve'
-    description: 'A simple example of converting a Heta model and simulating it in R with DynMSR and mrgsolve.'
+    title: 'How to Run Heta Models in R with DynMSR and mrgsolve'
+    description: 'A practical guide to running Heta models in R with DynMSR and mrgsolve: install the required tools, load and compile a Heta project, simulate the model, visualize results, and explore parameter variability across a virtual population.'
     url: https://metelkin.me/heta-models-in-r/
+    image: https://metelkin.me/heta-models-in-r/img/heta-model-rstudio.png
     site_name: Evgeny Metelkin
     type: article
 tags:
     - post
+    - featured
     - r
-    - draft
     - software
     - qsp-modeling
     - systems-pharmacology
 ---
 
-Models written in Heta can be brought into R for simulation and analysis. In this example, we will use **DynMSR** to load a small Heta project and build a model for simulation with **mrgsolve**.
+![Heta model code open in RStudio](./img/heta-model-rstudio.png)
 
-[DynMSR is available on CRAN](/dynmsr-on-cran/) and is part of the [Heta project](https://hetalang.github.io/), a language and toolchain for building structured, reusable models. DynMSR uses Heta Compiler to convert the project before preparing the model for mrgsolve.
+The [Heta project](https://hetalang.github.io/) provides a language and toolchain for building **complex mechanistic models**. Heta models can be split into reusable modules, checked together, and exported to different formats-useful for **large QSP models** that should not be tied to one simulation environment.
 
-## A simple Heta model
+With [DynMSR](https://cran.r-project.org/package=DynMSR), Heta models can now be loaded directly **into R**. The **Heta Compiler** package turns a project into a model ready for simulation. DynMSR is available **from CRAN**.
 
-Create a directory for the model and save the following as `index.heta` inside it:
+Simulation is handled by [mrgsolve](https://mrgsolve.org/), an established R package for ODE-based models in **pharmacometrics and drug development**. It combines a compiled simulation engine with R tools for parameter exploration and population simulation.
+
+## Quick start
+
+### Install the tools
+
+```r
+install.packages(c("DynMSR", "mrgsolve"))
+```
+
+Loading Heta projects also requires Heta Compiler. Follow the [installation guide](https://hetalang.github.io/hetacompiler/installation.html) for your operating system, or download an installer from the [latest release](https://github.com/hetalang/heta-compiler/releases/latest).
+
+After installation, DynMSR can check that the `heta` command is available and that its version is supported:
+
+```r
+library(DynMSR)
+heta_check()
+```
+
+### Create a Heta model
+
+Create a directory and add a plain-text file named `index.heta` in RStudio:
 
 ```text
 comp1 @Compartment .= 1;
@@ -40,37 +62,38 @@ r1 @Reaction { actors: A => 2B } := k1 * A * comp1;
 k1 @Const = 1.2e-1;
 ```
 
-The model describes a reaction in which one unit of A produces two units of B. Its rate depends on A and the rate constant `k1`.
+This model converts one unit of `A` into two units of `B` at a rate determined by `A` and `k1`.
 
-## Install the tools
+### Load and simulate
 
-Install DynMSR and mrgsolve from CRAN:
-
-```r
-install.packages("DynMSR")
-install.packages("mrgsolve")
-```
-
-Loading a Heta project also requires a compatible installation of Heta Compiler. See the [DynMSR README](https://github.com/hetalang/DynMSR) for setup instructions and the supported compiler version.
-
-## Convert and simulate the model
-
-Load the project, select its model, and build it for mrgsolve. Replace the path with the directory containing `index.heta`:
+Run the R code from the directory containing `index.heta` (or replace `"."` with its path):
 
 ```r
 library(DynMSR)
 library(mrgsolve)
 
-platform <- heta_load("path/to/heta-quick-start")
+platform <- heta_load(".")
 model <- get_model(platform, 1)
-mrgsolve_model <- build_mrgsolve(model)
+mrgsolve_model <- build_mrgsolve(model, observables = c("A", "B"))
 
 result <- mrgsim(mrgsolve_model, end = 100, delta = 1)
-plot(result)
+plot(result, A + B ~ time)
 ```
 
-![Placeholder for a plot of the simulation results](./img/simulation-placeholder.png)
+`build_mrgsolve()` returns a regular mrgsolve model, so the standard mrgsolve API remains available.
 
-*Placeholder: replace with the actual simulation output for this example.*
+We can also use the model for a simple population simulation. Here, `k1` varies randomly between virtual individuals, producing a family of possible trajectories:
 
-The simulation results can then be explored further with the tools available in R and mrgsolve. For more examples and package documentation, see [DynMSR on GitHub](https://github.com/hetalang/DynMSR).
+```r
+idata <- expand.idata(k1 = 0.12 * exp(rnorm(30, 0, 0.35)))
+mrgsim(mrgsolve_model, idata = idata, end = 100, delta = 0.5) |>
+  plot(A + B ~ time, lwd = 2, alpha = 0.35)
+```
+
+![Population simulation with random variation in k1](./img/mrgsolve-simulation.png)
+
+## Where to go next
+
+Beyond Heta, DynMSR can load SBML and DynMS files and use them in the same mrgsolve workflow.
+
+See the [DynMSR documentation](https://cran.r-project.org/package=DynMSR) and [source code on GitHub](https://github.com/hetalang/DynMSR) for more examples.
