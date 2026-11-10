@@ -4,7 +4,7 @@
   <subtitle>Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect</subtitle>
   <link href="https://metelkin.me/feed/featured.xml" rel="self" />
   <link href="https://metelkin.me/" />
-  <updated>2026-11-03T00:00:00Z</updated>
+  <updated>2026-11-10T00:00:00Z</updated>
   <id>https://metelkin.me/</id>
   <author>
     <name>Evgeny Metelkin</name>
@@ -1111,6 +1111,54 @@ plot&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;out&lt;span cl
 &lt;p&gt;Install DynMSR from CRAN:&lt;/p&gt;
 &lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;install.packages&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;DynMSR&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Find guides and examples on &lt;a href=&quot;https://github.com/hetalang/DynMSR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>How to Run Heta Models in R with DynMSR and mrgsolve</title>
+    <link href="https://metelkin.me/heta-models-in-r/" />
+    <updated>2026-11-10T00:00:00Z</updated>
+    <id>https://metelkin.me/heta-models-in-r/</id>
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/heta-models-in-r/img/heta-model-rstudio.png&quot; alt=&quot;Heta model code open in RStudio&quot;&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;https://hetalang.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Heta project&lt;/a&gt; provides a language and toolchain for building &lt;strong&gt;complex mechanistic models&lt;/strong&gt;. Heta models can be split into reusable modules, checked together, and exported to different formats-useful for &lt;strong&gt;large QSP models&lt;/strong&gt; that should not be tied to one simulation environment.&lt;/p&gt;
+&lt;p&gt;With &lt;a href=&quot;https://cran.r-project.org/package=DynMSR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;DynMSR&lt;/a&gt;, Heta models can now be loaded directly &lt;strong&gt;into R&lt;/strong&gt;. The &lt;strong&gt;Heta Compiler&lt;/strong&gt; package turns a project into a model ready for simulation. DynMSR is available &lt;strong&gt;from CRAN&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Simulation is handled by &lt;a href=&quot;https://mrgsolve.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;mrgsolve&lt;/a&gt;, an established R package for ODE-based models in &lt;strong&gt;pharmacometrics and drug development&lt;/strong&gt;. It combines a compiled simulation engine with R tools for parameter exploration and population simulation.&lt;/p&gt;
+&lt;h2&gt;Quick start&lt;/h2&gt;
+&lt;h3&gt;Install the tools&lt;/h3&gt;
+&lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;install.packages&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;DynMSR&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;mrgsolve&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Loading Heta projects also requires Heta Compiler. Follow the &lt;a href=&quot;https://hetalang.github.io/hetacompiler/installation.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;installation guide&lt;/a&gt; for your operating system, or download an installer from the &lt;a href=&quot;https://github.com/hetalang/heta-compiler/releases/latest&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;latest release&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;After installation, DynMSR can check that the &lt;code&gt;heta&lt;/code&gt; command is available and that its version is supported:&lt;/p&gt;
+&lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;library&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;DynMSR&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+heta_check&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Create a Heta model&lt;/h3&gt;
+&lt;p&gt;Create a directory and add a plain-text file named &lt;code&gt;index.heta&lt;/code&gt; in RStudio:&lt;/p&gt;
+&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;comp1 @Compartment .= 1;
+
+A @Species { compartment: comp1 } .= 10;
+B @Species { compartment: comp1 } .= 0;
+r1 @Reaction { actors: A =&gt; 2B } := k1 * A * comp1;
+
+k1 @Const = 1.2e-1;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This model converts one unit of &lt;code&gt;A&lt;/code&gt; into two units of &lt;code&gt;B&lt;/code&gt; at a rate determined by &lt;code&gt;A&lt;/code&gt; and &lt;code&gt;k1&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Load and simulate&lt;/h3&gt;
+&lt;p&gt;Run the R code from the directory containing &lt;code&gt;index.heta&lt;/code&gt; (or replace &lt;code&gt;&amp;quot;.&amp;quot;&lt;/code&gt; with its path):&lt;/p&gt;
+&lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;library&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;DynMSR&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+library&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mrgsolve&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+platform &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; heta_load&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;.&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+model &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; get_model&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;platform&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+mrgsolve_model &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; build_mrgsolve&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;model&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; observables &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;A&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;B&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+result &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; mrgsim&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mrgsolve_model&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; end &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; delta &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+plot&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;result&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; A &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; B &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt; time&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;build_mrgsolve()&lt;/code&gt; returns a regular mrgsolve model, so the standard mrgsolve API remains available.&lt;/p&gt;
+&lt;p&gt;We can also use the model for a simple population simulation. Here, &lt;code&gt;k1&lt;/code&gt; varies randomly between virtual individuals, producing a family of possible trajectories:&lt;/p&gt;
+&lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;idata &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; expand.idata&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;k1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.12&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; exp&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;rnorm&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.35&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+mrgsim&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mrgsolve_model&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; idata &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; idata&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; end &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; delta &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  plot&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;A &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; B &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt; time&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; lwd &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; alpha &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.35&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/heta-models-in-r/img/mrgsolve-simulation.png&quot; alt=&quot;Population simulation with random variation in k1&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;Where to go next&lt;/h2&gt;
+&lt;p&gt;Beyond Heta, DynMSR can load SBML and DynMS files and use them in the same mrgsolve workflow.&lt;/p&gt;
+&lt;p&gt;See the &lt;a href=&quot;https://cran.r-project.org/package=DynMSR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;DynMSR documentation&lt;/a&gt; and &lt;a href=&quot;https://github.com/hetalang/DynMSR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;source code on GitHub&lt;/a&gt; for more examples.&lt;/p&gt;
 </content>
   </entry>
 </feed>
