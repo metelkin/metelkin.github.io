@@ -90,7 +90,7 @@
     </div>
     <dev class="markdown-body">
         <h4><a href="/model-formats-for-systems-pharmacology-1/">Part 1</a>, Part 2</h4>
-<p><img src="./img/fig0-cover.jpg" alt="Cover"></p>
+<p><img src="./img/fig0-cover.jpg" alt="Illustration of reproducible, modular QSP models stored as code with version control"></p>
 <p><em>In <a href="/model-formats-for-systems-pharmacology-1/">Part 1</a>, we looked at the landscape of QSP model formats-their origins, strengths, and limitations. In this follow-up, I want to step back and explore the problem from a software engineering perspective: what practices and design principles could make QSP modeling more transparent, modular, and reproducible, and how model formats can evolve to support that shift.</em></p>
 <h2>5. Model as code</h2>
 <p>In software, the &quot;X as code&quot; idea has proven itself many times over: <strong>Infrastructure as Code</strong> (<a href="https://developer.hashicorp.com/terraform/tutorials/aws-get-started/infrastructure-as-code" target="_blank" rel="noopener noreferrer">Terraform</a>), <strong>Configuration as Code</strong> (<a href="https://www.redhat.com/en/blog/ansible-automation-platform-2.3-configuration-as-code-improvements" target="_blank" rel="noopener noreferrer">Ansible</a>), and <strong>Pipeline as Code</strong> (<a href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/" target="_blank" rel="noopener noreferrer">Jenkins</a>), among others. The core idea is simple: we don't just manage <strong>artifacts</strong> (infrastructure, configuration, pipelines) directly, we manage their <strong>textual representation</strong> under version control, even if those artifacts were never treated as &quot;code&quot; before. In all cases, the <strong>authoritative source</strong> (canonical source for other forms) is human-readable text. This doesn't exclude working with diagrams or tables-authoring can stay visual or interactive, but the canonical format must still be code. This shift brought massive gains in transparency, modularity, and reproducibility, and accelerated progress in software engineering.</p>
@@ -100,13 +100,13 @@
 <h3>Code Transparency</h3>
 <p><strong>Code transparency</strong> means that every aspect of a model is visible, reviewable, and understandable <strong>at a glance</strong>. This covers not only the model structure, but also the equations, parameters, and the assumptions embedded within it. A transparent format allows collaborators to see what exactly the model does without needing the original author or a proprietary tool to &quot;explain&quot; it.</p>
 <p>A second requirement is <strong>traceable change</strong>. This is not only about being able to read the code, but also about being able to see what changed and why between versions. With text-based formats, differences are captured by standard tools (e.g., Git diff), making version control, peer review, and collaboration far more effective.</p>
-<p><img src="./img/fig1-nonmem.png" alt="Traceable change for NONMEM file"><br>
+<p><img src="./img/fig1-nonmem.png" alt="VS Code comparison showing changes in a text-based NONMEM model file"><br>
 <em><strong>Fig. 1. Traceable change for NONMEM model file.</strong> Files comparison in VSCode: old vs. new. Can see changes clearly.</em></p>
 <p>A desirable (not strictly mandatory) requirement is <strong>self-explanatory code</strong>. This means that the model description carries enough context-through clear naming, annotations, and units-that a new reader can understand the intent without constantly referring back to external notes or publications.</p>
-<p><img src="./img/fig2-antimony.png" alt="Self-explanatory code trace in Antimony modeling language"><br>
+<p><img src="./img/fig2-antimony.png" alt="VS Code diff showing readable changes in an Antimony model"><br>
 <em><strong>Fig. 2. Self-explanatory code trace in Antimony modeling language.</strong> File comparison in VSCode: old vs. new. Model diff meaning easy to understand at a glance because of clear syntax.</em></p>
 <p>By contrast, QSP environments that store models in binary, closed, or otherwise non-readable formats cannot ensure transparency. They block the very practices-review, versioning, collaboration-that modern scientific software relies on. Even when dedicated comparison tools exist, they are typically ad-hoc, tied to a single platform, and rarely integrate smoothly into a team's normal project workflow. As a result, they are used sporadically and do not replace true text-level transparency.</p>
-<p><img src="./img/fig3-simbio.png" alt="Non traceable change for SimBiology project"><br>
+<p><img src="./img/fig3-simbio.png" alt="VS Code unable to display a text diff for binary SimBiology project files"><br>
 <em><strong>Fig. 3. Non traceable change for SimBiology project (.sbproj).</strong> File comparison in VSCode: old vs. new. Model change cannot be tracked because of binary format.</em></p>
 <h3>Modularity</h3>
 <p><strong>Modularity</strong> is the ability to divide a project into independent parts that can be developed, tested, and reused separately. It comes from having clear interfaces and well-defined dependencies between components.</p>
@@ -121,7 +121,7 @@
 <p>The more logically a QSP platform is divided into modules, the easier it becomes to manage the work and distribute responsibilities. A single monolithic file forces the entire team to work sequentially, rather than in parallel.</p>
 <h3>Longevity</h3>
 <p><strong>Longevity</strong> means that a model remains usable and trustworthy years after it was first created. Instead of &quot;remembering which buttons we clicked,&quot; the project can be rebuilt, rerun, and revalidated from its source (<a href="https://dx.doi.org/10.1038/sdata.2016.18" target="_blank" rel="noopener noreferrer">FAIR Principles, Scientific Data, 2016</a>).</p>
-<p><img src="./img/fig4-git.png" alt="Git commit history in QSP project."><br>
+<p><img src="./img/fig4-git.png" alt="Git commit history and branches for tracking changes in a QSP modeling project"><br>
 <em><strong>Fig. 4. Git commit history in QSP project.</strong>: Commit history provides a timeline of changes in branches, enabling easy rollback and review.</em></p>
 <p>What makes longevity possible:</p>
 <ul>
@@ -138,7 +138,7 @@
 <p>With <strong>CI/CD</strong>, every commit can automatically launch validation tasks, generate reports, or even dispatch heavy computations to a more powerful server or cluster (<a href="https://www.oreilly.com/library/view/continuous-delivery-reliable/9780321670250/" target="_blank" rel="noopener noreferrer">Continuous Delivery, Addison-Wesley, 2010</a>). This reduces human error, scales effortlessly, and makes QSP projects more reliable and collaborative.</p>
 <h3>LLM &amp; AI</h3>
 <p>When models are stored as readable code, they become accessible not only to people but also to <strong>AI assistants</strong>. This opens new opportunities for collaboration between modelers and <strong>Large Language Models</strong>.</p>
-<p><img src="./img/fig5-heta-autocompletion.png" alt="Autocompletion by GitHub Copilot for Heta"><br>
+<p><img src="./img/fig5-heta-autocompletion.png" alt="GitHub Copilot AI code completion suggestion for a Heta model in VS Code"><br>
 <em><strong>Fig.5. Autocompletion for Heta code.</strong> GitHub Copilot can assist with code suggestions and completions if the model has unified and clear structure. Red arrow points to the AI generated suggestion.</em></p>
 <ul>
 <li><strong>Assisted modeling.</strong> Existing tools like GitHub Copilot or Cursor can already be used with QSP models stored as code-offering chat-based assistance, code generation, or autocompletion in Domain-Specific Language (DSL)/Macros/JSON, just as they do today for Python or R scripts.</li>

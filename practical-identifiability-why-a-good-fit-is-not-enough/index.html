@@ -89,7 +89,7 @@
         <p><strong>2026-02-21</strong></p>
     </div>
     <dev class="markdown-body">
-        <p><img src="./img/fig0-cover.png" alt="Cover"></p>
+        <p><img src="./img/fig0-cover.png" alt="Different model curves fitting experimental data illustrate practical parameter identifiability"></p>
 <h2>The Illusion of Certainty</h2>
 <p>✓  The optimizer stopped without warnings.<br>
 ✓  The simulated curves match the experimental data.<br>
@@ -100,7 +100,7 @@
 <p>This is the point where many modeling projects move forward.</p>
 <p>The optimizer may settle at one acceptable solution among many equivalent ones. A good fit does not prove that the parameters are well constrained by the data. The reported parameter values represent one possible explanation of the data, not necessarily a unique explanation.</p>
 <p>The final parameter table may give a false impression of precision. What looks like certainty may, in fact, be an illusion.</p>
-<p><img src="./img/fig1-point-estimates.png" alt="Fig 1. Point estimates"><br>
+<p><img src="./img/fig1-point-estimates.png" alt="Model calibration workflow showing point estimates, a fitted curve and predictions without uncertainty"><br>
 <em><strong>Point estimates workflow</strong>. Calibration produces a stable fit and a single set of parameter values. However, without identifiability analysis, the uniqueness and robustness of this solution remain unknown.</em></p>
 <h2>Why Optimization Hides the Problem</h2>
 <p>Parameter estimation in nonlinear models is an inverse problem: we try to estimate parameter values from observed outcomes. In general, inverse problems do not guarantee a unique solution. Different parameter values, or different combinations of parameters, can reproduce the data equally well, or very close to it.</p>
@@ -138,7 +138,7 @@
 </ul>
 <p>In any case, identifiability analysis eliminates false confidence. It clarifies what is supported by data and what is not, reducing the risk of unpleasant surprises when predictions fail.</p>
 <p>Despite being conceptually well established, identifiability analysis is still not routinely included in many modeling workflows. Time pressure, computational cost, and lack of accessible tools often push it aside in practice.</p>
-<p><img src="./img/fig2-interval-estimate.png" alt="Fig 2. Interval estimate"><br>
+<p><img src="./img/fig2-interval-estimate.png" alt="Identifiability analysis workflow showing parameter confidence intervals and prediction bands"><br>
 <em><strong>Identifiability-aware workflow.</strong> By estimating parameter confidence intervals and propagating uncertainty to model outputs, we distinguish well-identified parameters from weakly identifiable ones. This leads to prediction bands that are narrow where the data constrain the model and wide where they do not.</em></p>
 <h2>Fisher Information Matrix and Its Limitations</h2>
 <p>A widely used approach to assessing identifiability is the <strong>Fisher Information Matrix (FIM)</strong>. It evaluates local sensitivity of the model output to parameter changes near the optimum and is often available as part of standard maximum likelihood estimation. Because it is computationally efficient, it is commonly used as a quick diagnostic of parameter identifiability.</p>
@@ -148,7 +148,7 @@
 <p>Likelihood-based approaches provide a principled way to assess practical identifiability. Instead of relying on local curvature near the optimum, they examine how the objective function changes as individual parameters are systematically varied. This reveals whether confidence intervals are finite and how strongly parameters are constrained by the data.</p>
 <p>In practice, these methods are more computationally demanding and require careful implementation, which has limited their routine use in many modeling workflows.</p>
 <p>To make such analyses more accessible, we developed an open-source Julia package, <a href="https://github.com/insysbio/LikelihoodProfiler.jl" target="_blank" rel="noopener noreferrer">LikelihoodProfiler.jl</a>. It implements several profile-likelihood strategies within a unified workflow, including optimization-based, integration-based, and constrained-optimization (CICO) approaches. A detailed description of the methodology and software is available in our recent JOSS publication (<a href="https://doi.org/10.21105/joss.09501" target="_blank" rel="noopener noreferrer">https://doi.org/10.21105/joss.09501</a>).</p>
-<p><img src="./img/fig3-profile-likelihood.png" alt="Fig 3. Profile likelihood methods"><br>
+<p><img src="./img/fig3-profile-likelihood.png" alt="Profile likelihood plots showing parameter confidence interval thresholds with LikelihoodProfiler.jl"><br>
 <em><strong>Profile likelihood examples generated with <a href="https://github.com/insysbio/LikelihoodProfiler.jl" target="_blank" rel="noopener noreferrer">LikelihoodProfiler.jl</a>.</strong> By tracing the objective function beyond the optimum, these profiles expose the curvature and extent of the admissible parameter region. The threshold crossing determines finite or non-finite confidence intervals.</em></p>
 <h2>Conclusion: A Shift in Mindset</h2>
 <p>Nonlinear modeling is inherently challenging, especially when it involves solving inverse problems and estimating multiple interacting parameters. Once a model fits the data well, there is a natural temptation to move directly to interpretation and prediction.</p>

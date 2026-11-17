@@ -89,7 +89,7 @@
         <p><strong>2026-01-16</strong></p>
     </div>
     <dev class="markdown-body">
-        <p><img src="./img/fig0-cover.jpg" alt="Cover"></p>
+        <p><img src="./img/fig0-cover.jpg" alt="Laptop running simulations at night, illustrating sleep prevention during long computations"></p>
 <p>In scientific and engineering modeling it is very common to run computations that take hours: overnight simulations, parameter fitting, Monte Carlo experiments, or long-running machine learning jobs. You start the script, make sure everything looks fine, and walk away.</p>
 <p>Then the operating system decides to go to sleep.</p>
 <p>When that happens, the computation is paused or effectively stopped. In the morning you come back to an unfinished run and lost time. This is not a rare edge case - it is a very common and very frustrating failure mode when working on laptops or workstations.</p>
@@ -110,7 +110,7 @@
 <p>Based on this idea, we implemented the same solution for three languages that are commonly used in scientific and systems modeling: <strong>R</strong>, <strong>Julia</strong>, and <strong>MATLAB</strong>.</p>
 <p>All three implementations are called <strong>NoSleep</strong>. They follow the same conceptual design and expose a very similar interface, even though the languages and ecosystems are different.</p>
 <p>The goal was not to create three unrelated utilities, but to provide a consistent solution that works across environments often used in the same modeling workflows.</p>
-<p><img src="./img/fig1-sleep.jpg" alt="Fig1. Computations that take hours on user laptops are often interrupted by system sleep"></p>
+<p><img src="./img/fig1-sleep.jpg" alt="Illustration of a researcher asleep beside a laptop running a long computation"></p>
 <h2>Design principles behind NoSleep</h2>
 <p>All NoSleep implementations share a few core principles:</p>
 <ul>
@@ -136,7 +136,7 @@
 <li>The behavior is deterministic and reproducible, which makes scripts easier to share and reuse on other machines.</li>
 </ul>
 <p>Because sleep control lives inside the script, it does not depend on external tools, system settings, or manual intervention.</p>
-<p><img src="./img/fig2-nosleep.jpg" alt="Fig2. NoSleep helps keep your system awake only while your long computations are running"></p>
+<p><img src="./img/fig2-nosleep.jpg" alt="Illustration of an R cat at a laptop, representing NoSleep for long-running computations in R"></p>
 <h2>Cross-language framework</h2>
 <p>All three implementations of NoSleep share the same basic API design, making it easy to switch between languages while keeping the same approach to sleep prevention.</p>
 <h2>R</h2>

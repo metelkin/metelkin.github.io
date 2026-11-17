@@ -89,7 +89,7 @@
         <p><strong>2026-05-04</strong></p>
     </div>
     <dev class="markdown-body">
-        <p><img src="./img/fig0-cover.png" alt="Cover"></p>
+        <p><img src="./img/fig0-cover.png" alt="RStudio showing R code and a simulation plot for ordinary differential equations"></p>
 <p>Solving <strong>ordinary differential equations (ODEs)</strong> is a common task in many fields, including systems biology, pharmacometrics, physics, and engineering where dynamic systems are studied. An ODE describes how a variables evolve over time, typically written as<br>
 $$<br>
 \begin{align}<br>
@@ -424,7 +424,7 @@ out <span class="token operator">&lt;-</span> mod <span class="token percent-ope
   mrgsim<span class="token punctuation">(</span>start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> end <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">,</span> delta <span class="token operator">=</span> <span class="token number">0.001</span><span class="token punctuation">)</span>
 
 plot<span class="token punctuation">(</span>out<span class="token punctuation">)</span></code></pre>
-<p><img src="./img/fig1-example-1-sim.png" alt="example-1-sim"></p>
+<p><img src="./img/fig1-example-1-sim.png" alt="R simulation plots of gut and blood alcohol amounts over time"></p>
 <h3>Example 2: Robertson problem stiff ODE</h3>
 <pre class="language-r"><code class="language-r">library<span class="token punctuation">(</span>mrgsolve<span class="token punctuation">)</span>
 library<span class="token punctuation">(</span>magrittr<span class="token punctuation">)</span>
@@ -446,7 +446,7 @@ out <span class="token operator">&lt;-</span> mod <span class="token percent-ope
   mrgsim<span class="token punctuation">(</span>start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> end <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> delta <span class="token operator">=</span> <span class="token number">1e-2</span><span class="token punctuation">)</span>
 
 plot<span class="token punctuation">(</span>out<span class="token punctuation">)</span></code></pre>
-<p><img src="./img/fig2-example-2-sim.png" alt="example-2-sim"></p>
+<p><img src="./img/fig2-example-2-sim.png" alt="Simulation plots for species A, B and C in the stiff Robertson ODE problem in R"></p>
 <h2>Author's notes</h2>
 <p>The goal of this review was to provide <strong>a maximally complete and objective overview</strong> of tools for solving ODEs in R. The packages included in this survey differ in their purpose and functionality: from simple numerical solvers to full-featured frameworks and specialized domain-specific tools. Many aspects, such as computational performance, numerical accuracy, and advanced functionality are intentionally not covered in this article.</p>
 <p>Many packages designed for specific application areas (e.g., PK/PD) can also be used to solve general ODE systems. These are included here on equal footing, without focusing on their domain-specific features.</p>

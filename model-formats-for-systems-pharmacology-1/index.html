@@ -90,7 +90,7 @@
     </div>
     <dev class="markdown-body">
         <h4>Part 1, <a href="/model-formats-for-systems-pharmacology-2/">Part 2</a></h4>
-<p><img src="./img/fig0-cover.jpg" alt="Cover"></p>
+<p><img src="./img/fig0-cover.jpg" alt="Illustration of a modeler navigating QSP model formats and simulation tools"></p>
 <h2>1. Intro</h2>
 <p>Imagine <strong>web development</strong> where every framework has its <strong>own version of HTML</strong>, CSS, and JavaScript. <strong>Git is almost useless</strong>: the project is a mix of binary files and settings hidden in a GUI. <strong>Code can't be reused</strong>: each tool has its own syntax, its own logic, and a closed project file.</p>
 <p>Sounds like a bad alternate reality, but this is still how <strong>data storage and exchange</strong> often look in <strong>drug modeling</strong>. Tools solve similar problems, but <strong>model formats</strong> are <strong>incompatible</strong>; project structure is a &quot;black box&quot;; <strong>reproducibility is fragile</strong>; <strong>exchange is painful</strong>.</p>
@@ -187,7 +187,7 @@
 <p>This mapping isn't perfect, but it highlights a useful perspective: QSP models aren't just collections of equations—they're systems with states, logic, data, and tasks.</p>
 <h3>A Simple Example</h3>
 <p>To make this more concrete, let's look at an example - far smaller than what modelers deal with in practice, but enough to illustrate the <strong>key principles</strong>.</p>
-<p><img src="./img/fig1-scheme.png" alt="Alcohol metabolism model"></p>
+<p><img src="./img/fig1-scheme.png" alt="Toy QSP model diagram of alcohol absorption and metabolism in gut and blood compartments"></p>
 <p><strong>Fig 1. A toy QSP model of alcohol metabolism.</strong> This minimal example is used to illustrate model structure; real QSP models can include thousands of components and interactions.</p>
 <p>In this example, ethanol is consumed twice (state <strong><em>Alc_g</em></strong>), absorbed into the bloodstream (<strong><em>Alc_b</em></strong>), metabolized into acetaldehyde (<strong><em>AcHc</em></strong>), and then further converted into acetate (<strong><em>Acet</em></strong>).</p>
 <p>In ODE form, the model's core dynamics are:<br>
@@ -206,7 +206,7 @@ v_{ADH} &amp; =  \frac{Vmax_{ADH} \cdot Alc_b}{Km_{ADH} + Alc_b} \cdot blood,\\<
 v_{ALDH} &amp; = \frac{Vmax_{ALDH} \cdot AcHc}{Km_{ALDH} + AcHc} \cdot blood.<br>
 \end{aligned}<br>
 $$</p>
-<p><img src="./img/fig2-dynamics.png" alt="Alcohol metabolism simulation results"></p>
+<p><img src="./img/fig2-dynamics.png" alt="Simulated alcohol and acetaldehyde dynamics in a toy QSP model of alcohol metabolism"></p>
 <p><strong>Fig 2. Demo run of the toy alcohol model.</strong> Results are illustrative and qualitative, not quantitative. Definitely not medical advice (or bartending advice).</p>
 <h3>Beyond the Core Equations</h3>
 <p>In <strong>real-world projects</strong>, the mathematical core is important but just the part of the model. A complete, reproducible modeling package also needs:</p>
@@ -218,11 +218,11 @@ $$</p>
 <p>Without these and other <strong>metadata</strong>, results are not reproducible, and the model cannot be properly evaluated or reused. Here, we'll keep our focus on the core structure of models rather than all the surrounding layers.</p>
 <h2>4. Popular Tools and How They Store Models</h2>
 <p>At their core, QSP models are systems of algebraic and differential equations. But the moment we try to implement such a model on a computer, things get trickier. Equations need to be expressed in a very specific way - as functions, arguments, and expressions tailored for a particular programming language or solver.</p>
-<p><img src="./img/fig3-raw-matlab.png" alt="Raw scripting Matlab code"></p>
+<p><img src="./img/fig3-raw-matlab.png" alt="MATLAB code for the alcohol metabolism model and its simulation script in separate files"></p>
 <p><strong>Fig 3. Example of raw scripting in Matlab.</strong> Model logic (right) and simulation script (left) live in separate files but are still entangled. The model carries redundant syntax just to satisfy MATLAB and cannot be directly reused in another language or tool. Updating the model code may result in changes in the simulation script.</p>
 <p>To make life easier, many tools introduce their own <strong>Domain Specific Languages (DSL)</strong> or rely on <strong>macros</strong>. In essence, we're still writing ODEs, but now they are expressed in a more compact, structured form. This makes the model easier to read and sometimes separates the model description from the execution code - a small but important step toward better clarity and maintainability.</p>
 <p>However, this approach still has its drawbacks. As models grow larger, ODE-based code becomes <strong>difficult to maintain</strong>: it resists modularization, and even small changes may require edits in multiple places or restructuring the equations themselves. On top of that, the notation is far from intuitive for biologists or pharmacologists, who tend to think in terms of reactions, metabolites, and pathways rather than ODEs.</p>
-<p><img src="./img/fig4-mrgsolve.png" alt="ODE based DSL, mrgsolve"></p>
+<p><img src="./img/fig4-mrgsolve.png" alt="Alcohol metabolism ODE model written in the mrgsolve domain-specific language"></p>
 <p><strong>Fig 4. Example of ODE based DSL in mrgsolve.</strong> The model is expressed as a macro-like C++ dialect, which makes it close to the solver and mathematically transparent. The syntax is tool-specific and difficult to parse or convert, limiting portability beyond mrgsolve (and partially NONMEM).</p>
 <p>One way around this is the <strong>process-based approach</strong> describing the model in terms of processes that involve metabolites, reactions, compartments and other entities. The software then <strong>generates the ODE</strong> system automatically (e.g., from tables or a custom DSL) right before simulation. This approach reduces manual edits, enables modularity, and lowers the risk of mistakes.<br>
 The trade-off? You need to adjust your modeling mindset. The equation-level view is hidden behind generation, and you need an explicit build pipeline. Still, this method has been influential <a href="https://sbml.org/" target="_blank" rel="noopener noreferrer">SBML</a> is one example born from such thinking.</p>
@@ -236,7 +236,7 @@ The trade-off? You need to adjust your modeling mindset. The equation-level view
 <li><strong>Table-based modeling</strong> - The model is defined via <strong>series of spreadsheets</strong>. The idea is similar to a DSL but avoids the need to memorize syntax. Readable, but limited in expressing complex logic.</li>
 <li><strong>Mixed modeling</strong> - Combinations such as tables + DSL, or tables + diagrams, etc.</li>
 </ul>
-<p><img src="./img/fig5-simbio.png" alt="Visual modeling SimBiology code snippet"></p>
+<p><img src="./img/fig5-simbio.png" alt="SimBiology visual model diagram and project interface for alcohol metabolism"></p>
 <p><strong>Fig 5. Example of visual modeling in SimBiology.</strong> Visual diagrams make it easier for beginners and biologists to start modeling, but serious work still requires editing mathematical details hidden in tables and formulas. The binary storage format complicates version control and collaboration, while large models quickly become cumbersome as diagrams grow too complex to manage effectively.</p>
 <h3>What Ends Up on Disk: Project Storage Formats</h3>
 <p>Beyond the way models are written (authoring approach), <strong>storage format</strong> matters, especially for collaboration, exchange, and version control. Some platforms store everything in a single file; others use multiple files in different formats. In QSP, storage formats often differ across tools and are rarely interoperable.</p>
@@ -248,7 +248,7 @@ The trade-off? You need to adjust your modeling mindset. The equation-level view
 <li><strong>Human-readable text</strong> - Best for Git and team workflows, but still needs a parser.</li>
 </ul>
 <p>The <strong>way you write a model</strong> affects how easy it is to work with, how accessible it is for collaborators, and how reusable the code becomes. The <strong>way you store</strong> a project determines whether it is Git-friendly, easy to compare across versions, and possible to translate into other tools and formats. Both layers matter — and problems often come from confusing or conflating the two.</p>
-<p><img src="./img/fig6-heta.png" alt="HetaSimulator code snippet"></p>
+<p><img src="./img/fig6-heta.png" alt="Heta process-based model code for alcohol metabolism in a code editor"></p>
 <p><strong>Fig 6. Example for process-based DSL. Code for HetaSimulator.</strong> Heta offers a solver- and scripting-independent way to describe models and works well with version control. Support modules and namespaces. However, the format is niche, less familiar to those used to ODEs, and may feel harder to adopt outside its community. Requires a specific <a href="https://hetalang.github.io/hetacompiler" target="_blank" rel="noopener noreferrer">translator</a> for use across applications.</p>
 <h3>Tool Matrix: Authoring, Storage, and Interfaces</h3>
 <p>QSP has been steadily evolving since <strong>around 2010</strong>. Many of the tools used today originated in neighboring fields such as Systems Biology, PBPK, and PK/PD. Some of them were <strong>adapted</strong> to serve QSP needs, while others were <strong>developed</strong> from scratch.</p>

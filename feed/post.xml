@@ -15,7 +15,7 @@
     <updated>2025-08-22T00:00:00Z</updated>
     <id>https://metelkin.me/model-formats-for-systems-pharmacology-1/</id>
     <content type="html">&lt;h4&gt;Part 1, &lt;a href=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-2/&quot;&gt;Part 2&lt;/a&gt;&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig0-cover.jpg&quot; alt=&quot;Cover&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig0-cover.jpg&quot; alt=&quot;Illustration of a modeler navigating QSP model formats and simulation tools&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;1. Intro&lt;/h2&gt;
 &lt;p&gt;Imagine &lt;strong&gt;web development&lt;/strong&gt; where every framework has its &lt;strong&gt;own version of HTML&lt;/strong&gt;, CSS, and JavaScript. &lt;strong&gt;Git is almost useless&lt;/strong&gt;: the project is a mix of binary files and settings hidden in a GUI. &lt;strong&gt;Code can&#39;t be reused&lt;/strong&gt;: each tool has its own syntax, its own logic, and a closed project file.&lt;/p&gt;
 &lt;p&gt;Sounds like a bad alternate reality, but this is still how &lt;strong&gt;data storage and exchange&lt;/strong&gt; often look in &lt;strong&gt;drug modeling&lt;/strong&gt;. Tools solve similar problems, but &lt;strong&gt;model formats&lt;/strong&gt; are &lt;strong&gt;incompatible&lt;/strong&gt;; project structure is a &amp;quot;black box&amp;quot;; &lt;strong&gt;reproducibility is fragile&lt;/strong&gt;; &lt;strong&gt;exchange is painful&lt;/strong&gt;.&lt;/p&gt;
@@ -112,7 +112,7 @@
 &lt;p&gt;This mapping isn&#39;t perfect, but it highlights a useful perspective: QSP models aren&#39;t just collections of equations—they&#39;re systems with states, logic, data, and tasks.&lt;/p&gt;
 &lt;h3&gt;A Simple Example&lt;/h3&gt;
 &lt;p&gt;To make this more concrete, let&#39;s look at an example - far smaller than what modelers deal with in practice, but enough to illustrate the &lt;strong&gt;key principles&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig1-scheme.png&quot; alt=&quot;Alcohol metabolism model&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig1-scheme.png&quot; alt=&quot;Toy QSP model diagram of alcohol absorption and metabolism in gut and blood compartments&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Fig 1. A toy QSP model of alcohol metabolism.&lt;/strong&gt; This minimal example is used to illustrate model structure; real QSP models can include thousands of components and interactions.&lt;/p&gt;
 &lt;p&gt;In this example, ethanol is consumed twice (state &lt;strong&gt;&lt;em&gt;Alc_g&lt;/em&gt;&lt;/strong&gt;), absorbed into the bloodstream (&lt;strong&gt;&lt;em&gt;Alc_b&lt;/em&gt;&lt;/strong&gt;), metabolized into acetaldehyde (&lt;strong&gt;&lt;em&gt;AcHc&lt;/em&gt;&lt;/strong&gt;), and then further converted into acetate (&lt;strong&gt;&lt;em&gt;Acet&lt;/em&gt;&lt;/strong&gt;).&lt;/p&gt;
 &lt;p&gt;In ODE form, the model&#39;s core dynamics are:&lt;br&gt;
@@ -131,7 +131,7 @@ v_{ADH} &amp;amp; =  &#92;frac{Vmax_{ADH} &#92;cdot Alc_b}{Km_{ADH} + Alc_b} &#9
 v_{ALDH} &amp;amp; = &#92;frac{Vmax_{ALDH} &#92;cdot AcHc}{Km_{ALDH} + AcHc} &#92;cdot blood.&lt;br&gt;
 &#92;end{aligned}&lt;br&gt;
 $$&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig2-dynamics.png&quot; alt=&quot;Alcohol metabolism simulation results&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig2-dynamics.png&quot; alt=&quot;Simulated alcohol and acetaldehyde dynamics in a toy QSP model of alcohol metabolism&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Fig 2. Demo run of the toy alcohol model.&lt;/strong&gt; Results are illustrative and qualitative, not quantitative. Definitely not medical advice (or bartending advice).&lt;/p&gt;
 &lt;h3&gt;Beyond the Core Equations&lt;/h3&gt;
 &lt;p&gt;In &lt;strong&gt;real-world projects&lt;/strong&gt;, the mathematical core is important but just the part of the model. A complete, reproducible modeling package also needs:&lt;/p&gt;
@@ -143,11 +143,11 @@ $$&lt;/p&gt;
 &lt;p&gt;Without these and other &lt;strong&gt;metadata&lt;/strong&gt;, results are not reproducible, and the model cannot be properly evaluated or reused. Here, we&#39;ll keep our focus on the core structure of models rather than all the surrounding layers.&lt;/p&gt;
 &lt;h2&gt;4. Popular Tools and How They Store Models&lt;/h2&gt;
 &lt;p&gt;At their core, QSP models are systems of algebraic and differential equations. But the moment we try to implement such a model on a computer, things get trickier. Equations need to be expressed in a very specific way - as functions, arguments, and expressions tailored for a particular programming language or solver.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig3-raw-matlab.png&quot; alt=&quot;Raw scripting Matlab code&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig3-raw-matlab.png&quot; alt=&quot;MATLAB code for the alcohol metabolism model and its simulation script in separate files&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Fig 3. Example of raw scripting in Matlab.&lt;/strong&gt; Model logic (right) and simulation script (left) live in separate files but are still entangled. The model carries redundant syntax just to satisfy MATLAB and cannot be directly reused in another language or tool. Updating the model code may result in changes in the simulation script.&lt;/p&gt;
 &lt;p&gt;To make life easier, many tools introduce their own &lt;strong&gt;Domain Specific Languages (DSL)&lt;/strong&gt; or rely on &lt;strong&gt;macros&lt;/strong&gt;. In essence, we&#39;re still writing ODEs, but now they are expressed in a more compact, structured form. This makes the model easier to read and sometimes separates the model description from the execution code - a small but important step toward better clarity and maintainability.&lt;/p&gt;
 &lt;p&gt;However, this approach still has its drawbacks. As models grow larger, ODE-based code becomes &lt;strong&gt;difficult to maintain&lt;/strong&gt;: it resists modularization, and even small changes may require edits in multiple places or restructuring the equations themselves. On top of that, the notation is far from intuitive for biologists or pharmacologists, who tend to think in terms of reactions, metabolites, and pathways rather than ODEs.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig4-mrgsolve.png&quot; alt=&quot;ODE based DSL, mrgsolve&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig4-mrgsolve.png&quot; alt=&quot;Alcohol metabolism ODE model written in the mrgsolve domain-specific language&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Fig 4. Example of ODE based DSL in mrgsolve.&lt;/strong&gt; The model is expressed as a macro-like C++ dialect, which makes it close to the solver and mathematically transparent. The syntax is tool-specific and difficult to parse or convert, limiting portability beyond mrgsolve (and partially NONMEM).&lt;/p&gt;
 &lt;p&gt;One way around this is the &lt;strong&gt;process-based approach&lt;/strong&gt; describing the model in terms of processes that involve metabolites, reactions, compartments and other entities. The software then &lt;strong&gt;generates the ODE&lt;/strong&gt; system automatically (e.g., from tables or a custom DSL) right before simulation. This approach reduces manual edits, enables modularity, and lowers the risk of mistakes.&lt;br&gt;
 The trade-off? You need to adjust your modeling mindset. The equation-level view is hidden behind generation, and you need an explicit build pipeline. Still, this method has been influential &lt;a href=&quot;https://sbml.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;SBML&lt;/a&gt; is one example born from such thinking.&lt;/p&gt;
@@ -161,7 +161,7 @@ The trade-off? You need to adjust your modeling mindset. The equation-level view
 &lt;li&gt;&lt;strong&gt;Table-based modeling&lt;/strong&gt; - The model is defined via &lt;strong&gt;series of spreadsheets&lt;/strong&gt;. The idea is similar to a DSL but avoids the need to memorize syntax. Readable, but limited in expressing complex logic.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Mixed modeling&lt;/strong&gt; - Combinations such as tables + DSL, or tables + diagrams, etc.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig5-simbio.png&quot; alt=&quot;Visual modeling SimBiology code snippet&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig5-simbio.png&quot; alt=&quot;SimBiology visual model diagram and project interface for alcohol metabolism&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Fig 5. Example of visual modeling in SimBiology.&lt;/strong&gt; Visual diagrams make it easier for beginners and biologists to start modeling, but serious work still requires editing mathematical details hidden in tables and formulas. The binary storage format complicates version control and collaboration, while large models quickly become cumbersome as diagrams grow too complex to manage effectively.&lt;/p&gt;
 &lt;h3&gt;What Ends Up on Disk: Project Storage Formats&lt;/h3&gt;
 &lt;p&gt;Beyond the way models are written (authoring approach), &lt;strong&gt;storage format&lt;/strong&gt; matters, especially for collaboration, exchange, and version control. Some platforms store everything in a single file; others use multiple files in different formats. In QSP, storage formats often differ across tools and are rarely interoperable.&lt;/p&gt;
@@ -173,7 +173,7 @@ The trade-off? You need to adjust your modeling mindset. The equation-level view
 &lt;li&gt;&lt;strong&gt;Human-readable text&lt;/strong&gt; - Best for Git and team workflows, but still needs a parser.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;The &lt;strong&gt;way you write a model&lt;/strong&gt; affects how easy it is to work with, how accessible it is for collaborators, and how reusable the code becomes. The &lt;strong&gt;way you store&lt;/strong&gt; a project determines whether it is Git-friendly, easy to compare across versions, and possible to translate into other tools and formats. Both layers matter — and problems often come from confusing or conflating the two.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig6-heta.png&quot; alt=&quot;HetaSimulator code snippet&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/img/fig6-heta.png&quot; alt=&quot;Heta process-based model code for alcohol metabolism in a code editor&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Fig 6. Example for process-based DSL. Code for HetaSimulator.&lt;/strong&gt; Heta offers a solver- and scripting-independent way to describe models and works well with version control. Support modules and namespaces. However, the format is niche, less familiar to those used to ODEs, and may feel harder to adopt outside its community. Requires a specific &lt;a href=&quot;https://hetalang.github.io/hetacompiler&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;translator&lt;/a&gt; for use across applications.&lt;/p&gt;
 &lt;h3&gt;Tool Matrix: Authoring, Storage, and Interfaces&lt;/h3&gt;
 &lt;p&gt;QSP has been steadily evolving since &lt;strong&gt;around 2010&lt;/strong&gt;. Many of the tools used today originated in neighboring fields such as Systems Biology, PBPK, and PK/PD. Some of them were &lt;strong&gt;adapted&lt;/strong&gt; to serve QSP needs, while others were &lt;strong&gt;developed&lt;/strong&gt; from scratch.&lt;/p&gt;
@@ -330,7 +330,7 @@ The trade-off? You need to adjust your modeling mindset. The equation-level view
     <updated>2025-09-06T00:00:00Z</updated>
     <id>https://metelkin.me/model-formats-for-systems-pharmacology-2/</id>
     <content type="html">&lt;h4&gt;&lt;a href=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/&quot;&gt;Part 1&lt;/a&gt;, Part 2&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig0-cover.jpg&quot; alt=&quot;Cover&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig0-cover.jpg&quot; alt=&quot;Illustration of reproducible, modular QSP models stored as code with version control&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;In &lt;a href=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-1/&quot;&gt;Part 1&lt;/a&gt;, we looked at the landscape of QSP model formats-their origins, strengths, and limitations. In this follow-up, I want to step back and explore the problem from a software engineering perspective: what practices and design principles could make QSP modeling more transparent, modular, and reproducible, and how model formats can evolve to support that shift.&lt;/em&gt;&lt;/p&gt;
 &lt;h2&gt;5. Model as code&lt;/h2&gt;
 &lt;p&gt;In software, the &amp;quot;X as code&amp;quot; idea has proven itself many times over: &lt;strong&gt;Infrastructure as Code&lt;/strong&gt; (&lt;a href=&quot;https://developer.hashicorp.com/terraform/tutorials/aws-get-started/infrastructure-as-code&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Terraform&lt;/a&gt;), &lt;strong&gt;Configuration as Code&lt;/strong&gt; (&lt;a href=&quot;https://www.redhat.com/en/blog/ansible-automation-platform-2.3-configuration-as-code-improvements&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Ansible&lt;/a&gt;), and &lt;strong&gt;Pipeline as Code&lt;/strong&gt; (&lt;a href=&quot;https://www.jenkins.io/doc/book/pipeline/jenkinsfile/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Jenkins&lt;/a&gt;), among others. The core idea is simple: we don&#39;t just manage &lt;strong&gt;artifacts&lt;/strong&gt; (infrastructure, configuration, pipelines) directly, we manage their &lt;strong&gt;textual representation&lt;/strong&gt; under version control, even if those artifacts were never treated as &amp;quot;code&amp;quot; before. In all cases, the &lt;strong&gt;authoritative source&lt;/strong&gt; (canonical source for other forms) is human-readable text. This doesn&#39;t exclude working with diagrams or tables-authoring can stay visual or interactive, but the canonical format must still be code. This shift brought massive gains in transparency, modularity, and reproducibility, and accelerated progress in software engineering.&lt;/p&gt;
@@ -340,13 +340,13 @@ The trade-off? You need to adjust your modeling mindset. The equation-level view
 &lt;h3&gt;Code Transparency&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Code transparency&lt;/strong&gt; means that every aspect of a model is visible, reviewable, and understandable &lt;strong&gt;at a glance&lt;/strong&gt;. This covers not only the model structure, but also the equations, parameters, and the assumptions embedded within it. A transparent format allows collaborators to see what exactly the model does without needing the original author or a proprietary tool to &amp;quot;explain&amp;quot; it.&lt;/p&gt;
 &lt;p&gt;A second requirement is &lt;strong&gt;traceable change&lt;/strong&gt;. This is not only about being able to read the code, but also about being able to see what changed and why between versions. With text-based formats, differences are captured by standard tools (e.g., Git diff), making version control, peer review, and collaboration far more effective.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig1-nonmem.png&quot; alt=&quot;Traceable change for NONMEM file&quot;&gt;&lt;br&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig1-nonmem.png&quot; alt=&quot;VS Code comparison showing changes in a text-based NONMEM model file&quot;&gt;&lt;br&gt;
 &lt;em&gt;&lt;strong&gt;Fig. 1. Traceable change for NONMEM model file.&lt;/strong&gt; Files comparison in VSCode: old vs. new. Can see changes clearly.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;A desirable (not strictly mandatory) requirement is &lt;strong&gt;self-explanatory code&lt;/strong&gt;. This means that the model description carries enough context-through clear naming, annotations, and units-that a new reader can understand the intent without constantly referring back to external notes or publications.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig2-antimony.png&quot; alt=&quot;Self-explanatory code trace in Antimony modeling language&quot;&gt;&lt;br&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig2-antimony.png&quot; alt=&quot;VS Code diff showing readable changes in an Antimony model&quot;&gt;&lt;br&gt;
 &lt;em&gt;&lt;strong&gt;Fig. 2. Self-explanatory code trace in Antimony modeling language.&lt;/strong&gt; File comparison in VSCode: old vs. new. Model diff meaning easy to understand at a glance because of clear syntax.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;By contrast, QSP environments that store models in binary, closed, or otherwise non-readable formats cannot ensure transparency. They block the very practices-review, versioning, collaboration-that modern scientific software relies on. Even when dedicated comparison tools exist, they are typically ad-hoc, tied to a single platform, and rarely integrate smoothly into a team&#39;s normal project workflow. As a result, they are used sporadically and do not replace true text-level transparency.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig3-simbio.png&quot; alt=&quot;Non traceable change for SimBiology project&quot;&gt;&lt;br&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig3-simbio.png&quot; alt=&quot;VS Code unable to display a text diff for binary SimBiology project files&quot;&gt;&lt;br&gt;
 &lt;em&gt;&lt;strong&gt;Fig. 3. Non traceable change for SimBiology project (.sbproj).&lt;/strong&gt; File comparison in VSCode: old vs. new. Model change cannot be tracked because of binary format.&lt;/em&gt;&lt;/p&gt;
 &lt;h3&gt;Modularity&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Modularity&lt;/strong&gt; is the ability to divide a project into independent parts that can be developed, tested, and reused separately. It comes from having clear interfaces and well-defined dependencies between components.&lt;/p&gt;
@@ -361,7 +361,7 @@ The trade-off? You need to adjust your modeling mindset. The equation-level view
 &lt;p&gt;The more logically a QSP platform is divided into modules, the easier it becomes to manage the work and distribute responsibilities. A single monolithic file forces the entire team to work sequentially, rather than in parallel.&lt;/p&gt;
 &lt;h3&gt;Longevity&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Longevity&lt;/strong&gt; means that a model remains usable and trustworthy years after it was first created. Instead of &amp;quot;remembering which buttons we clicked,&amp;quot; the project can be rebuilt, rerun, and revalidated from its source (&lt;a href=&quot;https://dx.doi.org/10.1038/sdata.2016.18&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;FAIR Principles, Scientific Data, 2016&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig4-git.png&quot; alt=&quot;Git commit history in QSP project.&quot;&gt;&lt;br&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig4-git.png&quot; alt=&quot;Git commit history and branches for tracking changes in a QSP modeling project&quot;&gt;&lt;br&gt;
 &lt;em&gt;&lt;strong&gt;Fig. 4. Git commit history in QSP project.&lt;/strong&gt;: Commit history provides a timeline of changes in branches, enabling easy rollback and review.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;What makes longevity possible:&lt;/p&gt;
 &lt;ul&gt;
@@ -378,7 +378,7 @@ The trade-off? You need to adjust your modeling mindset. The equation-level view
 &lt;p&gt;With &lt;strong&gt;CI/CD&lt;/strong&gt;, every commit can automatically launch validation tasks, generate reports, or even dispatch heavy computations to a more powerful server or cluster (&lt;a href=&quot;https://www.oreilly.com/library/view/continuous-delivery-reliable/9780321670250/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Continuous Delivery, Addison-Wesley, 2010&lt;/a&gt;). This reduces human error, scales effortlessly, and makes QSP projects more reliable and collaborative.&lt;/p&gt;
 &lt;h3&gt;LLM &amp;amp; AI&lt;/h3&gt;
 &lt;p&gt;When models are stored as readable code, they become accessible not only to people but also to &lt;strong&gt;AI assistants&lt;/strong&gt;. This opens new opportunities for collaboration between modelers and &lt;strong&gt;Large Language Models&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig5-heta-autocompletion.png&quot; alt=&quot;Autocompletion by GitHub Copilot for Heta&quot;&gt;&lt;br&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/model-formats-for-systems-pharmacology-2/img/fig5-heta-autocompletion.png&quot; alt=&quot;GitHub Copilot AI code completion suggestion for a Heta model in VS Code&quot;&gt;&lt;br&gt;
 &lt;em&gt;&lt;strong&gt;Fig.5. Autocompletion for Heta code.&lt;/strong&gt; GitHub Copilot can assist with code suggestions and completions if the model has unified and clear structure. Red arrow points to the AI generated suggestion.&lt;/em&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Assisted modeling.&lt;/strong&gt; Existing tools like GitHub Copilot or Cursor can already be used with QSP models stored as code-offering chat-based assistance, code generation, or autocompletion in Domain-Specific Language (DSL)/Macros/JSON, just as they do today for Python or R scripts.&lt;/li&gt;
@@ -537,7 +537,7 @@ The trade-off? You need to adjust your modeling mindset. The equation-level view
     <link href="https://metelkin.me/keep-julia-awake/" />
     <updated>2025-10-04T00:00:00Z</updated>
     <id>https://metelkin.me/keep-julia-awake/</id>
-    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/keep-julia-awake/img/fig0-cover.jpg&quot; alt=&quot;Cover&quot;&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/keep-julia-awake/img/fig0-cover.jpg&quot; alt=&quot;Illustration of a sleeping researcher beside a laptop running a long Julia computation&quot;&gt;&lt;/p&gt;
 &lt;p&gt;When you run long Julia simulations or heavy computations on a laptop, you don&#39;t want your machine to fall asleep in the middle of the job.&lt;br&gt;
 On Windows, macOS, or Linux, the system may suspend itself even if Julia is still crunching numbers — leading to wasted time, broken HTTP calls, or stalled jobs.&lt;/p&gt;
 &lt;p&gt;This is the reason &lt;a href=&quot;https://github.com/hetalang/NoSleep.jl&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;NoSleep.jl&lt;/a&gt; exists: a lightweight cross-platform Julia package that prevents your machine from falling asleep during long computations.&lt;/p&gt;
@@ -584,7 +584,7 @@ with_nosleep&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;sp
     <link href="https://metelkin.me/keep-r-awake/" />
     <updated>2025-11-28T00:00:00Z</updated>
     <id>https://metelkin.me/keep-r-awake/</id>
-    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/keep-r-awake/img/fig0-cover.jpg&quot; alt=&quot;Cover&quot;&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/keep-r-awake/img/fig0-cover.jpg&quot; alt=&quot;Illustration of an R cat beside a laptop, representing keeping R computations awake&quot;&gt;&lt;/p&gt;
 &lt;p&gt;When R runs something heavy for an hour or two, laptops don&#39;t always care - many will still go to sleep if there&#39;s no user activity.&lt;br&gt;
 On Windows with Modern Standby, on macOS with default power settings, or on Linux with aggressive power-saving policies, this can interrupt work even if R is still busy.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;NoSleepR&lt;/strong&gt; solves this problem with a simple idea:&lt;br&gt;
@@ -651,7 +651,7 @@ nosleep_off&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;spa
     <link href="https://metelkin.me/preventing-system-sleep-during-long-computations/" />
     <updated>2026-01-16T00:00:00Z</updated>
     <id>https://metelkin.me/preventing-system-sleep-during-long-computations/</id>
-    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/preventing-system-sleep-during-long-computations/img/fig0-cover.jpg&quot; alt=&quot;Cover&quot;&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/preventing-system-sleep-during-long-computations/img/fig0-cover.jpg&quot; alt=&quot;Laptop running simulations at night, illustrating sleep prevention during long computations&quot;&gt;&lt;/p&gt;
 &lt;p&gt;In scientific and engineering modeling it is very common to run computations that take hours: overnight simulations, parameter fitting, Monte Carlo experiments, or long-running machine learning jobs. You start the script, make sure everything looks fine, and walk away.&lt;/p&gt;
 &lt;p&gt;Then the operating system decides to go to sleep.&lt;/p&gt;
 &lt;p&gt;When that happens, the computation is paused or effectively stopped. In the morning you come back to an unfinished run and lost time. This is not a rare edge case - it is a very common and very frustrating failure mode when working on laptops or workstations.&lt;/p&gt;
@@ -672,7 +672,7 @@ nosleep_off&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;spa
 &lt;p&gt;Based on this idea, we implemented the same solution for three languages that are commonly used in scientific and systems modeling: &lt;strong&gt;R&lt;/strong&gt;, &lt;strong&gt;Julia&lt;/strong&gt;, and &lt;strong&gt;MATLAB&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;All three implementations are called &lt;strong&gt;NoSleep&lt;/strong&gt;. They follow the same conceptual design and expose a very similar interface, even though the languages and ecosystems are different.&lt;/p&gt;
 &lt;p&gt;The goal was not to create three unrelated utilities, but to provide a consistent solution that works across environments often used in the same modeling workflows.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/preventing-system-sleep-during-long-computations/img/fig1-sleep.jpg&quot; alt=&quot;Fig1. Computations that take hours on user laptops are often interrupted by system sleep&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/preventing-system-sleep-during-long-computations/img/fig1-sleep.jpg&quot; alt=&quot;Illustration of a researcher asleep beside a laptop running a long computation&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;Design principles behind NoSleep&lt;/h2&gt;
 &lt;p&gt;All NoSleep implementations share a few core principles:&lt;/p&gt;
 &lt;ul&gt;
@@ -698,7 +698,7 @@ nosleep_off&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;spa
 &lt;li&gt;The behavior is deterministic and reproducible, which makes scripts easier to share and reuse on other machines.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Because sleep control lives inside the script, it does not depend on external tools, system settings, or manual intervention.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/preventing-system-sleep-during-long-computations/img/fig2-nosleep.jpg&quot; alt=&quot;Fig2. NoSleep helps keep your system awake only while your long computations are running&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/preventing-system-sleep-during-long-computations/img/fig2-nosleep.jpg&quot; alt=&quot;Illustration of an R cat at a laptop, representing NoSleep for long-running computations in R&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;Cross-language framework&lt;/h2&gt;
 &lt;p&gt;All three implementations of NoSleep share the same basic API design, making it easy to switch between languages while keeping the same approach to sleep prevention.&lt;/p&gt;
 &lt;h2&gt;R&lt;/h2&gt;
@@ -761,7 +761,7 @@ nosleep_off&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;spa
     <link href="https://metelkin.me/practical-identifiability-why-a-good-fit-is-not-enough/" />
     <updated>2026-02-21T00:00:00Z</updated>
     <id>https://metelkin.me/practical-identifiability-why-a-good-fit-is-not-enough/</id>
-    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/practical-identifiability-why-a-good-fit-is-not-enough/img/fig0-cover.png&quot; alt=&quot;Cover&quot;&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/practical-identifiability-why-a-good-fit-is-not-enough/img/fig0-cover.png&quot; alt=&quot;Different model curves fitting experimental data illustrate practical parameter identifiability&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;The Illusion of Certainty&lt;/h2&gt;
 &lt;p&gt;✓  The optimizer stopped without warnings.&lt;br&gt;
 ✓  The simulated curves match the experimental data.&lt;br&gt;
@@ -772,7 +772,7 @@ nosleep_off&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;spa
 &lt;p&gt;This is the point where many modeling projects move forward.&lt;/p&gt;
 &lt;p&gt;The optimizer may settle at one acceptable solution among many equivalent ones. A good fit does not prove that the parameters are well constrained by the data. The reported parameter values represent one possible explanation of the data, not necessarily a unique explanation.&lt;/p&gt;
 &lt;p&gt;The final parameter table may give a false impression of precision. What looks like certainty may, in fact, be an illusion.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/practical-identifiability-why-a-good-fit-is-not-enough/img/fig1-point-estimates.png&quot; alt=&quot;Fig 1. Point estimates&quot;&gt;&lt;br&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/practical-identifiability-why-a-good-fit-is-not-enough/img/fig1-point-estimates.png&quot; alt=&quot;Model calibration workflow showing point estimates, a fitted curve and predictions without uncertainty&quot;&gt;&lt;br&gt;
 &lt;em&gt;&lt;strong&gt;Point estimates workflow&lt;/strong&gt;. Calibration produces a stable fit and a single set of parameter values. However, without identifiability analysis, the uniqueness and robustness of this solution remain unknown.&lt;/em&gt;&lt;/p&gt;
 &lt;h2&gt;Why Optimization Hides the Problem&lt;/h2&gt;
 &lt;p&gt;Parameter estimation in nonlinear models is an inverse problem: we try to estimate parameter values from observed outcomes. In general, inverse problems do not guarantee a unique solution. Different parameter values, or different combinations of parameters, can reproduce the data equally well, or very close to it.&lt;/p&gt;
@@ -810,7 +810,7 @@ nosleep_off&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;spa
 &lt;/ul&gt;
 &lt;p&gt;In any case, identifiability analysis eliminates false confidence. It clarifies what is supported by data and what is not, reducing the risk of unpleasant surprises when predictions fail.&lt;/p&gt;
 &lt;p&gt;Despite being conceptually well established, identifiability analysis is still not routinely included in many modeling workflows. Time pressure, computational cost, and lack of accessible tools often push it aside in practice.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/practical-identifiability-why-a-good-fit-is-not-enough/img/fig2-interval-estimate.png&quot; alt=&quot;Fig 2. Interval estimate&quot;&gt;&lt;br&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/practical-identifiability-why-a-good-fit-is-not-enough/img/fig2-interval-estimate.png&quot; alt=&quot;Identifiability analysis workflow showing parameter confidence intervals and prediction bands&quot;&gt;&lt;br&gt;
 &lt;em&gt;&lt;strong&gt;Identifiability-aware workflow.&lt;/strong&gt; By estimating parameter confidence intervals and propagating uncertainty to model outputs, we distinguish well-identified parameters from weakly identifiable ones. This leads to prediction bands that are narrow where the data constrain the model and wide where they do not.&lt;/em&gt;&lt;/p&gt;
 &lt;h2&gt;Fisher Information Matrix and Its Limitations&lt;/h2&gt;
 &lt;p&gt;A widely used approach to assessing identifiability is the &lt;strong&gt;Fisher Information Matrix (FIM)&lt;/strong&gt;. It evaluates local sensitivity of the model output to parameter changes near the optimum and is often available as part of standard maximum likelihood estimation. Because it is computationally efficient, it is commonly used as a quick diagnostic of parameter identifiability.&lt;/p&gt;
@@ -820,7 +820,7 @@ nosleep_off&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;spa
 &lt;p&gt;Likelihood-based approaches provide a principled way to assess practical identifiability. Instead of relying on local curvature near the optimum, they examine how the objective function changes as individual parameters are systematically varied. This reveals whether confidence intervals are finite and how strongly parameters are constrained by the data.&lt;/p&gt;
 &lt;p&gt;In practice, these methods are more computationally demanding and require careful implementation, which has limited their routine use in many modeling workflows.&lt;/p&gt;
 &lt;p&gt;To make such analyses more accessible, we developed an open-source Julia package, &lt;a href=&quot;https://github.com/insysbio/LikelihoodProfiler.jl&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;LikelihoodProfiler.jl&lt;/a&gt;. It implements several profile-likelihood strategies within a unified workflow, including optimization-based, integration-based, and constrained-optimization (CICO) approaches. A detailed description of the methodology and software is available in our recent JOSS publication (&lt;a href=&quot;https://doi.org/10.21105/joss.09501&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;https://doi.org/10.21105/joss.09501&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/practical-identifiability-why-a-good-fit-is-not-enough/img/fig3-profile-likelihood.png&quot; alt=&quot;Fig 3. Profile likelihood methods&quot;&gt;&lt;br&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/practical-identifiability-why-a-good-fit-is-not-enough/img/fig3-profile-likelihood.png&quot; alt=&quot;Profile likelihood plots showing parameter confidence interval thresholds with LikelihoodProfiler.jl&quot;&gt;&lt;br&gt;
 &lt;em&gt;&lt;strong&gt;Profile likelihood examples generated with &lt;a href=&quot;https://github.com/insysbio/LikelihoodProfiler.jl&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;LikelihoodProfiler.jl&lt;/a&gt;.&lt;/strong&gt; By tracing the objective function beyond the optimum, these profiles expose the curvature and extent of the admissible parameter region. The threshold crossing determines finite or non-finite confidence intervals.&lt;/em&gt;&lt;/p&gt;
 &lt;h2&gt;Conclusion: A Shift in Mindset&lt;/h2&gt;
 &lt;p&gt;Nonlinear modeling is inherently challenging, especially when it involves solving inverse problems and estimating multiple interacting parameters. Once a model fits the data well, there is a natural temptation to move directly to interpretation and prediction.&lt;/p&gt;
@@ -834,7 +834,7 @@ nosleep_off&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;spa
     <link href="https://metelkin.me/landscape-of-ode-solvers-in-r/" />
     <updated>2026-05-04T00:00:00Z</updated>
     <id>https://metelkin.me/landscape-of-ode-solvers-in-r/</id>
-    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/landscape-of-ode-solvers-in-r/img/fig0-cover.png&quot; alt=&quot;Cover&quot;&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/landscape-of-ode-solvers-in-r/img/fig0-cover.png&quot; alt=&quot;RStudio showing R code and a simulation plot for ordinary differential equations&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Solving &lt;strong&gt;ordinary differential equations (ODEs)&lt;/strong&gt; is a common task in many fields, including systems biology, pharmacometrics, physics, and engineering where dynamic systems are studied. An ODE describes how a variables evolve over time, typically written as&lt;br&gt;
 $$&lt;br&gt;
 &#92;begin{align}&lt;br&gt;
@@ -1169,7 +1169,7 @@ out &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; mod &lt;
   mrgsim&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;start &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; end &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; delta &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.001&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 
 plot&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/landscape-of-ode-solvers-in-r/img/fig1-example-1-sim.png&quot; alt=&quot;example-1-sim&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/landscape-of-ode-solvers-in-r/img/fig1-example-1-sim.png&quot; alt=&quot;R simulation plots of gut and blood alcohol amounts over time&quot;&gt;&lt;/p&gt;
 &lt;h3&gt;Example 2: Robertson problem stiff ODE&lt;/h3&gt;
 &lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;library&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mrgsolve&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 library&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;magrittr&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
@@ -1191,7 +1191,7 @@ out &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; mod &lt;
   mrgsim&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;start &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; end &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; delta &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1e-2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 
 plot&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;out&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/landscape-of-ode-solvers-in-r/img/fig2-example-2-sim.png&quot; alt=&quot;example-2-sim&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/landscape-of-ode-solvers-in-r/img/fig2-example-2-sim.png&quot; alt=&quot;Simulation plots for species A, B and C in the stiff Robertson ODE problem in R&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;Author&#39;s notes&lt;/h2&gt;
 &lt;p&gt;The goal of this review was to provide &lt;strong&gt;a maximally complete and objective overview&lt;/strong&gt; of tools for solving ODEs in R. The packages included in this survey differ in their purpose and functionality: from simple numerical solvers to full-featured frameworks and specialized domain-specific tools. Many aspects, such as computational performance, numerical accuracy, and advanced functionality are intentionally not covered in this article.&lt;/p&gt;
 &lt;p&gt;Many packages designed for specific application areas (e.g., PK/PD) can also be used to solve general ODE systems. These are included here on equal footing, without focusing on their domain-specific features.&lt;/p&gt;
@@ -1218,7 +1218,7 @@ plot&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;out&lt;span cl
     <link href="https://metelkin.me/dynmsr-on-cran/" />
     <updated>2026-11-03T00:00:00Z</updated>
     <id>https://metelkin.me/dynmsr-on-cran/</id>
-    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/dynmsr-on-cran/img/fig0-cover.png&quot; alt=&quot;DynMSR connects Heta and SBML models to mrgsolve in R&quot;&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/dynmsr-on-cran/img/fig0-cover.png&quot; alt=&quot;Diagram of DynMSR connecting Heta and SBML models to mrgsolve for simulation in R&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Happy to announce that &lt;strong&gt;DynMSR&lt;/strong&gt; is now available on &lt;a href=&quot;https://cran.r-project.org/web/packages/DynMSR/index.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CRAN&lt;/a&gt;. The R package connects systems biology and systems pharmacology models to simulation workflows in R.&lt;/p&gt;
 &lt;p&gt;DynMSR supports Heta and SBML models and can prepare them for simulation with &lt;a href=&quot;https://mrgsolve.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;mrgsolve&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;DynMSR is part of the &lt;a href=&quot;https://hetalang.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Heta project&lt;/a&gt;, which develops tools for building and working with reusable models.&lt;/p&gt;
@@ -1232,7 +1232,7 @@ plot&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;out&lt;span cl
     <link href="https://metelkin.me/heta-models-in-r/" />
     <updated>2026-11-10T00:00:00Z</updated>
     <id>https://metelkin.me/heta-models-in-r/</id>
-    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/heta-models-in-r/img/heta-model-rstudio.png&quot; alt=&quot;Heta model code open in RStudio&quot;&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/heta-models-in-r/img/heta-model-rstudio.png&quot; alt=&quot;Heta model code and simulation results in RStudio using DynMSR and mrgsolve&quot;&gt;&lt;/p&gt;
 &lt;p&gt;The &lt;a href=&quot;https://hetalang.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Heta project&lt;/a&gt; provides a language and toolchain for building &lt;strong&gt;complex mechanistic models&lt;/strong&gt;. Heta models can be split into reusable modules, checked together, and exported to different formats-useful for &lt;strong&gt;large QSP models&lt;/strong&gt; that should not be tied to one simulation environment.&lt;/p&gt;
 &lt;p&gt;With &lt;a href=&quot;https://cran.r-project.org/package=DynMSR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;DynMSR&lt;/a&gt;, Heta models can now be loaded directly &lt;strong&gt;into R&lt;/strong&gt;. The &lt;strong&gt;Heta Compiler&lt;/strong&gt; package turns a project into a model ready for simulation. DynMSR is available &lt;strong&gt;from CRAN&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;Simulation is handled by &lt;a href=&quot;https://mrgsolve.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;mrgsolve&lt;/a&gt;, an established R package for ODE-based models in &lt;strong&gt;pharmacometrics and drug development&lt;/strong&gt;. It combines a compiled simulation engine with R tools for parameter exploration and population simulation.&lt;/p&gt;
@@ -1269,7 +1269,7 @@ plot&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;result&lt;span
 &lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;idata &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; expand.idata&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;k1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.12&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; exp&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;rnorm&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.35&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 mrgsim&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mrgsolve_model&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; idata &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; idata&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; end &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; delta &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
   plot&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;A &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; B &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt; time&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; lwd &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; alpha &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.35&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://metelkin.me/heta-models-in-r/img/mrgsolve-simulation.png&quot; alt=&quot;Population simulation with random variation in k1&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/heta-models-in-r/img/mrgsolve-simulation.png&quot; alt=&quot;Population simulation of Heta model species A and B in mrgsolve with variation in rate constant k1&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;Where to go next&lt;/h2&gt;
 &lt;p&gt;Beyond Heta, DynMSR can load SBML and DynMS files and use them in the same mrgsolve workflow.&lt;/p&gt;
 &lt;p&gt;See the &lt;a href=&quot;https://cran.r-project.org/package=DynMSR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;DynMSR documentation&lt;/a&gt; and &lt;a href=&quot;https://github.com/hetalang/DynMSR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;source code on GitHub&lt;/a&gt; for more examples.&lt;/p&gt;
@@ -1280,7 +1280,7 @@ mrgsim&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mrgsolve_mod
     <link href="https://metelkin.me/heta-assistant-on-openai/" />
     <updated>2026-11-17T00:00:00Z</updated>
     <id>https://metelkin.me/heta-assistant-on-openai/</id>
-    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/heta-assistant-on-openai/img/fig0-cover.png&quot; alt=&quot;Heta Assistant plugin page with examples for creating, checking, and converting models&quot;&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/heta-assistant-on-openai/img/fig0-cover.png&quot; alt=&quot;Heta Assistant plugin page showing prompts for AI-assisted Heta model creation, validation and SBML conversion&quot;&gt;&lt;/p&gt;
 &lt;p&gt;You can now build and check QSP models with an AI assistant, directly in ChatGPT. Heta Assistant is available in the plugin directory for ChatGPT and Codex.&lt;/p&gt;
 &lt;p&gt;I built it to help turn systems biology and pharmacology questions into models you can check, explore, and use.&lt;/p&gt;
 &lt;p&gt;What can you do with it?&lt;/p&gt;
