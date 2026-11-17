@@ -22,7 +22,7 @@ tags:
     - machinelearning
     - modeling
 ---
-![Cover](./img/fig0-cover.jpg)
+![Illustration of a sleeping researcher beside a laptop running a long Julia computation](./img/fig0-cover.jpg)
 
 When you run long Julia simulations or heavy computations on a laptop, you don't want your machine to fall asleep in the middle of the job.  
 On Windows, macOS, or Linux, the system may suspend itself even if Julia is still crunching numbers — leading to wasted time, broken HTTP calls, or stalled jobs.  

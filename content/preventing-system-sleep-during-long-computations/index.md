@@ -24,7 +24,7 @@ tags:
     - pharma
 ---
 
-![Cover](./img/fig0-cover.jpg)
+![Laptop running simulations at night, illustrating sleep prevention during long computations](./img/fig0-cover.jpg)
 
 In scientific and engineering modeling it is very common to run computations that take hours: overnight simulations, parameter fitting, Monte Carlo experiments, or long-running machine learning jobs. You start the script, make sure everything looks fine, and walk away.
 
@@ -59,7 +59,7 @@ All three implementations are called **NoSleep**. They follow the same conceptua
 
 The goal was not to create three unrelated utilities, but to provide a consistent solution that works across environments often used in the same modeling workflows.
 
-![Fig1. Computations that take hours on user laptops are often interrupted by system sleep](./img/fig1-sleep.jpg)
+![Illustration of a researcher asleep beside a laptop running a long computation](./img/fig1-sleep.jpg)
 
 ## Design principles behind NoSleep
 
@@ -87,7 +87,7 @@ NoSleep is designed to be used directly inside your code:
 
 Because sleep control lives inside the script, it does not depend on external tools, system settings, or manual intervention.
 
-![Fig2. NoSleep helps keep your system awake only while your long computations are running](./img/fig2-nosleep.jpg)
+![Illustration of an R cat at a laptop, representing NoSleep for long-running computations in R](./img/fig2-nosleep.jpg)
 
 ## Cross-language framework
 

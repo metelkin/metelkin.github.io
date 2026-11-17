@@ -23,7 +23,7 @@ tags:
     - modeling
     - software
 ---
-![Cover](./img/fig0-cover.png)
+![RStudio showing R code and a simulation plot for ordinary differential equations](./img/fig0-cover.png)
 
 Solving **ordinary differential equations (ODEs)** is a common task in many fields, including systems biology, pharmacometrics, physics, and engineering where dynamic systems are studied. An ODE describes how a variables evolve over time, typically written as 
 $$
@@ -176,7 +176,7 @@ out <- mod %>%
 plot(out)
 ```
 
-![example-1-sim](./img/fig1-example-1-sim.png)
+![R simulation plots of gut and blood alcohol amounts over time](./img/fig1-example-1-sim.png)
 
 ### Example 2: Robertson problem stiff ODE
 
@@ -203,7 +203,7 @@ out <- mod %>%
 plot(out)
 ```
 
-![example-2-sim](./img/fig2-example-2-sim.png)
+![Simulation plots for species A, B and C in the stiff Robertson ODE problem in R](./img/fig2-example-2-sim.png)
 
 ## Author's notes
 

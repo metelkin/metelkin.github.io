@@ -24,7 +24,7 @@ tags:
     - AI
 ---
 
-![Heta Assistant plugin page with examples for creating, checking, and converting models](./img/fig0-cover.png)
+![Heta Assistant plugin page showing prompts for AI-assisted Heta model creation, validation and SBML conversion](./img/fig0-cover.png)
 
 You can now build and check QSP models with an AI assistant, directly in ChatGPT. Heta Assistant is available in the plugin directory for ChatGPT and Codex.
 

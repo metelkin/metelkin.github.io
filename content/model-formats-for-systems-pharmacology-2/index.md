@@ -27,7 +27,7 @@ tags:
 ---
 #### [Part 1](/model-formats-for-systems-pharmacology-1/), Part 2
 
-![Cover](./img/fig0-cover.jpg)
+![Illustration of reproducible, modular QSP models stored as code with version control](./img/fig0-cover.jpg)
 
 _In [Part 1](/model-formats-for-systems-pharmacology-1/), we looked at the landscape of QSP model formats-their origins, strengths, and limitations. In this follow-up, I want to step back and explore the problem from a software engineering perspective: what practices and design principles could make QSP modeling more transparent, modular, and reproducible, and how model formats can evolve to support that shift._
 
@@ -47,17 +47,17 @@ In practice, a model becomes more than a loose collection of files: it turns int
 
 A second requirement is **traceable change**. This is not only about being able to read the code, but also about being able to see what changed and why between versions. With text-based formats, differences are captured by standard tools (e.g., Git diff), making version control, peer review, and collaboration far more effective.
 
-![Traceable change for NONMEM file](./img/fig1-nonmem.png)
+![VS Code comparison showing changes in a text-based NONMEM model file](./img/fig1-nonmem.png)
 _**Fig. 1. Traceable change for NONMEM model file.** Files comparison in VSCode: old vs. new. Can see changes clearly._
 
 A desirable (not strictly mandatory) requirement is **self-explanatory code**. This means that the model description carries enough context-through clear naming, annotations, and units-that a new reader can understand the intent without constantly referring back to external notes or publications.
 
-![Self-explanatory code trace in Antimony modeling language](./img/fig2-antimony.png)
+![VS Code diff showing readable changes in an Antimony model](./img/fig2-antimony.png)
 _**Fig. 2. Self-explanatory code trace in Antimony modeling language.** File comparison in VSCode: old vs. new. Model diff meaning easy to understand at a glance because of clear syntax._
 
 By contrast, QSP environments that store models in binary, closed, or otherwise non-readable formats cannot ensure transparency. They block the very practices-review, versioning, collaboration-that modern scientific software relies on. Even when dedicated comparison tools exist, they are typically ad-hoc, tied to a single platform, and rarely integrate smoothly into a team's normal project workflow. As a result, they are used sporadically and do not replace true text-level transparency.
 
-![Non traceable change for SimBiology project](./img/fig3-simbio.png)
+![VS Code unable to display a text diff for binary SimBiology project files](./img/fig3-simbio.png)
 _**Fig. 3. Non traceable change for SimBiology project (.sbproj).** File comparison in VSCode: old vs. new. Model change cannot be tracked because of binary format._
 
 ### Modularity
@@ -79,7 +79,7 @@ The more logically a QSP platform is divided into modules, the easier it becomes
 
 **Longevity** means that a model remains usable and trustworthy years after it was first created. Instead of "remembering which buttons we clicked," the project can be rebuilt, rerun, and revalidated from its source ([FAIR Principles, Scientific Data, 2016](https://dx.doi.org/10.1038/sdata.2016.18)).
 
-![Git commit history in QSP project.](./img/fig4-git.png)
+![Git commit history and branches for tracking changes in a QSP modeling project](./img/fig4-git.png)
 _**Fig. 4. Git commit history in QSP project.**: Commit history provides a timeline of changes in branches, enabling easy rollback and review._
 
 What makes longevity possible:
@@ -103,7 +103,7 @@ With **CI/CD**, every commit can automatically launch validation tasks, generate
 
 When models are stored as readable code, they become accessible not only to people but also to **AI assistants**. This opens new opportunities for collaboration between modelers and **Large Language Models**.
 
-![Autocompletion by GitHub Copilot for Heta](./img/fig5-heta-autocompletion.png)
+![GitHub Copilot AI code completion suggestion for a Heta model in VS Code](./img/fig5-heta-autocompletion.png)
 _**Fig.5. Autocompletion for Heta code.** GitHub Copilot can assist with code suggestions and completions if the model has unified and clear structure. Red arrow points to the AI generated suggestion._
 
 - **Assisted modeling.** Existing tools like GitHub Copilot or Cursor can already be used with QSP models stored as code-offering chat-based assistance, code generation, or autocompletion in Domain-Specific Language (DSL)/Macros/JSON, just as they do today for Python or R scripts.

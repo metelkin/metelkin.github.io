@@ -25,7 +25,7 @@ tags:
     - software
 ---
 
-![Cover](./img/fig0-cover.png)
+![Different model curves fitting experimental data illustrate practical parameter identifiability](./img/fig0-cover.png)
 
 ## The Illusion of Certainty
 
@@ -43,7 +43,7 @@ The optimizer may settle at one acceptable solution among many equivalent ones. 
 
 The final parameter table may give a false impression of precision. What looks like certainty may, in fact, be an illusion.
 
-![Fig 1. Point estimates](./img/fig1-point-estimates.png)
+![Model calibration workflow showing point estimates, a fitted curve and predictions without uncertainty](./img/fig1-point-estimates.png)
 _**Point estimates workflow**. Calibration produces a stable fit and a single set of parameter values. However, without identifiability analysis, the uniqueness and robustness of this solution remain unknown._
 
 ## Why Optimization Hides the Problem
@@ -95,7 +95,7 @@ In any case, identifiability analysis eliminates false confidence. It clarifies 
 
 Despite being conceptually well established, identifiability analysis is still not routinely included in many modeling workflows. Time pressure, computational cost, and lack of accessible tools often push it aside in practice.
 
-![Fig 2. Interval estimate](./img/fig2-interval-estimate.png)
+![Identifiability analysis workflow showing parameter confidence intervals and prediction bands](./img/fig2-interval-estimate.png)
 _**Identifiability-aware workflow.** By estimating parameter confidence intervals and propagating uncertainty to model outputs, we distinguish well-identified parameters from weakly identifiable ones. This leads to prediction bands that are narrow where the data constrain the model and wide where they do not._
 
 ## Fisher Information Matrix and Its Limitations
@@ -114,7 +114,7 @@ In practice, these methods are more computationally demanding and require carefu
 
 To make such analyses more accessible, we developed an open-source Julia package, [LikelihoodProfiler.jl](https://github.com/insysbio/LikelihoodProfiler.jl). It implements several profile-likelihood strategies within a unified workflow, including optimization-based, integration-based, and constrained-optimization (CICO) approaches. A detailed description of the methodology and software is available in our recent JOSS publication (https://doi.org/10.21105/joss.09501).
 
-![Fig 3. Profile likelihood methods](./img/fig3-profile-likelihood.png)
+![Profile likelihood plots showing parameter confidence interval thresholds with LikelihoodProfiler.jl](./img/fig3-profile-likelihood.png)
 _**Profile likelihood examples generated with [LikelihoodProfiler.jl](https://github.com/insysbio/LikelihoodProfiler.jl).** By tracing the objective function beyond the optimum, these profiles expose the curvature and extent of the admissible parameter region. The threshold crossing determines finite or non-finite confidence intervals._
 
 ## Conclusion: A Shift in Mindset

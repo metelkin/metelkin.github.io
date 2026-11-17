@@ -22,7 +22,7 @@ tags:
     - systems-pharmacology
 ---
 
-![DynMSR connects Heta and SBML models to mrgsolve in R](./img/fig0-cover.png)
+![Diagram of DynMSR connecting Heta and SBML models to mrgsolve for simulation in R](./img/fig0-cover.png)
 
 Happy to announce that **DynMSR** is now available on [CRAN](https://cran.r-project.org/web/packages/DynMSR/index.html). The R package connects systems biology and systems pharmacology models to simulation workflows in R.
 

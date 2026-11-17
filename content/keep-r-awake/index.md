@@ -22,7 +22,7 @@ tags:
     - machinelearning
     - modeling
 ---
-![Cover](./img/fig0-cover.jpg)
+![Illustration of an R cat beside a laptop, representing keeping R computations awake](./img/fig0-cover.jpg)
 
 When R runs something heavy for an hour or two, laptops don't always care - many will still go to sleep if there's no user activity.  
 On Windows with Modern Standby, on macOS with default power settings, or on Linux with aggressive power-saving policies, this can interrupt work even if R is still busy.

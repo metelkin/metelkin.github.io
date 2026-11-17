@@ -23,7 +23,7 @@ tags:
     - systems-pharmacology
 ---
 
-![Heta model code open in RStudio](./img/heta-model-rstudio.png)
+![Heta model code and simulation results in RStudio using DynMSR and mrgsolve](./img/heta-model-rstudio.png)
 
 The [Heta project](https://hetalang.github.io/) provides a language and toolchain for building **complex mechanistic models**. Heta models can be split into reusable modules, checked together, and exported to different formats-useful for **large QSP models** that should not be tied to one simulation environment.
 
@@ -90,7 +90,7 @@ mrgsim(mrgsolve_model, idata = idata, end = 100, delta = 0.5) |>
   plot(A + B ~ time, lwd = 2, alpha = 0.35)
 ```
 
-![Population simulation with random variation in k1](./img/mrgsolve-simulation.png)
+![Population simulation of Heta model species A and B in mrgsolve with variation in rate constant k1](./img/mrgsolve-simulation.png)
 
 ## Where to go next
 
