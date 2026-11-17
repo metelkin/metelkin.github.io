@@ -4,7 +4,7 @@
   <subtitle>Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect</subtitle>
   <link href="https://metelkin.me/feed/featured.xml" rel="self" />
   <link href="https://metelkin.me/" />
-  <updated>2026-11-10T00:00:00Z</updated>
+  <updated>2026-11-17T00:00:00Z</updated>
   <id>https://metelkin.me/</id>
   <author>
     <name>Evgeny Metelkin</name>
@@ -1100,20 +1100,6 @@ plot&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;out&lt;span cl
 </content>
   </entry>
   <entry>
-    <title>DynMSR is now available on CRAN</title>
-    <link href="https://metelkin.me/dynmsr-on-cran/" />
-    <updated>2026-11-03T00:00:00Z</updated>
-    <id>https://metelkin.me/dynmsr-on-cran/</id>
-    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/dynmsr-on-cran/img/fig0-cover.png&quot; alt=&quot;DynMSR connects Heta and SBML models to mrgsolve in R&quot;&gt;&lt;/p&gt;
-&lt;p&gt;Happy to announce that &lt;strong&gt;DynMSR&lt;/strong&gt; is now available on &lt;a href=&quot;https://cran.r-project.org/web/packages/DynMSR/index.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;CRAN&lt;/a&gt;. The R package connects systems biology and systems pharmacology models to simulation workflows in R.&lt;/p&gt;
-&lt;p&gt;DynMSR supports Heta and SBML models and can prepare them for simulation with &lt;a href=&quot;https://mrgsolve.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;mrgsolve&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;DynMSR is part of the &lt;a href=&quot;https://hetalang.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Heta project&lt;/a&gt;, which develops tools for building and working with reusable models.&lt;/p&gt;
-&lt;p&gt;Install DynMSR from CRAN:&lt;/p&gt;
-&lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;install.packages&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;DynMSR&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Find guides and examples on &lt;a href=&quot;https://github.com/hetalang/DynMSR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
     <title>How to Run Heta Models in R with DynMSR and mrgsolve</title>
     <link href="https://metelkin.me/heta-models-in-r/" />
     <updated>2026-11-10T00:00:00Z</updated>
@@ -1159,6 +1145,26 @@ mrgsim&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mrgsolve_mod
 &lt;h2&gt;Where to go next&lt;/h2&gt;
 &lt;p&gt;Beyond Heta, DynMSR can load SBML and DynMS files and use them in the same mrgsolve workflow.&lt;/p&gt;
 &lt;p&gt;See the &lt;a href=&quot;https://cran.r-project.org/package=DynMSR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;DynMSR documentation&lt;/a&gt; and &lt;a href=&quot;https://github.com/hetalang/DynMSR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;source code on GitHub&lt;/a&gt; for more examples.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Heta Assistant is available in ChatGPT and Codex</title>
+    <link href="https://metelkin.me/heta-assistant-on-openai/" />
+    <updated>2026-11-17T00:00:00Z</updated>
+    <id>https://metelkin.me/heta-assistant-on-openai/</id>
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/heta-assistant-on-openai/img/fig0-cover.png&quot; alt=&quot;Heta Assistant plugin page with examples for creating, checking, and converting models&quot;&gt;&lt;/p&gt;
+&lt;p&gt;You can now build and check QSP models with an AI assistant, directly in ChatGPT. Heta Assistant is available in the plugin directory for ChatGPT and Codex.&lt;/p&gt;
+&lt;p&gt;I built it to help turn systems biology and pharmacology questions into models you can check, explore, and use.&lt;/p&gt;
+&lt;p&gt;What can you do with it?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Describe a system in plain language and get a model that is compiled and checked for errors.&lt;/li&gt;
+&lt;li&gt;Understand model code, diagnose errors, and ask how to use the modeling tools.&lt;/li&gt;
+&lt;li&gt;Generate files and projects for MATLAB, R, SimBiology, Julia and SBML workflows.&lt;/li&gt;
+&lt;li&gt;View reaction diagrams and open models in a browser app for test simulations.&lt;/li&gt;
+&lt;li&gt;In Codex, develop local modeling projects and run simulations in your own environment.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Find &lt;a href=&quot;https://chatgpt.com/plugins/plugin_asdk_app_6ad8633bb8cc8191b04155d82e587f59&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Heta Assistant in the Plugin Directory&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;To try it, ask: &amp;quot;Create a simple A =&amp;gt; 2B + 3C reaction model, check and compile it.&amp;quot;&lt;/p&gt;
 </content>
   </entry>
 </feed>
