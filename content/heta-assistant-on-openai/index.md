@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post.njk
 title: 'Heta Assistant is available in ChatGPT and Codex'
 date: 2026-11-17
@@ -11,7 +11,7 @@ openGraph:
     title: 'Heta Assistant is available in ChatGPT and Codex'
     description: 'Build and check systems biology and pharmacology models with Heta Assistant in ChatGPT and Codex.'
     url: https://metelkin.me/heta-assistant-on-openai/
-    image: https://metelkin.me/heta-assistant-on-openai/img/fig0-cover.png
+    image: https://metelkin.me/heta-assistant-on-openai/img/linkedin-cover-ai.png
     site_name: Evgeny Metelkin
     type: article
 tags:
