@@ -17,7 +17,6 @@ openGraph:
 tags:
     - post
     - r
-    - featured
     - software
     - qsp-modeling
     - systems-pharmacology
