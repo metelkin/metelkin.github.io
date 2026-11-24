@@ -4,7 +4,7 @@
   <subtitle>Personal website of Evgeny Metelkin, a Computational Biologist and Systems Pharmacology Architect</subtitle>
   <link href="https://metelkin.me/feed/featured.xml" rel="self" />
   <link href="https://metelkin.me/" />
-  <updated>2026-11-17T00:00:00Z</updated>
+  <updated>2026-11-24T00:00:00Z</updated>
   <id>https://metelkin.me/</id>
   <author>
     <name>Evgeny Metelkin</name>
@@ -1165,6 +1165,105 @@ mrgsim&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mrgsolve_mod
 &lt;/ul&gt;
 &lt;p&gt;Find &lt;a href=&quot;https://chatgpt.com/plugins/plugin_asdk_app_6ad8633bb8cc8191b04155d82e587f59&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Heta Assistant in the Plugin Directory&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;To try it, ask: &amp;quot;Create a simple A =&amp;gt; 2B + 3C reaction model, check and compile it.&amp;quot;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Easy Way to Run SBML Models in R</title>
+    <link href="https://metelkin.me/sbml-models-in-r/" />
+    <updated>2026-11-24T00:00:00Z</updated>
+    <id>https://metelkin.me/sbml-models-in-r/</id>
+    <content type="html">&lt;p&gt;&lt;img src=&quot;https://metelkin.me/sbml-models-in-r/img/sbml-models-in-r-cover-v2.png&quot; alt=&quot;BioModels SBML models connected through DynMSR to single-cycle and repeated-cycle simulations in R&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Published models can save us weeks of work. The equations have already been developed, and a machine-readable model is available in a database. Yet reusing it often starts with an unnecessary task: rewriting those equations for another simulation environment.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What if we could download an SBML model and run it directly from R?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://www.ebi.ac.uk/biomodels/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;BioModels&lt;/a&gt;&lt;/strong&gt; provides a large collection of published mechanistic models, many available in &lt;strong&gt;SBML&lt;/strong&gt;. With &lt;strong&gt;&lt;a href=&quot;https://cran.r-project.org/package=DynMSR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;DynMSR&lt;/a&gt;&lt;/strong&gt;, we can bring those models into R, build them for simulation with &lt;strong&gt;mrgsolve&lt;/strong&gt;, and begin exploring their behavior without manually transcribing the equations.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;In this guide, we will run a &lt;strong&gt;model of glioma growth and treatment&lt;/strong&gt;, then add repeated treatment cycles using a few lines of &lt;strong&gt;Heta&lt;/strong&gt; code.&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;What DynMSR does&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/hetalang/DynMSR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;DynMSR&lt;/a&gt; provides an R interface for models in SBML, Heta, and &lt;strong&gt;DynMS&lt;/strong&gt; formats. It handles model loading and prepares the model for simulation with mrgsolve.&lt;/p&gt;
+&lt;p&gt;We can also modify or extend the model using Heta syntax.&lt;/p&gt;
+&lt;h2&gt;Install the tools&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Install the R packages: &lt;code&gt;install.packages(c(&amp;quot;DynMSR&amp;quot;, &amp;quot;mrgsolve&amp;quot;))&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install &lt;strong&gt;Heta Compiler&lt;/strong&gt; using the &lt;a href=&quot;https://hetalang.github.io/hetacompiler/installation.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;instructions for your operating system&lt;/a&gt;. mrgsolve also needs a working C++ toolchain; see its &lt;a href=&quot;https://mrgsolve.org/user-guide/install.html&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;installation guide&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The example below was checked with DynMSR 0.1.2, mrgsolve 2.0.1, and Heta Compiler 0.12.3.&lt;/p&gt;
+&lt;h2&gt;Download a model from BioModels&lt;/h2&gt;
+&lt;p&gt;We will use &lt;a href=&quot;https://www.ebi.ac.uk/biomodels/BIOMD0000000521&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;BIOMD0000000521&lt;/a&gt;, a model published in &lt;a href=&quot;https://doi.org/10.1158/1078-0432.CCR-12-0084&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Ribba et al. (2012), &lt;em&gt;A Tumor Growth Inhibition Model for Low-Grade Glioma Treated with Chemotherapy or Radiotherapy&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The model describes proliferating tumour tissue (&lt;code&gt;P&lt;/code&gt;), quiescent tissue (&lt;code&gt;Q&lt;/code&gt;), and damaged quiescent tissue (&lt;code&gt;Qp&lt;/code&gt;). Their sum, &lt;code&gt;Pstar&lt;/code&gt;, represents mean tumour diameter. Treatment can eliminate proliferating tissue and damage quiescent tissue, which can later recover or be lost. These processes produce a delayed response followed by tumour regrowth.&lt;/p&gt;
+&lt;p&gt;The fourth variable, &lt;code&gt;C&lt;/code&gt;, represents the concentration of a &lt;strong&gt;virtual drug&lt;/strong&gt; combining the effects of the PCV regimen. It decays exponentially. Its units are arbitrary: this is a simplified treatment-exposure model, rather than separate PK models for the three drugs.&lt;/p&gt;
+&lt;p&gt;Download the &lt;strong&gt;&lt;a href=&quot;https://www.ebi.ac.uk/biomodels/model/download/BIOMD0000000521?filename=BIOMD0000000521_url.xml&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;SBML XML file&lt;/a&gt;&lt;/strong&gt; and keep the original filename. The available version is &lt;strong&gt;SBML Level 2 Version 4&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Use this directory structure:&lt;/p&gt;
+&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;ribba2012/
+    BIOMD0000000521_url.xml
+    run-1.R
+    index.heta
+    run-2.R&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Only the XML file and &lt;code&gt;run-1.R&lt;/code&gt; are needed for the first step.&lt;/p&gt;
+&lt;h2&gt;Step 1: run the downloaded model&lt;/h2&gt;
+&lt;p&gt;Put the following code in &lt;code&gt;ribba2012/run-1.R&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;library&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;DynMSR&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# heta_check() # Optional: check Heta Compiler installation.&lt;/span&gt;
+library&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mrgsolve&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# Load SBML and build the simulation model.&lt;/span&gt;
+platform &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; sbml_load&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;ribba2012/BIOMD0000000521_url.xml&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+model &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; get_model&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;platform&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+mrgs_model &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; build_mrgsolve&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;model&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; observables &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Pstar&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# Simulate 100 months and plot tumour diameter.&lt;/span&gt;
+sim1 &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; mrgsim&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mrgs_model&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; end &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; delta &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+plot&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;sim1&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Pstar &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt; time&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; ylim &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;120&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+     xlab &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Time (months)&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; ylab &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Mean tumour diameter (mm)&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This uses the equations, parameters, and initial conditions supplied in the downloaded SBML file.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/sbml-models-in-r/img/ribba2012-baseline-r.png&quot; alt=&quot;Mean tumour diameter simulated in R with DynMSR and mrgsolve using the code above&quot;&gt;&lt;/p&gt;
+&lt;p&gt;The simulated curve matches the &lt;a href=&quot;https://www.ebi.ac.uk/biomodels/model/download/BIOMD0000000521?filename=curation_image.png&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;BioModels curation image&lt;/a&gt; within the precision of the image.&lt;/p&gt;
+&lt;h2&gt;Step 2: add repeated treatment cycles with Heta&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;What happens if treatment is repeated instead of given only once?&lt;/strong&gt; Include the SBML and add a treatment schedule in &lt;code&gt;ribba2012/index.heta&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;// Original SBML, unchanged.
+include ./BIOMD0000000521_url.xml type sbml;
+
+// Five extra cycles; C(0) = 1 already supplies the first.
+repeat_cycle @TimeSwitcher { start: 2, period: 2, stop: 10 };
+
+// Add one dose; the paper instead resets C to 1.
+C [repeat_cycle]= 1 + C;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This illustrative schedule gives six cycles at months 0, 2, 4, 6, 8, and 10. In &lt;code&gt;ribba2012/run-2.R&lt;/code&gt;, load the model once and switch the periodic event off or on:&lt;/p&gt;
+&lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# Run from the directory containing ribba2012/.&lt;/span&gt;
+library&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;DynMSR&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+library&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mrgsolve&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# Load and compile once.&lt;/span&gt;
+mrgs_model &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; heta_load&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;ribba2012&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  get_model&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  build_mrgsolve&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;observables &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;C&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;Pstar&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# One cycle: periodic event off.&lt;/span&gt;
+single &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; param&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mrgs_model&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; repeat_cycle__active__ &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  mrgsim_df&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;end &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; delta &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# Six cycles: periodic event on.&lt;/span&gt;
+repeated &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; param&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mrgs_model&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; repeat_cycle__active__ &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  mrgsim_df&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;end &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; delta &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# Compare exposure and tumour response.&lt;/span&gt;
+comparison &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; rbind&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+  transform&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;single&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; scenario &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;One cycle&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  transform&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;repeated&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; scenario &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;Six cycles&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+plot_sims&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;comparison&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; C&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Pstar&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; .dots &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; list&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+  groups &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; comparison&lt;span class=&quot;token operator&quot;&gt;$&lt;/span&gt;scenario&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  layout &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; c&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  xlab &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;Time (months)&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  auto.key &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; list&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;space &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;top&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; lines &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; points &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;https://metelkin.me/sbml-models-in-r/img/ribba2012-repeated-cycles.png&quot; alt=&quot;Comparison of one treatment cycle with six cycles: repeated exposure accumulates and produces a deeper, longer reduction in tumour diameter before regrowth&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Repeated cycles sustain exposure and produce a greater, longer-lasting reduction in tumour diameter. The response continues after the last cycle because damaged tissue is lost over time. Tumour growth eventually resumes as treatment exposure declines.&lt;/p&gt;
+&lt;p&gt;This is an illustrative dosing schedule applied to the BioModels version, which has documented differences from the original paper. It is an example of model extension, rather than a clinical treatment recommendation.&lt;/p&gt;
+&lt;h2&gt;Start from an existing model&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Download an SBML model, load it in R, and simulate it.&lt;/strong&gt; Once you have compared the result with an available reference, use Heta to modify or extend the model and explore your own questions, from treatment schedules to additional biological mechanisms.&lt;/p&gt;
+&lt;p&gt;Try &lt;a href=&quot;https://cran.r-project.org/package=DynMSR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;DynMSR&lt;/a&gt; with a model from BioModels. Examples and the issue tracker are available in the &lt;a href=&quot;https://github.com/hetalang/DynMSR&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;DynMSR repository&lt;/a&gt;.&lt;/p&gt;
 </content>
   </entry>
 </feed>
