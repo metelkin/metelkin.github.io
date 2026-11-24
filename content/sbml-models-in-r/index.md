@@ -1,64 +1,61 @@
 ---
 layout: post.njk
-title: 'Run Published SBML Models Directly in R'
-subtitle: 'A practical guide to running and extending published models with DynMSR.'
+title: 'Easy Way to Run SBML Models in R'
+subtitle: 'Bring published models from BioModels into your QSP workflow'
 date: 2026-11-24
 lastModified: 2026-11-24
-description: 'A practical guide to running and extending published models with DynMSR.'
+description: 'Reuse published SBML models from BioModels in R with DynMSR. Reproduce a tumour-growth simulation, add treatment cycles with Heta, and explore scenarios for quantitative systems pharmacology.'
 author: Evgeny Metelkin
 authorURL: https://metelkin.me
 canonical: https://metelkin.me/sbml-models-in-r/
 openGraph:
-    title: 'Run Published SBML Models Directly in R'
-    description: 'A practical guide to running and extending published models with DynMSR.'
+    title: 'Easy Way to Run SBML Models in R: Bring published models from BioModels into your QSP workflow'
+    description: 'Reuse published SBML models from BioModels in R with DynMSR. Reproduce a tumour-growth simulation, add treatment cycles with Heta, and explore scenarios for quantitative systems pharmacology.'
     url: https://metelkin.me/sbml-models-in-r/
-    image: https://metelkin.me/sbml-models-in-r/img/ribba2012-repeated-cycles.png
+    image: https://metelkin.me/sbml-models-in-r/img/sbml-models-in-r-cover-v2.png
     site_name: Evgeny Metelkin
     type: article
 tags:
     - post
-    - draft
     - r
     - software
     - qsp-modeling
     - systems-pharmacology
 ---
 
-Published models can save us weeks of work. A biological mechanism has already been formulated, its equations described, and a machine-readable version deposited in a database. Yet reusing that model often starts with an unnecessary task: rewriting the equations for another simulation environment.
+![BioModels SBML models connected through DynMSR to single-cycle and repeated-cycle simulations in R](./img/sbml-models-in-r-cover-v2.png)
+
+Published models can save us weeks of work. The equations have already been developed, and a machine-readable model is available in a database. Yet reusing it often starts with an unnecessary task: rewriting those equations for another simulation environment.
 
 **What if we could download an SBML model and run it directly from R?**
 
-[BioModels](https://www.ebi.ac.uk/biomodels/) provides a large collection of published mechanistic models, many available in **SBML**. With [DynMSR](https://cran.r-project.org/package=DynMSR), we can bring those models into R, build them for simulation with **mrgsolve**, and begin exploring their behavior without manually transcribing the equations.
+**[BioModels](https://www.ebi.ac.uk/biomodels/)** provides a large collection of published mechanistic models, many available in **SBML**. With **[DynMSR](https://cran.r-project.org/package=DynMSR)**, we can bring those models into R, build them for simulation with **mrgsolve**, and begin exploring their behavior without manually transcribing the equations.
 
-In this guide, we will run a model of glioma growth and treatment, then add repeated treatment cycles using a few lines of Heta code.
+_In this guide, we will run a **model of glioma growth and treatment**, then add repeated treatment cycles using a few lines of **Heta** code._
 
 ## What DynMSR does
 
-[DynMSR](https://github.com/hetalang/DynMSR) provides an R interface for models in SBML, Heta, and DynMS formats. It loads a model platform, lets us select a model, and builds an mrgsolve simulation object.
+[DynMSR](https://github.com/hetalang/DynMSR) provides an R interface for models in SBML, Heta, and **DynMS** formats. It handles model loading and prepares the model for simulation with mrgsolve.
 
-The same workflow also supports extensions: we can include the original SBML as a module in a Heta project and add new components or treatment events around it.
+We can also modify or extend the model using Heta syntax.
 
 ## Install the tools
 
-Install the R packages:
+1. Install the R packages: `install.packages(c("DynMSR", "mrgsolve"))`
 
-```r
-install.packages(c("DynMSR", "mrgsolve"))
-```
-
-Install **Heta Compiler** using the [instructions for your operating system](https://hetalang.github.io/hetacompiler/installation.html). mrgsolve also needs a working C++ toolchain; see its [installation guide](https://mrgsolve.org/user-guide/install.html).
+2. Install **Heta Compiler** using the [instructions for your operating system](https://hetalang.github.io/hetacompiler/installation.html). mrgsolve also needs a working C++ toolchain; see its [installation guide](https://mrgsolve.org/user-guide/install.html).
 
 The example below was checked with DynMSR 0.1.2, mrgsolve 2.0.1, and Heta Compiler 0.12.3.
 
 ## Download a model from BioModels
 
-We will use [BIOMD0000000521](https://www.ebi.ac.uk/biomodels/BIOMD0000000521), a model associated with [Ribba et al. (2012), *A Tumor Growth Inhibition Model for Low-Grade Glioma Treated with Chemotherapy or Radiotherapy*](https://doi.org/10.1158/1078-0432.CCR-12-0084).
+We will use [BIOMD0000000521](https://www.ebi.ac.uk/biomodels/BIOMD0000000521), a model published in [Ribba et al. (2012), *A Tumor Growth Inhibition Model for Low-Grade Glioma Treated with Chemotherapy or Radiotherapy*](https://doi.org/10.1158/1078-0432.CCR-12-0084).
 
-The model describes proliferating tumour tissue (`P`), quiescent tissue (`Q`), and damaged quiescent tissue (`Qp`). Their sum, `Pstar`, represents mean tumour diameter. Treatment can eliminate proliferating tissue and damage quiescent tissue; damaged tissue can subsequently recover or be lost. These processes allow the model to describe a delayed response and subsequent tumour regrowth.
+The model describes proliferating tumour tissue (`P`), quiescent tissue (`Q`), and damaged quiescent tissue (`Qp`). Their sum, `Pstar`, represents mean tumour diameter. Treatment can eliminate proliferating tissue and damage quiescent tissue, which can later recover or be lost. These processes produce a delayed response followed by tumour regrowth.
 
 The fourth variable, `C`, represents the concentration of a **virtual drug** combining the effects of the PCV regimen. It decays exponentially. Its units are arbitrary: this is a simplified treatment-exposure model, rather than separate PK models for the three drugs.
 
-Download the [SBML XML file](https://www.ebi.ac.uk/biomodels/model/download/BIOMD0000000521?filename=BIOMD0000000521_url.xml) and keep the original filename. The available version is **SBML Level 2 Version 4**.
+Download the **[SBML XML file](https://www.ebi.ac.uk/biomodels/model/download/BIOMD0000000521?filename=BIOMD0000000521_url.xml)** and keep the original filename. The available version is **SBML Level 2 Version 4**.
 
 Use this directory structure:
 
@@ -78,27 +75,25 @@ Put the following code in `ribba2012/run-1.R`:
 
 ```r
 library(DynMSR)
-#heta_check() # to check heta installation
+# heta_check() # Optional: check Heta Compiler installation.
 library(mrgsolve)
 
-# compile SBML as platform, get the model, and build for mrgsolve
-platform <- sbml_load("ribba2012/BIOMD0000000521_url.xml") 
-model <- get_model(platform, 1) 
-mrgs_model <- build_mrgsolve(model, observables = "Pstar") 
+# Load SBML and build the simulation model.
+platform <- sbml_load("ribba2012/BIOMD0000000521_url.xml")
+model <- get_model(platform, 1)
+mrgs_model <- build_mrgsolve(model, observables = "Pstar")
 
-# simulate and plot results
+# Simulate 100 months and plot tumour diameter.
 sim1 <- mrgsim(mrgs_model, end = 100, delta = 0.1)
 plot(sim1, Pstar ~ time, ylim = c(20, 120),
      xlab = "Time (months)", ylab = "Mean tumour diameter (mm)")
 ```
 
-We select the model, build it, and simulate it over 100 months. The original equations, parameters, and initial conditions remain in the downloaded SBML file.
+This uses the equations, parameters, and initial conditions supplied in the downloaded SBML file.
 
 ![Mean tumour diameter simulated in R with DynMSR and mrgsolve using the code above](./img/ribba2012-baseline-r.png)
 
-_Simulation generated with the R code above, using the downloaded SBML model without changes._
-
-The simulation reproduces the curve in the [BioModels curation image](https://www.ebi.ac.uk/biomodels/model/download/BIOMD0000000521?filename=curation_image.png) to the precision of the reference image.
+The simulated curve matches the [BioModels curation image](https://www.ebi.ac.uk/biomodels/model/download/BIOMD0000000521?filename=curation_image.png) within the precision of the image.
 
 ## Step 2: add repeated treatment cycles with Heta
 
@@ -149,16 +144,12 @@ plot_sims(comparison, C, Pstar, .dots = list(
 
 ![Comparison of one treatment cycle with six cycles: repeated exposure accumulates and produces a deeper, longer reduction in tumour diameter before regrowth](./img/ribba2012-repeated-cycles.png)
 
-The repeated cycles sustain exposure and produce a deeper, longer response. In this scenario, the minimum diameter is approximately **34.85 mm at 28.7 months**, well after the final cycle at month 10. The delayed response reflects the model's damaged-tissue dynamics. Tumour growth eventually resumes as treatment exposure declines.
+Repeated cycles sustain exposure and produce a greater, longer-lasting reduction in tumour diameter. The response continues after the last cycle because damaged tissue is lost over time. Tumour growth eventually resumes as treatment exposure declines.
 
-This is an exploratory simulation of the BioModels version, with its documented differences from the paper. It demonstrates how to extend and interrogate a model; it does not establish a clinical treatment schedule.
+This is an illustrative dosing schedule applied to the BioModels version, which has documented differences from the original paper. It is an example of model extension, rather than a clinical treatment recommendation.
 
 ## Start from an existing model
 
-The workflow is small: **download an SBML model, load it in R, and simulate it**. When a new experiment requires changes, Heta can connect the original model to additional components or events, while R remains the environment for simulation and analysis.
-
-For your own model, begin by comparing the imported simulation with an available reference. Then explore the question that matters to your project: a different treatment schedule, a parameter change, or a new model component.
+**Download an SBML model, load it in R, and simulate it.** Once you have compared the result with an available reference, use Heta to modify or extend the model and explore your own questions, from treatment schedules to additional biological mechanisms.
 
 Try [DynMSR](https://cran.r-project.org/package=DynMSR) with a model from BioModels. Examples and the issue tracker are available in the [DynMSR repository](https://github.com/hetalang/DynMSR).
-
-<!-- Before publication: review the BioModels-versus-paper caveat and final social preview. Keep the draft tag until ready to publish. -->
