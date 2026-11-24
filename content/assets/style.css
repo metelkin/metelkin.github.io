@@ -1,3 +1,8 @@
+/* Main text size across the site. */
+body {
+  font-size: 1.125rem;
+}
+
 /* For wide tables */
 
 .table-h-scroll {
